@@ -1,7 +1,13 @@
 # Phase 1 Research Synthesis
 
+> **Updated 2026-02-08:** Terminology changed from Fork/Resolve to Deep Dive/Publish per PRODUCT-CORE-REFRAME.md
+
 > THE input document for Phase 2 (Design MVP)
 > Status: Complete | Researcher: integration-critic | Date: 2026-02-07
+
+> **REFRAME NOTICE (2026-02-07):** "Fork/resolve" references below reflect a concept drift from the original thesis.
+> The product core is **AI Deep Dive** (1 human + AI thinking together → compressed result to team),
+> NOT side-discussions between multiple humans. Read [`docs/design/PRODUCT-CORE-REFRAME.md`](../design/PRODUCT-CORE-REFRAME.md) first.
 
 ---
 

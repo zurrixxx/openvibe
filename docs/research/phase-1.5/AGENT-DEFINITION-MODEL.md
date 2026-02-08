@@ -2,6 +2,11 @@
 
 > Status: Complete | Researcher: agent-designer | Date: 2026-02-07
 
+> **REFRAME NOTICE:** The "Fork Resolver" agent defined here should be **merged into @Vibe**. In the AI Deep
+> Dive model, the AI that helps you think during the dive is the same AI that compresses your findings for
+> publishing. Separate "Fork Resolver" agent is unnecessary — it's just one capability of the dive partner.
+> See [`PRODUCT-CORE-REFRAME.md`](../../design/PRODUCT-CORE-REFRAME.md).
+
 ---
 
 ## Research Question

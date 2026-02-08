@@ -1,6 +1,12 @@
 # Phase 1.5: Frontend Engineering Architecture
 
+> **Updated 2026-02-08:** Terminology changed from Fork/Resolve to Deep Dive/Publish per PRODUCT-CORE-REFRAME.md
+
 > Status: Complete | Researcher: frontend-architect | Date: 2026-02-07
+
+> **REFRAME NOTICE:** User-facing labels should say "Deep Dive" / "Publish" / "Active Dives."
+> Internal component names should use dive terminology (DiveSidebar, useDiveStore).
+> See [`PRODUCT-CORE-REFRAME.md`](../../design/PRODUCT-CORE-REFRAME.md).
 
 ---
 

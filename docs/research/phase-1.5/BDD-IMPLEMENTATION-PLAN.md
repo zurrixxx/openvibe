@@ -1,6 +1,12 @@
 # Phase 1.5: BDD Implementation Plan
 
+> **Updated 2026-02-08:** Terminology changed from Fork/Resolve to Deep Dive/Publish per PRODUCT-CORE-REFRAME.md
+
 > Status: Complete | Researcher: implementation-planner | Date: 2026-02-07
+
+> **REFRAME NOTICE:** Gherkin scenarios use "fork/resolve" language in some sections. When implementing, use "deep dive" /
+> "publish" for user-facing features. Scenario intent is unchanged — the mechanism (side-context → AI summary
+> → main thread) is correct. See [`PRODUCT-CORE-REFRAME.md`](../../design/PRODUCT-CORE-REFRAME.md).
 
 ---
 

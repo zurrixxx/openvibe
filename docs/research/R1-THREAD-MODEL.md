@@ -2,6 +2,12 @@
 
 > Git-like Thread semantics for Human + Multi-Agent collaboration
 
+> **REFRAME NOTICE (2026-02-07):** This research correctly simplified Git semantics to fork/resolve. However,
+> "fork" was later misinterpreted as "multi-human side-discussion" when the original intent was "AI deep dive"
+> — one person thinking deeper with AI, then publishing compressed results to the team. The mechanism this
+> research recommends (side-context → AI summary → parent thread) is still correct. The framing is not.
+> See [`docs/design/PRODUCT-CORE-REFRAME.md`](../design/PRODUCT-CORE-REFRAME.md).
+
 ---
 
 ## Research Question

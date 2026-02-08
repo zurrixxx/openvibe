@@ -2,6 +2,12 @@
 
 > The thought process from vision to product design
 
+> **REFRAME NOTICE (2026-02-07):** Derivation 1 frames the thread model as "Git-like branching" between
+> multiple humans. The actual product core is **AI Deep Dive** — one person goes deeper with AI on a
+> conversation point, then publishes compressed findings to the team. The "branch for exploration, merge
+> conclusions" instinct was right, but the explorer is `1 human + AI`, not `multiple humans`.
+> See [`docs/design/PRODUCT-CORE-REFRAME.md`](design/PRODUCT-CORE-REFRAME.md).
+
 ---
 
 ## Starting Point: What I Want

@@ -1,6 +1,12 @@
 # Phase 1.5: Backend Minimum Scope
 
+> **Updated 2026-02-08:** Terminology changed from Fork/Resolve to Deep Dive/Publish per PRODUCT-CORE-REFRAME.md
+
 > Status: Complete | Researcher: backend-architect | Date: 2026-02-07
+
+> **REFRAME NOTICE:** The `dives` table (formerly `forks`) stores Deep Dives. The tRPC procedures use
+> `dive` terminology. The product concept is AI Deep Dive — one human + AI thinking partner.
+> See [`PRODUCT-CORE-REFRAME.md`](../../design/PRODUCT-CORE-REFRAME.md).
 
 ---
 

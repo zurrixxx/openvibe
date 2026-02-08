@@ -1,7 +1,14 @@
 # Phase 1.5: Thread-Based UX Proposal
 
+> **Updated 2026-02-08:** Terminology changed from Fork/Resolve to Deep Dive/Publish per PRODUCT-CORE-REFRAME.md
+
 > Making the AI research loop a first-class part of team conversation
 > Status: Complete | Researcher: thread-ux-designer | Date: 2026-02-07
+
+> **REFRAME NOTE (2026-02-07):** This document's opening insight was correct: "Fork/Resolve is not about
+> branching discussions between humans. It is about making the AI research loop a first-class part of the
+> conversation." This has been formalized as the **AI Deep Dive** model. Where this doc says "fork," read
+> "deep dive." See [`docs/design/PRODUCT-CORE-REFRAME.md`](../../design/PRODUCT-CORE-REFRAME.md).
 
 ---
 

@@ -1,8 +1,17 @@
 # MVP Design Synthesis
 
+> **Updated 2026-02-08:** Terminology changed from Fork/Resolve to Deep Dive/Publish per PRODUCT-CORE-REFRAME.md
+
 > Status: Complete | Author: mvp-synthesizer | Date: 2026-02-07
 > Primary input: Phase 1 SYNTHESIS.md + 9 Phase 1.5 research documents
 > Purpose: Definitive reference for Sprint 0 implementation
+
+> **REFRAME NOTICE (2026-02-07):** The "fork/resolve" framing throughout this document reflects a concept drift.
+> The product core is **AI Deep Dive**: one person deep dives with AI on a conversation point → AI compresses
+> the output → structured result flows to the team thread with progressive disclosure. The mechanism (side-context
+> → structured output → main thread) is the same, but the mental model, AI role, and value proposition are
+> different. Where this doc says "fork," read "deep dive." Where it says "resolve," read "publish."
+> See [`docs/design/PRODUCT-CORE-REFRAME.md`](../../design/PRODUCT-CORE-REFRAME.md) for full reframe.
 
 ---
 
