@@ -9,6 +9,8 @@ interface MessageListProps {
   channelId: string;
 }
 
+const GROUP_THRESHOLD_MS = 5 * 60 * 1000; // 5 minutes
+
 export function MessageList({ channelId }: MessageListProps) {
   const bottomRef = useRef<HTMLDivElement>(null);
   const utils = trpc.useUtils();
@@ -73,17 +75,33 @@ export function MessageList({ channelId }: MessageListProps) {
   return (
     <div className="flex flex-1 flex-col overflow-y-auto">
       <div className="mt-auto">
-        {displayMessages.map((msg) => (
-          <MessageItem
-            key={msg.id}
-            id={msg.id}
-            content={msg.content}
-            authorName={msg.author?.name ?? null}
-            authorType={msg.authorType}
-            avatarUrl={msg.author?.avatarUrl ?? null}
-            createdAt={msg.createdAt}
-          />
-        ))}
+        {displayMessages.map((msg, i) => {
+          const prev = i > 0 ? displayMessages[i - 1] : null;
+          const sameAuthor =
+            prev &&
+            prev.author?.name === msg.author?.name &&
+            prev.authorType === msg.authorType;
+          const withinTime =
+            prev &&
+            Math.abs(
+              new Date(msg.createdAt).getTime() -
+                new Date(prev.createdAt).getTime()
+            ) < GROUP_THRESHOLD_MS;
+          const isGrouped = !!(sameAuthor && withinTime);
+
+          return (
+            <MessageItem
+              key={msg.id}
+              id={msg.id}
+              content={msg.content}
+              authorName={msg.author?.name ?? null}
+              authorType={msg.authorType}
+              avatarUrl={msg.author?.avatarUrl ?? null}
+              createdAt={msg.createdAt}
+              isGrouped={isGrouped}
+            />
+          );
+        })}
         <div ref={bottomRef} />
       </div>
     </div>

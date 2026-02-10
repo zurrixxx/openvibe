@@ -48,8 +48,8 @@ export function MessageComposer({
   };
 
   return (
-    <div className="border-t border-border px-4 py-3">
-      <div className="flex items-end rounded-lg border border-divider bg-input px-3 py-2">
+    <div className="px-4 pb-4 pt-2">
+      <div className="flex items-end rounded-lg border border-border bg-input px-3 py-2 transition-shadow focus-within:border-primary/50 focus-within:shadow-[var(--shadow-glow-primary)]">
         <textarea
           ref={textareaRef}
           value={content}
@@ -62,10 +62,10 @@ export function MessageComposer({
         <button
           onClick={handleSubmit}
           disabled={!content.trim() || sendMessage.isPending}
-          className="ml-2 rounded p-1 text-secondary transition-colors hover:text-foreground disabled:opacity-30"
+          className="ml-2 rounded-md p-1.5 text-secondary transition-colors hover:bg-hover hover:text-foreground disabled:opacity-30"
         >
           <svg
-            className="h-5 w-5"
+            className="h-4 w-4"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -74,7 +74,7 @@ export function MessageComposer({
               strokeLinecap="round"
               strokeLinejoin="round"
               strokeWidth={2}
-              d="M12 19V5m0 0l-7 7m7-7l7 7"
+              d="M5 12h14M12 5l7 7-7 7"
             />
           </svg>
         </button>

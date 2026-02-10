@@ -1,18 +1,32 @@
 # OpenVibe
 
-> AI Deep Dive — team conversation platform with AI cognitive amplification
+> Agent Organization OS — 让 Agent 融入公司组织的操作系统
+
+## 🎯 V2 DIRECTION CONFIRMED
+
+**Read first:** `docs/V2-VISION.md`
+
+**核心定位:** 让 Agent 像员工一样被信任、被管理、自主工作
+
+**护城河:** 组织层 (Trust & Governance)，不是智能层
+
+**核心体验:**
+1. Trust Level 体系 (L1-L4)
+2. Agent as Employee (招聘 → 自主工作 → Review)
+3. 完整 Audit Trail
+
+---
 
 ## Quick Start
 
 ```
-Read docs/design/PRODUCT-CORE-REFRAME.md for product framing.
-Read docs/CLAUDE-CODE-INSTRUCTIONS.md for full workflow.
-Read docs/INTENT.md for current goals and sprint plan.
+Read docs/V2-VISION.md for confirmed direction.
+Read docs/design/AGENT-ORCHESTRATION-REFERENCE.md for technical reference (Voxyz/KSimback).
 ```
 
 ## Current Focus
 
-**Phase 2**: Implementation (8 weeks, 4 sprints)
+**Phase 2**: V2 Design & Implementation
 
 Sprint 1-2: Foundation + Thread/Messaging
 Sprint 3: Deep Dive + Publish (core differentiator)

@@ -52,17 +52,18 @@
    * with just enough blue to feel intentional, not lifeless.
    * ------------------------------------------------------------------------ */
 
-  /* App shell — the absolute darkest. Visible behind everything. */
-  --color-background: oklch(0.11 0.01 260);
+  /* App shell — the absolute darkest. Visible behind everything.
+   * Hue 275 matches primary accent family for subtle coherence. */
+  --color-background: oklch(0.10 0.012 275);
 
-  /* Sidebar — slightly lighter than app bg so it reads as a surface. */
-  --color-sidebar: oklch(0.13 0.012 260);
+  /* Sidebar — clear step up from app bg. */
+  --color-sidebar: oklch(0.135 0.014 275);
 
   /* Main content area — the primary reading surface. */
-  --color-surface: oklch(0.16 0.012 260);
+  --color-surface: oklch(0.16 0.012 275);
 
   /* Elevated surfaces: cards, modals, popovers, dropdowns, tooltips. */
-  --color-elevated: oklch(0.19 0.014 260);
+  --color-elevated: oklch(0.20 0.016 275);
 
 
   /* --------------------------------------------------------------------------
@@ -73,16 +74,16 @@
    * ------------------------------------------------------------------------ */
 
   /* Primary text — headings, body text, user messages. */
-  --color-foreground: oklch(0.95 0.005 260);
+  --color-foreground: oklch(0.95 0.005 275);
 
   /* Secondary text — timestamps, metadata, less important labels. */
-  --color-secondary: oklch(0.72 0.01 260);
+  --color-secondary: oklch(0.72 0.01 275);
 
   /* Muted text — placeholders, hints, helper text. */
-  --color-muted-foreground: oklch(0.55 0.015 260);
+  --color-muted-foreground: oklch(0.55 0.015 275);
 
   /* Disabled text — disabled buttons, inactive tabs. */
-  --color-disabled: oklch(0.40 0.015 260);
+  --color-disabled: oklch(0.40 0.015 275);
 
 
   /* --------------------------------------------------------------------------
@@ -130,10 +131,10 @@
    * ------------------------------------------------------------------------ */
 
   /* Subtle border — input outlines, card edges, list item separators. */
-  --color-border: oklch(0.24 0.015 260);
+  --color-border: oklch(0.24 0.015 275);
 
   /* Stronger divider — section breaks, sidebar/content boundary. */
-  --color-divider: oklch(0.30 0.015 260);
+  --color-divider: oklch(0.30 0.015 275);
 
 
   /* --------------------------------------------------------------------------
@@ -153,16 +154,16 @@
   --color-resolution: oklch(0.20 0.02 75);
 
   /* Code block background — darker than surface, monospace context. */
-  --color-codeblock: oklch(0.13 0.008 260);
+  --color-codeblock: oklch(0.12 0.010 275);
 
   /* Hover state — generic hover for interactive elements. */
-  --color-hover: oklch(0.20 0.015 260);
+  --color-hover: oklch(0.20 0.015 275);
 
   /* Selected/active state — stronger than hover, indicates current. */
-  --color-active: oklch(0.23 0.02 275);
+  --color-active: oklch(0.23 0.025 275);
 
   /* Input backgrounds — form fields, search bars. */
-  --color-input: oklch(0.14 0.012 260);
+  --color-input: oklch(0.13 0.012 275);
 
   /* Ring/focus — keyboard focus indicator. Uses primary at lower opacity. */
   --color-ring: oklch(0.65 0.22 275);
@@ -175,10 +176,10 @@
    * background tier than the main content.
    * ------------------------------------------------------------------------ */
 
-  --color-sidebar-foreground: oklch(0.65 0.01 260);
+  --color-sidebar-foreground: oklch(0.60 0.01 275);
   --color-sidebar-active: oklch(0.65 0.22 275);
-  --color-sidebar-hover: oklch(0.18 0.015 260);
-  --color-sidebar-active-bg: oklch(0.22 0.04 275);
+  --color-sidebar-hover: oklch(0.18 0.015 275);
+  --color-sidebar-active-bg: oklch(0.20 0.03 275);
 
 
   /* --------------------------------------------------------------------------
@@ -188,9 +189,9 @@
    * and --color-accent for interactive hover states.
    * ------------------------------------------------------------------------ */
 
-  --color-muted: oklch(0.19 0.014 260);
-  --color-accent: oklch(0.20 0.015 260);
-  --color-accent-foreground: oklch(0.95 0.005 260);
+  --color-muted: oklch(0.20 0.016 275);
+  --color-accent: oklch(0.20 0.015 275);
+  --color-accent-foreground: oklch(0.95 0.005 275);
 
 
   /* --------------------------------------------------------------------------
@@ -289,7 +290,7 @@ body {
 /* Scrollbar styling — subtle, matches the palette. */
 * {
   scrollbar-width: thin;
-  scrollbar-color: oklch(0.28 0.01 260) transparent;
+  scrollbar-color: oklch(0.28 0.015 275) transparent;
 }
 
 *::-webkit-scrollbar {
@@ -302,16 +303,16 @@ body {
 }
 
 *::-webkit-scrollbar-thumb {
-  background-color: oklch(0.28 0.01 260);
+  background-color: oklch(0.28 0.015 275);
   border-radius: 9999px;
 }
 
 *::-webkit-scrollbar-thumb:hover {
-  background-color: oklch(0.35 0.01 260);
+  background-color: oklch(0.35 0.015 275);
 }
 
 /* Selection color — uses primary accent. */
 ::selection {
   background-color: oklch(0.65 0.22 275 / 0.3);
-  color: oklch(0.95 0.005 260);
+  color: oklch(0.95 0.005 275);
 }
