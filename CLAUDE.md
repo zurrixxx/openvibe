@@ -1,55 +1,45 @@
 # OpenVibe
 
-> Agent Organization OS — 让 Agent 融入公司组织的操作系统
+> The first workspace designed for human+agent collaboration.
 
-## 🎯 V2 DIRECTION CONFIRMED
+## V2 Design
 
-**Read first:** `docs/V2-VISION.md`
+**Read first:** `docs/v2/THESIS.md` (mother thesis)
+**Then:** `docs/v2/DESIGN-SYNTHESIS.md` (thesis -> design decisions)
 
-**核心定位:** 让 Agent 像员工一样被信任、被管理、自主工作
+**Mother thesis:** AI is transitioning from tool to colleague. Human+Agent collaboration needs a new medium. OpenVibe is that medium.
 
-**护城河:** 组织层 (Trust & Governance)，不是智能层
-
-**核心体验:**
-1. Trust Level 体系 (L1-L4)
-2. Agent as Employee (招聘 → 自主工作 → Review)
-3. 完整 Audit Trail
-
----
-
-## Quick Start
-
-```
-Read docs/V2-VISION.md for confirmed direction.
-Read docs/design/AGENT-ORCHESTRATION-REFERENCE.md for technical reference (Voxyz/KSimback).
-```
-
-## Current Focus
-
-**Phase 2**: V2 Design & Implementation
-
-Sprint 1-2: Foundation + Thread/Messaging
-Sprint 3: Deep Dive + Publish (core differentiator)
-Sprint 4: Agent Integration (@Vibe, @Coder)
+**Three layers:**
+1. Protocol (for agents): identity, trust, memory, tool access
+2. Interface (for humans): familiar UX, progressive disclosure, feedback
+3. Space (shared): persistent context, knowledge accumulation, compound value
 
 ## Key Docs
 
 | Document | Content |
 |----------|---------|
-| `docs/design/PRODUCT-CORE-REFRAME.md` | **Why "fork" = "deep dive"** — read first |
-| `docs/INTENT.md` | Current goals (must read at every session start) |
-| `docs/CLAUDE-CODE-INSTRUCTIONS.md` | Full workflow guide |
-| `docs/research/phase-1.5/MVP-DESIGN-SYNTHESIS.md` | MVP blueprint (uses "fork" language — read reframe first) |
-| `docs/design/resolution-prompt.md` | AI summary prompt validated at 4.45/5 |
+| `docs/v2/THESIS.md` | Mother thesis — start here |
+| `docs/v2/DESIGN-SYNTHESIS.md` | Design decisions + MVP roadmap |
+| `docs/v2/design/AGENT-IN-CONVERSATION.md` | How agents participate in conversations |
+| `docs/v2/design/PERSISTENT-CONTEXT.md` | Memory & knowledge accumulation |
+| `docs/v2/design/FEEDBACK-LOOP.md` | Human judgment -> agent behavior |
+| `docs/v2/reference/V1-INSIGHT-AUDIT.md` | What survived from V1 |
+| `docs/v2/reference/AGENT-ORCHESTRATION-REFERENCE.md` | External references (Voxyz, KSimback, Yangyi) |
+| `docs/INTENT.md` | Current goals |
+| `docs/CLAUDE-CODE-INSTRUCTIONS.md` | Workflow guide |
 
-## Terminology
+## V1 (Archived)
 
-| Codebase | User-Facing | Notes |
-|----------|-------------|-------|
-| `forks` table | "Deep Dive" | DB schema keeps fork naming |
-| `fork.status = 'resolved'` | "Published" | |
-| `fork.status = 'abandoned'` | "Discarded" | |
-| `ForkSidebar` | "Active Dives" | Component name refactors later |
+V1 docs at `docs/v1/`. Thesis: "AI Deep Dive amplifies human cognition in team conversations."
+Archived because: too derivative (Slack replacement), too narrow (deep dive is a feature, not a product).
+V1 research/validation data is still valuable — see `docs/v2/reference/V1-INSIGHT-AUDIT.md`.
+
+## Session Resume Protocol
+
+1. Read `docs/v2/THESIS.md` — understand the "why"
+2. Read `docs/v2/DESIGN-SYNTHESIS.md` — understand the "what"
+3. Read `PROGRESS.md` — understand current sprint state
+4. Each Sprint completed -> pause for user confirmation
 
 ## Constraints
 
@@ -60,7 +50,8 @@ Sprint 4: Agent Integration (@Vibe, @Coder)
 
 ## Design Principles
 
-1. **AI as Thinking Partner** - AI amplifies human cognition during deep dives
-2. **Progressive Disclosure** - Headline / summary / full for dive results
-3. **Memory First** - Accumulated deep dive results = team knowledge base
-4. **Configuration over Code** - Configuration-driven agents and workspaces
+1. **Agent in the conversation** — AI is a participant, not a sidebar tool
+2. **Progressive Disclosure** — Headline / summary / full for all agent output
+3. **Workspace gets smarter** — Context, memory, knowledge compound over time
+4. **Feedback is the moat** — Agent shaped by team feedback > smarter model without context
+5. **Configuration over Code** — SOUL + config-driven agents, not hardcoded behavior
