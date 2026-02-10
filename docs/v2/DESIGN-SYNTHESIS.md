@@ -13,6 +13,8 @@ THESIS.md                    <- Mother thesis: start here
   |
 DESIGN-SYNTHESIS.md          <- THIS FILE: thesis -> design decisions
   |
+STRATEGY.md                  <- Market, competitive, GTM, pricing, build sequence, KPIs
+  |
   +-- design/
   |     AGENT-IN-CONVERSATION.md   <- Layer 1: Interface + Space
   |     PERSISTENT-CONTEXT.md      <- Layer 2: Space (memory & knowledge)

@@ -6,15 +6,25 @@
 
 ---
 
+## Vision
+
+**Vibe your organization.**
+
+Where physical presence, digital collaboration, and AI intelligence combine. The new way modern organizations work.
+
+---
+
 ## Mother Thesis
 
 **AI is becoming a participant in work, not just a tool for work.**
 
 The transition: from passively invoked to proactively contributing. From stateless to stateful. From individual tool to team member. This is not a prediction — it's observable today.
 
-What's missing is not smarter AI. What's missing is **where** humans and agents work together.
+What's missing is not smarter AI. What's missing is **where** humans and agents work together — the medium that serves both, accumulates context, and compounds value over time.
 
-The question OpenVibe answers: **Where does human+agent collaboration happen?**
+**The question OpenVibe answers: Where does human+agent collaboration happen?**
+
+Not "individual AI assistance" (that's ChatGPT). Not "agent development tools" (that's LangChain). **The collaboration medium** where humans and agents work together as a team (that's OpenVibe).
 
 ---
 
@@ -31,7 +41,7 @@ Current tools serve one side:
 
 **No tool exists where humans and agents collaborate as a team.**
 
-The result: a copy-paste shuttle. Human discusses on Slack -> copies to AI -> AI generates -> human copies back to Slack -> teammate copies to their AI -> repeat. Context is lost at every boundary. Every AI session starts from zero. Human tokens are wasted on transportation, AI tokens are wasted on re-understanding.
+The result: a copy-paste shuttle. Human discusses on Slack → copies to AI → AI generates → human copies back to Slack → teammate copies to their AI → repeat. Context is lost at every boundary. Every AI session starts from zero. Human tokens are wasted on transportation, AI tokens are wasted on re-understanding.
 
 ---
 
@@ -74,8 +84,9 @@ How humans see, direct, and shape agent behavior.
 ### Space (Shared)
 Where both coexist, and where value compounds over time.
 - Persistent context: conversations, decisions, knowledge accumulate
-- The flywheel: conversations -> deep dives -> knowledge -> better agent context -> better output -> more dives
+- The flywheel: conversations → deep dives → knowledge → better agent context → better output → more dives
 - Behavioral moat: feedback + accumulated knowledge is non-transferable
+- **Cross-workspace learning**: Insights from one workspace (project, client, team) can inform others — while respecting trust boundaries
 
 ---
 
@@ -95,18 +106,94 @@ And one quality bar that gates everything:
 
 ---
 
-## What This Is Not
+## Distribution Strategy: Partner-Led Growth
 
-- **Not AI infrastructure.** We don't make agents smarter (OpenAI/Anthropic do that).
-- **Not an agent framework.** We don't help developers build agents (LangChain/CrewAI do that).
-- **Not a chat app with AI bolted on.** The AI is a first-class participant, not a /slash command.
-- **Not enterprise governance software.** Trust and audit exist to enable collaboration, not for compliance theater.
+**The product is general (organization transformation). The go-to-market is specific (professional services beachhead).**
+
+While OpenVibe serves any organization doing human+agent collaboration, professional services firms are the optimal beachhead for three reasons:
+
+1. **Structural multiplier effect**: Each firm serves 20-200 clients. Sell to one firm → reach hundreds of end customers.
+2. **Recurring, knowledge-intensive work**: Professional services (consulting, accounting, legal, MSPs) have workflows where context accumulation creates immediate value.
+3. **Cross-engagement learning unlocks value**: Firm methodologies can be encoded, learned, and applied across client engagements — this is where Property 2 ("workspace gets smarter") compounds fastest.
+
+**Partner-led distribution is the strategic choice, not the product definition.**
+
+### Why Partner-Led (Not Direct Sales)
+
+**The beachhead market (professional services) has a structural advantage: each firm is a distribution channel.**
+
+Direct sales model:
+- Sell to Company A (1 customer)
+- Sell to Company B (1 customer)
+- Growth = linear
+
+Partner-led model:
+- Sell to Consulting Firm X (1 partner)
+- Firm X deploys for 50 client engagements (50 workspaces)
+- Sell to Accounting Firm Y (1 partner)
+- Firm Y deploys for 200 client engagements (200 workspaces)
+- Growth = exponential
+
+**HubSpot validated this model**: They targeted marketing agencies (not end customers). Each agency deployed HubSpot for 30-100 clients. Result: exponential growth through partners.
+
+**OpenVibe applies the same model across professional services verticals**:
+
+| Partner Type | Clients/Partner | Use Case | Viral Coefficient |
+|--------------|----------------|----------|-------------------|
+| Management Consulting | 50 | Client project workspaces | 50x |
+| Accounting Firms | 200 | Client financial workspaces | 200x |
+| MSPs | 100 | Client IT support workspaces | 100x |
+| Marketing Agencies | 80 | Client campaign workspaces | 80x |
+
+**One partner brings 30-200 end customers. This is 30-200x faster than direct sales.**
+
+### Why This Creates Compounding Moats
+
+**Year 1-2: Distribution moat**
+- Partner-led is 5-7x faster than direct sales (120 partners → 11,500 workspaces vs 1,600-2,400 direct)
+- 6-month ship vs Microsoft's 12-18 month window
+- 40K existing Vibe boards as activation surface
+
+**Year 2-3: Partner ecosystem lock-in**
+- Partners are trained, certified, revenue-dependent on OpenVibe
+- Switching cost = retrain entire team, rebuild deployment methodology
+- Partners become sales force (word-of-mouth, referrals, co-marketing)
+
+**Year 3-5: Accumulated context becomes durable**
+- 18 months of organizational memory = high switching cost
+- Feedback-shaped agent behavior is non-transferable
+- Knowledge bases + SOUL configs compound value
+- Network effects within verticals (firms recommend within industry associations)
+
+**The moat is time-layered**: distribution speed wins Year 1-2, partner lock-in defends Year 2-3, accumulated context becomes durable by Year 3-5.
+
+---
+
+## What This Is
+
+OpenVibe is a **collaboration medium** designed for human+agent teamwork:
+
+- **The workspace** where humans and agents work together, not a tool humans use to access AI
+- **The platform** that gets smarter over time, not stateless sessions that reset
+- **The infrastructure** built on open foundations (open source, multi-model, flexible deployment)
+- **The ecosystem** distributed through partners who bring domain expertise
+
+What we're NOT building:
+- Model provider (we integrate models, not create them)
+- Agent development framework (we provide the workspace, not the SDK)
+- Generic chat app with AI features (AI is a first-class participant, not a plugin)
+- Compliance-first governance software (trust enables collaboration, not restricts it)
 
 ---
 
 ## Evidence & Observations
 
-### The transition is happening
+### The transition is happening (Q1 2026)
+- 5,000-15,000 organizations already operating with "few humans + many agents" worldwide
+- Anthropic Cowork (Jan 2026): agent-as-colleague for non-developers, triggered $285B SaaS selloff
+- OpenAI Frontier (Feb 2026): enterprise agent management, Fortune 500 customers on day one
+- CrewAI: 10M+ agents/month, ~50% Fortune 500 using
+- Gartner: 38% of orgs will have agents as team members by 2028
 - OpenClaw adoption: individuals managing agent teams, daily
 - KSimback: full management framework (SOUL, trust levels, performance reviews) for AI agents
 - Voxyz: closed-loop autonomous agent architecture running production workloads
@@ -116,11 +203,21 @@ And one quality bar that gates everything:
 - Agents can do great atomic work in single sessions
 - They lack: long session mechanism, team context, feedback persistence
 - The copy-paste shuttle is the symptom; the missing medium is the cause
+- **The bottleneck is NOT better models. It's management infrastructure** — how to onboard, configure, supervise, and improve agents as a team
+
+### The beachhead market (professional services)
+- **2M+ professional services firms in US alone** (law, accounting, consulting, MSPs, marketing agencies, HR firms)
+- Each serves 20-200 clients → structural multiplier effect for distribution
+- Knowledge-intensive, recurring work → context accumulation creates immediate value
+- **Partner-led distribution validated by HubSpot**: marketing agencies deployed HubSpot for clients → exponential growth
+- Professional services is beachhead, not product scope — OpenVibe is general organization transformation tool
+- Partner channel: 120 partners → 11,500 workspaces in 18 months (vs 1,600-2,400 direct)
 
 ### Slack has debt
 - Built for human-to-human, architecturally and conceptually
 - Agent = "bot" = second-class citizen (no memory, no identity, no trust model)
 - Retrofitting agent-as-colleague onto Slack's model is like retrofitting real-time on email
+- Estimated 12-18 month window before Slack fixes structural limitations
 
 ---
 
@@ -128,11 +225,21 @@ And one quality bar that gates everything:
 
 If any of these become true, the thesis is falsified:
 
+### Product Thesis Kill Signals
+
 1. **No agents deployed after 4 weeks of availability.** Nobody wants agents in their workspace.
 2. **>40% of agent outputs rated unhelpful.** Output quality isn't good enough.
 3. **Users prefer ChatGPT tab over in-workspace agent.** The medium isn't better.
-4. **Anthropic/OpenAI ships native team agent workspace.** The gap closes from above.
-5. **Agent capabilities plateau.** The "tool to colleague" transition stalls.
+4. **Agent acceptance rate doesn't improve over time.** Property 2 ("workspace gets smarter") is broken.
+5. **Anthropic/OpenAI ships native team agent workspace.** The gap closes from above.
+6. **Agent capabilities plateau.** The "tool to colleague" transition stalls.
+
+### GTM Thesis Kill Signals (Professional Services Beachhead)
+
+7. **Partners sign up but don't deploy.** After 6 months, <5 deployments per partner on average.
+8. **Partners prefer Microsoft (lower risk).** Risk-averse firms choose "safe" over "better".
+9. **Partner churn >15% annually.** Partners don't see enough value to stay.
+10. **Direct sales outperforms partner channel.** After 12 months, partner-sourced revenue <30% of total.
 
 ---
 
@@ -149,6 +256,12 @@ All design flows from this thesis:
 | `reference/V1-INSIGHT-AUDIT.md` | What V1 research to preserve | Foundation |
 | `reference/AGENT-ORCHESTRATION-REFERENCE.md` | External architecture references (Voxyz, KSimback, Yangyi) | Foundation |
 
+### Strategy
+
+| Document | What It Covers |
+|----------|---------------|
+| `STRATEGY.md` | Market context, competitive landscape, GTM, pricing, build sequence, KPIs | 10-agent synthesis |
+
 ### Not Yet Written
 
 | Document | What It Will Cover |
@@ -159,4 +272,4 @@ All design flows from this thesis:
 
 ---
 
-*This document is the root. Read it first. Everything else derives from it.*
+*This document is the root. Read it first. Then `DESIGN-SYNTHESIS.md` for design, `STRATEGY.md` for execution.*

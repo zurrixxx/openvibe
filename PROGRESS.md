@@ -7,9 +7,45 @@
 
 ## Current State
 
-**Phase:** V2 Design
-**Status:** V2 thesis confirmed. 4 design docs drafted. Implementation plan not yet started.
-**Why V2:** V1 treated the product as "Slack + AI" — too derivative, too narrow. V2 reframes: the first medium designed for human+agent collaboration.
+**Phase:** V2 Strategy + Brand Architecture Complete → Ready for GTM Execution
+**Status:** Thesis confirmed. Design docs complete. Strategy complete. Brand architecture defined (3-layer). GitHub org planned. Ready for implementation + website build.
+**Next:** Create GitHub org `openvibeorg` + Build vibeorg.com/open-vibe.org + Sprint 2 planning
+
+---
+
+## V2 Strategy (2026-02-10)
+
+### Key Decisions from 10-Agent Analysis
+
+- **Web first, board second.** All 10 agents independently reached same conclusion.
+- **$149/month/board.** 90-day free trial on all 40K boards at GA.
+- **Consulting firms first.** Then tech, then financial services.
+- **"Agent-first" language doesn't sell.** Lead with: "Your meetings keep working after everyone leaves the room."
+- **Microsoft = 12-18 month window.** Move fast.
+- **The durable moat = shared context layer** (SOUL + memory + knowledge + feedback), not the UI.
+- **Agent output quality is THE existential risk.** Default passive. Earn trust.
+
+### 6-Month Build Sequence
+
+```
+Sprint 2 (Week 1-4):   @mention agents + progressive disclosure + SOUL
+Sprint 3 (Week 5-8):   Feedback + deep dives + publish flow
+Sprint 4 (Week 9-12):  Episodic memory + long tasks + Slack bridge (read)
+Sprint 5 (Week 13-16): Board MVP + trust levels + admin panel
+Sprint 6 (Week 17-20): Proactive agents + knowledge base + meeting summary
+Sprint 7 (Week 21-24): Multi-agent + mobile web + Slack write-back + search
+```
+
+### GTM Sequence
+
+```
+Month 1-2:  Alpha (10 customers, free)
+Month 3-5:  Beta (100-200 boards, $149/mo, 90-day free)
+Month 6:    GA (firmware push to all 40K boards)
+Month 7-12: Growth (web-only sign-up + industry agent packs)
+```
+
+Full strategy: `docs/v2/STRATEGY.md`
 
 ---
 
@@ -28,23 +64,48 @@
 - [x] `docs/v2/reference/V1-INSIGHT-AUDIT.md` — 8 must-carry, 7 blind spots, 10 reusable assets
 - [x] Doc reorganization: v1/ and v2/ versioned directories
 
+### Completed (2026-02-10 AM)
+
+- [x] `docs/v2/STRATEGY.md` — 10-agent cross-analysis: market, competitive, GTM, pricing, build sequence, KPIs
+- [x] THESIS.md updated with Q1 2026 market evidence
+- [x] Competitive landscape mapped (Cowork, Frontier, Copilot, Slack AI)
+- [x] Kill signals and KPIs defined for Month 3 and Month 6
+
+### Completed (2026-02-10 PM)
+
+- [x] **Brand Architecture: Three-Layer Strategy**
+  - Layer 1: vibeorg.com (Movement, "Vibe your organization")
+  - Layer 2: open-vibe.org (Open source, technical)
+  - Layer 3: vibe.us (Commercial product)
+- [x] **Domains acquired**: vibeorg.com ($5000), open-vibe.org, vibeorging.com
+- [x] **GitHub org planned**: `openvibeorg` (available, ready to create)
+- [x] **Vision tagline**: "Vibe your organization"
+- [x] **Narrative strategy**: Lead with positive vision (not competition)
+- [x] **GTM folder created**: `docs/v2/go-to-market/` with:
+  - BRAND-ARCHITECTURE.md (3-layer strategy, messaging)
+  - GITHUB-ORG-SETUP.md (org structure, repos, READMEs)
+  - NARRATIVE-OPTIONS.md (5 storytelling approaches)
+  - STRATEGIC-ANALYSIS.md (8-agent competitive analysis)
+  - QUICK-REFERENCE.md (one-page summary)
+- [x] THESIS.md updated with Vision section
+
 ### Not Yet Written
 
 - [ ] `docs/v2/design/TRUST-SYSTEM.md` — L1-L4 mechanical details
 - [ ] `docs/v2/design/ORCHESTRATION.md` — Proposal -> Mission -> Steps
 - [ ] `docs/v2/design/NOTIFICATION-MODEL.md` — Attention management for agent events
 
-### Open Questions (before implementation)
+### Open Questions (before Sprint 2)
 
-1. Agent roster for dogfood: pre-configured @Vibe + @Coder, or "hire agent" flow?
+1. ~~Agent roster for dogfood~~ → Decided: pre-configured @Vibe + @Coder
 2. Visual design direction: agent message styling needs mockup
-3. V2 sprint plan: needs to account for V1 code reuse and new V2 features
+3. ~~V2 sprint plan~~ → Defined in STRATEGY.md (7 sprints, 24 weeks)
 
 ---
 
 ## V1 Implementation (Reusable)
 
-V1 Sprint 0-1 code is the **shared space substrate** for V2. Channels, messaging, auth all carry forward.
+V1 Sprint 0-1 code is the **shared space substrate** for V2. ~70% carries forward.
 
 ### Sprint 0: Infrastructure (Done 2026-02-08)
 - Nx monorepo + Supabase + Next.js 15 + tRPC + Tailwind v4
@@ -79,7 +140,8 @@ All V1 docs moved to `docs/v1/`. Key validated assets preserved via V1-INSIGHT-A
 1. Read `PROGRESS.md` (this file) — where we are
 2. Read `docs/v2/THESIS.md` — the "why"
 3. Read `docs/v2/DESIGN-SYNTHESIS.md` — the "what"
-4. Important milestones -> pause for user confirmation
+4. Read `docs/v2/STRATEGY.md` — the "how" (market, GTM, build sequence)
+5. Important milestones -> pause for user confirmation
 
 ## Architecture
 
@@ -87,6 +149,7 @@ All V1 docs moved to `docs/v1/`. Key validated assets preserved via V1-INSIGHT-A
 - **Backend:** tRPC routers + Supabase (PostgreSQL + Realtime + Auth)
 - **Agent:** Claude API (Sonnet 4.5 primary, Haiku for summaries)
 - **Agents:** @Vibe (thinking partner), @Coder (code)
+- **Structure:** Monolith (packages/core + apps/web + apps/board at Sprint 5)
 
 ## Rules
 
@@ -96,4 +159,4 @@ All V1 docs moved to `docs/v1/`. Key validated assets preserved via V1-INSIGHT-A
 
 ---
 
-*Last updated: 2026-02-09*
+*Last updated: 2026-02-10*
