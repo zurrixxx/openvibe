@@ -25,8 +25,8 @@
 | `docs/v2/design/FEEDBACK-LOOP.md` | Human judgment -> agent behavior |
 | `docs/v2/reference/V1-INSIGHT-AUDIT.md` | What survived from V1 |
 | `docs/v2/reference/AGENT-ORCHESTRATION-REFERENCE.md` | External references (Voxyz, KSimback, Yangyi) |
-| `docs/INTENT.md` | Current goals |
-| `docs/CLAUDE-CODE-INSTRUCTIONS.md` | Workflow guide |
+| `docs/v1/INTENT.md` | Current goals (V1) |
+| `docs/v1/CLAUDE-CODE-INSTRUCTIONS.md` | Workflow guide (V1) |
 
 ## V1 (Archived)
 
