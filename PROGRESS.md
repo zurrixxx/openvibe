@@ -7,9 +7,9 @@
 
 ## Current State
 
-**Phase:** V2 Strategy + Brand Architecture Complete → Ready for GTM Execution
-**Status:** Thesis confirmed. Design docs complete. Strategy complete. Brand architecture defined (3-layer). GitHub org planned. Ready for implementation + website build.
-**Next:** Create GitHub org `openvibeorg` + Build vibeorg.com/open-vibe.org + Sprint 2 planning
+**Phase:** V2 Strategy Validation (In Progress) → Offering Clarification Needed
+**Status:** Strategy validation started. 6 agents completed research (Customer, Unit Economics, GTM, Growth, Resources, Risk). **BLOCKED**: Offering definition unclear - Customer Intelligence based on wrong assumptions.
+**Next:** Clarify offering (see `docs/v2/validation/OFFERING-CLARIFICATION-QUESTIONS.md` - 8 core questions) → Resume validation with correct offering → Finalize strategy
 
 ---
 
@@ -78,6 +78,12 @@ Full strategy: `docs/v2/STRATEGY.md`
   - Layer 2: open-vibe.org (Open source, technical)
   - Layer 3: vibe.us (Commercial product)
 - [x] **Domains acquired**: vibeorg.com ($5000), open-vibe.org, vibeorging.com
+- [x] **Top-level docs refined (2026-02-10 Evening)**
+  - THESIS.md: 275 → 203 lines (sharper positioning, 2 differentiation pillars)
+  - STRATEGY.md: 550 → 257 lines (removed execution details, kept strategic decisions)
+  - BRAND-ARCHITECTURE.md: 266 → 433 lines (vibeorg.com = category creation, build sequence defined)
+  - Positioning: "Vibe your organization" (headline) + "The workspace where humans and agents work as a team" (subline)
+  - Differentiation: 2 pillars (Open Infrastructure + Partner Ecosystem)
 - [x] **GitHub org planned**: `openvibeorg` (available, ready to create)
 - [x] **Vision tagline**: "Vibe your organization"
 - [x] **Narrative strategy**: Lead with positive vision (not competition)
