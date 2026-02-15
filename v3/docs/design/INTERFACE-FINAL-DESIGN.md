@@ -181,55 +181,278 @@ Breadcrumb                               Workspace  More
 
 ---
 
-### Sidebar (Dynamic Sections)
+### Sidebar (Two-Tier Structure)
+
+**Design principle:** Top section (customizable functions) + Bottom section (fixed navigation)
 
 ```
 ┌───────────────────────────────┐
 │ 🔍 Search            Cmd+K    │
 ├───────────────────────────────┤
-│ PINNED                        │ ← Optional, user-customized
-│ 🔒 Bob Review (Finance)    !  │
-│ ⭐ Q1 Strategy (Executive)    │
-├───────────────────────────────┤
-│ SPACES                     ▼  │ ← Always visible
-│ • Finance (3)                 │
-│ • RevOps (1)                  │
-│ • Executive                   │
-│ • Supply Chain                │
+│ TOP SECTION (User-customizable, priority-sorted)
 │                               │
-│ ⊕ Browse All Spaces           │
+│ PINNED                     ▼  │ ← Optional, user-configured
+│ • Q1 Budget (Finance)         │
+│ • Bob Review (Finance)        │
 ├───────────────────────────────┤
-│ WORKFLOWS                  ▼  │ ← Dynamic (role-based)
-│ ⚠️ Need Review (5)             │
-│ ⟳ Active (23)                 │
-│ ⏸ Paused (2)                  │
-│ ✓ Recent                      │
+│ 🏠 Workspace Home          ▶  │ ← Collapsible sections
 │                               │
-│ 📊 View Dashboard             │
-├───────────────────────────────┤
-│ AGENTS                     ▶  │ ← Dynamic (admins/power users)
+│ ⚙️ Workflows (5)           ▶  │
+│                               │
+│ 🤖 Agents                  ▶  │
+│                               │
+│ ••• More                   ▶  │
 │                               │
 ├───────────────────────────────┤
-│ ADMIN                      ▶  │ ← Admins only
+│ BOTTOM SECTION (Fixed core navigation)
 │                               │
+│ SPACES                     ▼  │ ← Always visible, always expanded
+│ • Finance (3)              ▼  │
+│   • Q1 Budget Planning (12)   │
+│   • Invoice Review (3)        │
+│                               │
+│ • RevOps (1)               ▶  │
+│ • Executive                ▶  │
+│ • Supply Chain             ▶  │
+│                               │
+│ [+ New Space]                 │
 └───────────────────────────────┘
 ```
 
-**Section visibility rules:**
+---
 
-| Section | Individual Contributor | Dept Leader | Admin |
-|---------|----------------------|-------------|-------|
-| Search | ✅ Always | ✅ Always | ✅ Always |
-| Pinned | ✅ If user pins | ✅ If user pins | ✅ If user pins |
-| Spaces | ✅ Expanded | ✅ Expanded | ✅ Expanded |
-| Workflows | ⚠️ Hidden (unless frequent use) | ✅ Expanded | ✅ Expanded |
-| Agents | ❌ Hidden | ⚠️ Collapsed | ✅ Expanded |
-| Admin | ❌ Hidden | ❌ Hidden | ✅ Visible |
+### Top Section: Customizable Functions
 
-**Dynamic adjustment:**
-- System observes behavior (e.g., frequently accesses workflows)
-- AI suggests: "要不要我把Workflows section显示在sidebar？"
-- User can also adjust via natural language in any thread
+**Purpose:** Quick access to different workspace views (功能/视图入口)
+
+**Key features:**
+1. **User-customizable order** - Drag to reorder sections
+2. **Show/hide sections** - Move unused sections to "More" menu
+3. **Role-based defaults** - Different roles see different sections by default
+4. **Expandable inline** - Click to expand, see details without leaving sidebar
+5. **Badge indicators** - Show counts (e.g., "5 workflows need review")
+
+---
+
+#### Example: Workflows Section Expanded
+
+```
+⚙️ Workflows (5)           ▼  ← Expanded
+┌─────────────────────────────┐
+│ ⚠️ Need Review (5)           │
+│   • Invoice #1234 ($12K)    │
+│   • Vendor payment (urgent) │
+│   • Lead score (Alice)      │
+│   • Contract renewal        │
+│   • Budget approval         │
+│   [View All]                │
+│                             │
+│ ⟳ Active (23)               │
+│   [View Dashboard]          │
+│                             │
+│ ✓ Completed Today (12)      │
+│   [View History]            │
+└─────────────────────────────┘
+```
+
+**Interaction:**
+- Click section header → Toggle expand/collapse
+- Click item (e.g., "Invoice #1234") → Main area jumps to that thread
+- Click [View All] → Main area shows full Workflows Dashboard
+
+**Benefits:**
+- See details without leaving current thread context
+- Quick scan of what needs attention
+- One-click access to specific items
+
+---
+
+#### Example: Agents Section Expanded
+
+```
+🤖 Agents                  ▼
+┌─────────────────────────────┐
+│ @Finance_Agent    [L2] 🟢   │
+│ ┌─────────────────────────┐ │
+│ │ Now:                    │ │
+│ │ • 15 workflows active   │ │
+│ │ • 3 need your review    │ │
+│ │                         │ │
+│ │ Today:                  │ │
+│ │ • 12 completed          │ │
+│ │ • 94% success           │ │
+│ │                         │ │
+│ │ [View Details]          │ │
+│ └─────────────────────────┘ │
+│                             │
+│ @RevOps_Agent     [L2] 🟢   │
+│ ┌─────────────────────────┐ │
+│ │ Now:                    │ │
+│ │ • 8 workflows active    │ │
+│ │ • 1 needs your review   │ │
+│ │                         │ │
+│ │ [View Details]          │ │
+│ └─────────────────────────┘ │
+│                             │
+│ [Manage Agents]             │
+└─────────────────────────────┘
+```
+
+---
+
+#### More Menu
+
+```
+••• More                   ▶
+┌─────────────────────────────┐
+│ 📊 Analytics               │
+│ ⚙️ Settings                 │
+│ 👤 Admin                    │
+│ 📁 Archive                  │
+│                             │
+│ Customize Sidebar...        │
+└─────────────────────────────┘
+```
+
+**Contains:**
+- Less frequently used sections
+- Admin functions
+- Settings and customization options
+
+---
+
+### Bottom Section: Fixed Navigation (SPACES)
+
+**Purpose:** Core content navigation (内容导航入口)
+
+**Key features:**
+- **Always visible** - Cannot be hidden or moved
+- **Always expanded** - At least showing space names
+- **Primary navigation** - Main way to browse workspace content
+- **Hierarchical** - Space > Threads structure
+
+(Detailed Spaces section design continues below...)
+
+---
+
+### User Customization
+
+#### Via Right-Click Menu
+
+```
+Right-click any top section header:
+
+🏠 Workspace Home          ▶
+  ↑ Right-click
+
+┌─────────────────────┐
+│ ✓ Show              │
+│ ─────────────────── │
+│ Move Up             │
+│ Move Down           │
+│ ─────────────────── │
+│ Move to "More"      │ ← Hide to More menu
+│ ─────────────────── │
+│ Reset to Default    │
+└─────────────────────┘
+```
+
+#### Via Settings UI
+
+```
+Settings > Sidebar Customization
+
+Top Sections (drag to reorder):
+┌─────────────────────────────┐
+│ ⣿ Pinned                 ✓  │ ← Drag handle
+│ ⣿ Workspace Home         ✓  │
+│ ⣿ Workflows              ✓  │
+│ ⣿ Agents                 ☐  │ ← Unchecked = hidden
+│ ⣿ Analytics              ☐  │
+└─────────────────────────────┘
+
+Hidden (in More menu):
+• Agents
+• Analytics
+• Admin
+
+[Reset to Default]  [Save]
+```
+
+---
+
+### Role-Based Default Configurations
+
+**Individual Contributor:**
+```
+┌───────────────────────────────┐
+│ 🏠 Workspace Home          ▶  │
+│ ••• More                   ▶  │
+├───────────────────────────────┤
+│ SPACES                     ▼  │
+│ ...                           │
+└───────────────────────────────┘
+
+(Workflows and Agents hidden in More)
+```
+
+**Dept Leader:**
+```
+┌───────────────────────────────┐
+│ 🏠 Workspace Home          ▶  │
+│ ⚙️ Workflows (5)           ▶  │
+│ ••• More                   ▶  │
+├───────────────────────────────┤
+│ SPACES                     ▼  │
+│ ...                           │
+└───────────────────────────────┘
+
+(Workflows visible by default)
+```
+
+**Admin:**
+```
+┌───────────────────────────────┐
+│ 🏠 Workspace Home          ▶  │
+│ ⚙️ Workflows (5)           ▶  │
+│ 🤖 Agents                  ▶  │
+│ ••• More                   ▶  │
+├───────────────────────────────┤
+│ SPACES                     ▼  │
+│ ...                           │
+└───────────────────────────────┘
+
+(All sections visible)
+```
+
+**Users can always customize further.**
+
+---
+
+### Design Rationale
+
+**Why two-tier structure?**
+
+**Top Section = Function/View entry points**
+- "How do I want to view this workspace?"
+- Different perspectives: Home (overview), Workflows (process), Agents (executor)
+- User-customizable: Everyone works differently
+
+**Bottom Section = Content navigation**
+- "Where is the specific content I need?"
+- Fixed structure: Spaces > Threads
+- Always accessible: Core navigation cannot be hidden
+
+**Clear separation of concerns:**
+- Top = "What view?" (功能入口)
+- Bottom = "Which content?" (内容导航)
+
+**Benefits:**
+1. **Flexibility** - Users show only what they need
+2. **Progressive disclosure** - New users see simple interface, power users add more
+3. **Consistent** - All top sections use same expandable pattern
+4. **Non-disruptive** - Expand in sidebar, don't switch main area context
+5. **Future-proof** - Easy to add new sections to top area
 
 ---
 
@@ -372,6 +595,274 @@ AGENTS                              ▼
 ---
 
 ## Main Content Area
+
+### Workspace Home Dashboard
+
+**Purpose:** Overview of the entire workspace - the "control panel" for daily work
+
+**Access:**
+- Click workspace icon in Layer 1 sidebar (🏢 Vibe)
+- Click "🏠 Workspace Home" in Layer 2 sidebar
+- Click workspace name in breadcrumb
+
+**Layout:** Three-column dashboard
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│ Vibe Workspace                         [🔔 5]  [•••]        │
+├─────────────────────────────────────────────────────────────┤
+│                                                              │
+│  Left Column           Center Column         Right Column   │
+│  (Priority)            (Spaces Overview)     (Agents)       │
+│                                                              │
+│  ┌─────────────┐      ┌──────────────┐      ┌────────────┐ │
+│  │ 📌 PRIORITY │      │ 📊 SPACES    │      │ 🤖 AGENTS  │ │
+│  │             │      │              │      │            │ │
+│  │ ⚠️ ACTION   │      │ Finance      │      │ @Finance   │ │
+│  │   NEEDED(5) │      │ RevOps       │      │  Agent     │ │
+│  │             │      │ Executive    │      │            │ │
+│  │ 🔔 RECENT   │      │              │      │ @RevOps    │ │
+│  │   UPDATES   │      │              │      │  Agent     │ │
+│  │             │      │              │      │            │ │
+│  └─────────────┘      └──────────────┘      └────────────┘ │
+│                                                              │
+└─────────────────────────────────────────────────────────────┘
+```
+
+---
+
+#### Left Column: Priority & Updates
+
+```
+┌───────────────────────────────────┐
+│ 📌 PRIORITY                       │
+├───────────────────────────────────┤
+│ ⚠️ ACTION NEEDED (5)              │
+│                                   │
+│ 🔴 Invoice #1234 needs approval   │
+│    $12K (3x average)              │
+│    Finance > Invoice Processing   │
+│    [Review Now]                   │
+│                                   │
+│ 🟡 Q1 Budget needs decision       │
+│    CFO @mentioned you             │
+│    Finance > Budget Planning      │
+│    [View Thread]                  │
+│                                   │
+│ 🟡 Vendor X payment delayed       │
+│    @Finance_Agent flagged         │
+│    Finance > Payments             │
+│    [Check Status]                 │
+│                                   │
+│ [View All (5)]                    │
+│                                   │
+├───────────────────────────────────┤
+│ 🔔 RECENT UPDATES (12)            │
+│                                   │
+│ • Finance: 3 workflows completed  │
+│   2h ago                          │
+│                                   │
+│ • RevOps: Lead scoring updated    │
+│   @Alice added analysis           │
+│   4h ago                          │
+│                                   │
+│ • Executive: Board deck ready     │
+│   @CFO approved                   │
+│   Yesterday                       │
+│                                   │
+│ [View All]                        │
+│                                   │
+└───────────────────────────────────┘
+```
+
+**Design notes:**
+- Priority first (needs my action)
+- Sorted by urgency (🔴 urgent, 🟡 important, 🔵 info)
+- One-click jump to specific thread/workflow
+- Recent updates below (informational only)
+
+---
+
+#### Center Column: Spaces Overview
+
+```
+┌─────────────────────────────────────────┐
+│ 📊 SPACES                               │
+├─────────────────────────────────────────┤
+│ Finance                              ▶  │
+│ ┌─────────────────────────────────────┐ │
+│ │ 📈 Activity Today                   │ │
+│ │ • 23 workflows active               │ │
+│ │ • 12 completed                      │ │
+│ │ • 3 need review                     │ │
+│ │                                     │ │
+│ │ 🔥 Hot Threads (3 unread)           │ │
+│ │ • Q1 Budget Planning (12)           │ │
+│ │ • Invoice Review (3)                │ │
+│ │                                     │ │
+│ │ 🤖 @Finance_Agent: 94% success      │ │
+│ │                                     │ │
+│ │ [Open Finance Space]                │ │
+│ └─────────────────────────────────────┘ │
+│                                         │
+│ RevOps                               ▶  │
+│ ┌─────────────────────────────────────┐ │
+│ │ 📈 Activity Today                   │ │
+│ │ • 8 workflows active                │ │
+│ │ • 5 completed                       │ │
+│ │                                     │ │
+│ │ 🔥 Hot Threads (1 unread)           │ │
+│ │ • Lead Scoring Update (5)           │ │
+│ │                                     │ │
+│ │ 🤖 @RevOps_Agent: 87% success       │ │
+│ │                                     │ │
+│ │ [Open RevOps Space]                 │ │
+│ └─────────────────────────────────────┘ │
+│                                         │
+│ Executive                            ▶  │
+│ ┌─────────────────────────────────────┐ │
+│ │ 📈 Activity Today                   │ │
+│ │ • 2 threads active                  │ │
+│ │ • Board Deck ready for review       │ │
+│ │                                     │ │
+│ │ [Open Executive Space]              │ │
+│ └─────────────────────────────────────┘ │
+│                                         │
+│ [Browse All Spaces]                     │
+│                                         │
+└─────────────────────────────────────────┘
+```
+
+**Design notes:**
+- Each space = one card
+- Shows today's activity (workflows, threads)
+- Hot threads (with unread counts)
+- Agent performance in that space
+- Click card → Enter that Space
+
+**This is Progressive Disclosure (architecture level):**
+- Workspace Home = See all spaces at a glance
+- Click space → See threads in that space
+- Click thread → See detailed conversation
+
+---
+
+#### Right Column: Agents & Activity
+
+```
+┌───────────────────────────────────┐
+│ 🤖 AGENTS                         │
+├───────────────────────────────────┤
+│ @Finance_Agent           [L2] 🟢  │
+│ ┌───────────────────────────────┐ │
+│ │ Today:                        │ │
+│ │ • 15 workflows active         │ │
+│ │ • 12 completed                │ │
+│ │ • 94% success rate            │ │
+│ │                               │ │
+│ │ Recent:                       │ │
+│ │ ✓ Invoice #1230-1242 approved │ │
+│ │ ⚠️ Invoice #1234 flagged       │ │
+│ │                               │ │
+│ │ 📈 Performance (30d)          │ │
+│ │ Success: 78% → 94% (+16%)     │ │
+│ │ Trust ready for L3 upgrade ⬆️  │ │
+│ │                               │ │
+│ │ [View Details]                │ │
+│ └───────────────────────────────┘ │
+│                                   │
+│ @RevOps_Agent            [L2] 🟢  │
+│ ┌───────────────────────────────┐ │
+│ │ Today:                        │ │
+│ │ • 8 workflows active          │ │
+│ │ • 5 completed                 │ │
+│ │ • 87% success rate            │ │
+│ │                               │ │
+│ │ [View Details]                │ │
+│ └───────────────────────────────┘ │
+│                                   │
+│ [Manage Agents]                   │
+│                                   │
+├───────────────────────────────────┤
+│ 📊 WORKSPACE ACTIVITY             │
+│                                   │
+│ Today's Summary:                  │
+│ • 31 workflows active             │
+│ • 17 completed                    │
+│ • 8 need review                   │
+│ • 92% avg success rate            │
+│                                   │
+│ Top Contributors:                 │
+│ 👤 CFO: 12 actions                │
+│ 👤 Alice: 8 actions               │
+│ 🤖 Finance Agent: 45 workflows    │
+│                                   │
+│ [View Analytics]                  │
+│                                   │
+└───────────────────────────────────┘
+```
+
+**Design notes:**
+- Agent today's performance
+- Growth trends (shows "workspace gets smarter")
+- Trust level upgrade alerts
+- Workspace overall metrics
+
+**"Workspace gets smarter" embodied here:**
+- Performance trends: 78% → 94% (+16%)
+- Trust level upgrades: Ready for L3
+- Reduced human review: 100% → 15%
+
+---
+
+#### Key Interactions
+
+**1. From Priority to Thread:**
+```
+Click: Invoice #1234 [Review Now]
+→ Main area: Finance > Invoice Processing thread
+→ Sidebar: Finance space auto-expands to show that thread
+→ Scroll to the specific message needing review
+```
+
+**2. From Space Card to Space:**
+```
+Click: Finance card [Open Finance Space]
+→ Main area: Shows Finance space view
+→ Sidebar: Finance section expands, showing all threads
+```
+
+**3. From Agent to Detail:**
+```
+Click: @Finance_Agent [View Details]
+→ Main area: Agent Detail Page
+  - Performance charts
+  - Active workflows
+  - Knowledge learned
+  - Configuration
+```
+
+---
+
+#### Dashboard vs Sidebar Sections
+
+**Workspace Home Dashboard (this page):**
+- Horizontal layout (three columns)
+- Overview of entire workspace
+- Used when: Starting work, checking overall status
+- Portal (quick scan → jump to work)
+
+**Sidebar Top Sections:**
+- Vertical layout (expandable list)
+- Detailed items in each section
+- Used when: During work, quick checks
+- Always accessible (don't leave current context)
+
+**Complementary, not redundant:**
+- Dashboard = Morning overview ("What's happening today?")
+- Sidebar = During work ("Any new workflows need review?")
+
+---
 
 ### Thread View (Human + Agent mixed)
 
@@ -2465,18 +2956,38 @@ In Agents section > Finance Agent detail:
 ---
 
 *Last updated: 2026-02-12*
-*Status: In progress - Core design complete, critical gaps identified*
+*Status: Major update - Sidebar redesign + Workspace Home dashboard*
 
-**Completed:**
+**Completed (2026-02-12 update):**
+- ✅ **Sidebar redesign:** Two-tier structure (customizable top + fixed bottom)
+  - Top section: User-customizable, expandable function views (Home, Workflows, Agents)
+  - Bottom section: Fixed Spaces navigation
+  - Role-based defaults with full user customization
+- ✅ **Workspace Home Dashboard:** Three-column overview
+  - Left: Priority & Recent Updates
+  - Center: Spaces overview cards
+  - Right: Agents status & workspace metrics
+  - Implements Progressive Disclosure (Workspace → Space → Thread)
 - ✅ Core architecture (Discord-inspired dual sidebar)
 - ✅ Thread system (public/private)
 - ✅ Popup chat system (LinkedIn-inspired)
-- ✅ Workflows, Agents, Notifications
+- ✅ Workflows, Agents, Notifications sections
 
-**Missing (documented in "Missing Components" section):**
-- ❌ Knowledge/Memory layer visualization (P0)
-- ❌ Progressive disclosure specification (P0)
-- ❌ Context assembly visualization (P0)
-- ⚠️ Trust level upgrade flow (P1)
-- ⚠️ Feedback → behavior connection (P1)
-- ❌ Agent learning progress (P1)
+**Key design decisions:**
+1. **Two-tier sidebar** - Top (customizable functions) + Bottom (fixed navigation)
+2. **Expandable sections** - All top sections expand inline, don't switch main area
+3. **Workspace Home as portal** - Dashboard for daily overview, not a workspace
+4. **Progressive disclosure** - Architecture level (Workspace → Space → Thread), not just UI component
+5. **"Workspace gets smarter"** - Shown through agent performance trends, not explicit knowledge UI
+
+**Still missing (documented in "Missing Components" section):**
+- ⚠️ Progressive disclosure specification (message-level: headline → summary → full) - P0
+- ⚠️ Context assembly visualization (4-layer context sources) - P0
+- ⚠️ Trust level upgrade flow (UI for L1 → L2 → L3 transitions) - P1
+- ⚠️ Feedback → behavior connection (showing what agent learned from feedback) - P1
+- ⚠️ Agent learning progress visualization (knowledge growth over time) - P1
+
+**Design philosophy validated:**
+- Progressive disclosure is architectural (Workspace → Space → Thread), not just message folding
+- "Workspace gets smarter" shown through results (performance trends), not explicit knowledge graphs
+- User customization over rigid role-based views

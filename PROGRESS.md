@@ -7,9 +7,13 @@
 
 ## Current State
 
-**Phase:** V2 Strategy Validation (In Progress) → Offering Clarification Needed
-**Status:** Strategy validation started. 6 agents completed research (Customer, Unit Economics, GTM, Growth, Resources, Risk). **BLOCKED**: Offering definition unclear - Customer Intelligence based on wrong assumptions.
-**Next:** Clarify offering (see `docs/v2/validation/OFFERING-CLARIFICATION-QUESTIONS.md` - 8 core questions) → Resume validation with correct offering → Finalize strategy
+**Phase:** V3 - Vibe AI Adoption (In Progress)
+**Status:** Project structure created. Moving from OpenVibe product development to internal Vibe team dogfooding.
+**Next:** Define V3 implementation roadmap
+
+**Previous work:**
+- V2: Strategy validation (see `v2/docs/validation/`)
+- V1: Implementation archived (see `v1/implementation/`)
 
 ---
 
@@ -45,7 +49,7 @@ Month 6:    GA (firmware push to all 40K boards)
 Month 7-12: Growth (web-only sign-up + industry agent packs)
 ```
 
-Full strategy: `docs/v2/STRATEGY.md`
+Full strategy: `v2/docs/STRATEGY.md`
 
 ---
 
@@ -55,18 +59,18 @@ Full strategy: `docs/v2/STRATEGY.md`
 
 - [x] Mother thesis defined: "AI is becoming a participant in work. Human+agent collaboration needs a new medium."
 - [x] Three-layer framework: Protocol (agents) / Interface (humans) / Space (shared)
-- [x] `docs/v2/THESIS.md` — root document, everything derives from it
-- [x] `docs/v2/DESIGN-SYNTHESIS.md` — thesis -> design decisions + MVP roadmap
-- [x] `docs/v2/design/AGENT-MODEL.md` — SOUL structure, trust levels, memory, data model
-- [x] `docs/v2/design/AGENT-IN-CONVERSATION.md` — invocation model, message types, progressive disclosure
-- [x] `docs/v2/design/PERSISTENT-CONTEXT.md` — memory architecture, knowledge pipeline, context assembly
-- [x] `docs/v2/design/FEEDBACK-LOOP.md` — feedback channels, persistence levels, metrics
-- [x] `docs/v2/reference/V1-INSIGHT-AUDIT.md` — 8 must-carry, 7 blind spots, 10 reusable assets
+- [x] `v2/docs/THESIS.md` — root document, everything derives from it
+- [x] `v2/docs/DESIGN-SYNTHESIS.md` — thesis -> design decisions + MVP roadmap
+- [x] `v2/docs/design/AGENT-MODEL.md` — SOUL structure, trust levels, memory, data model
+- [x] `v2/docs/design/AGENT-IN-CONVERSATION.md` — invocation model, message types, progressive disclosure
+- [x] `v2/docs/design/PERSISTENT-CONTEXT.md` — memory architecture, knowledge pipeline, context assembly
+- [x] `v2/docs/design/FEEDBACK-LOOP.md` — feedback channels, persistence levels, metrics
+- [x] `v2/docs/reference/V1-INSIGHT-AUDIT.md` — 8 must-carry, 7 blind spots, 10 reusable assets
 - [x] Doc reorganization: v1/ and v2/ versioned directories
 
 ### Completed (2026-02-10 AM)
 
-- [x] `docs/v2/STRATEGY.md` — 10-agent cross-analysis: market, competitive, GTM, pricing, build sequence, KPIs
+- [x] `v2/docs/STRATEGY.md` — 10-agent cross-analysis: market, competitive, GTM, pricing, build sequence, KPIs
 - [x] THESIS.md updated with Q1 2026 market evidence
 - [x] Competitive landscape mapped (Cowork, Frontier, Copilot, Slack AI)
 - [x] Kill signals and KPIs defined for Month 3 and Month 6
@@ -87,7 +91,7 @@ Full strategy: `docs/v2/STRATEGY.md`
 - [x] **GitHub org planned**: `openvibeorg` (available, ready to create)
 - [x] **Vision tagline**: "Vibe your organization"
 - [x] **Narrative strategy**: Lead with positive vision (not competition)
-- [x] **GTM folder created**: `docs/v2/go-to-market/` with:
+- [x] **GTM folder created**: `v2/docs/go-to-market/` with:
   - BRAND-ARCHITECTURE.md (3-layer strategy, messaging)
   - GITHUB-ORG-SETUP.md (org structure, repos, READMEs)
   - NARRATIVE-OPTIONS.md (5 storytelling approaches)
@@ -97,9 +101,9 @@ Full strategy: `docs/v2/STRATEGY.md`
 
 ### Not Yet Written
 
-- [ ] `docs/v2/design/TRUST-SYSTEM.md` — L1-L4 mechanical details
-- [ ] `docs/v2/design/ORCHESTRATION.md` — Proposal -> Mission -> Steps
-- [ ] `docs/v2/design/NOTIFICATION-MODEL.md` — Attention management for agent events
+- [ ] `v2/docs/design/TRUST-SYSTEM.md` — L1-L4 mechanical details
+- [ ] `v2/docs/design/ORCHESTRATION.md` — Proposal -> Mission -> Steps
+- [ ] `v2/docs/design/NOTIFICATION-MODEL.md` — Attention management for agent events
 
 ### Open Questions (before Sprint 2)
 
@@ -129,7 +133,7 @@ V1 Sprint 0-1 code is the **shared space substrate** for V2. ~70% carries forwar
 
 ## V1 Research & Design (Archived)
 
-All V1 docs moved to `docs/v1/`. Key validated assets preserved via V1-INSIGHT-AUDIT:
+All V1 docs moved to `v1/docs/`. Key validated assets preserved via V1-INSIGHT-AUDIT:
 
 | Asset | Score/Status | V2 Role |
 |-------|-------------|---------|
@@ -144,9 +148,9 @@ All V1 docs moved to `docs/v1/`. Key validated assets preserved via V1-INSIGHT-A
 ## Session Resume Protocol
 
 1. Read `PROGRESS.md` (this file) — where we are
-2. Read `docs/v2/THESIS.md` — the "why"
-3. Read `docs/v2/DESIGN-SYNTHESIS.md` — the "what"
-4. Read `docs/v2/STRATEGY.md` — the "how" (market, GTM, build sequence)
+2. Read `v2/docs/THESIS.md` — the "why"
+3. Read `v2/docs/DESIGN-SYNTHESIS.md` — the "what"
+4. Read `v2/docs/STRATEGY.md` — the "how" (market, GTM, build sequence)
 5. Important milestones -> pause for user confirmation
 
 ## Architecture

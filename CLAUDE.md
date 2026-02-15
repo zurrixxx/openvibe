@@ -2,43 +2,34 @@
 
 > The first workspace designed for human+agent collaboration.
 
-## V2 Design
+## Current Focus: V3
 
-**Read first:** `docs/v2/THESIS.md` (mother thesis)
-**Then:** `docs/v2/DESIGN-SYNTHESIS.md` (thesis -> design decisions)
+**Read first:** `v3/docs/THESIS.md`
+**Current project:** `v3/vibe-ai-adoption/`
 
-**Mother thesis:** AI is transitioning from tool to colleague. Human+Agent collaboration needs a new medium. OpenVibe is that medium.
+## Version History
 
-**Three layers:**
-1. Protocol (for agents): identity, trust, memory, tool access
-2. Interface (for humans): familiar UX, progressive disclosure, feedback
-3. Space (shared): persistent context, knowledge accumulation, compound value
+### V3 (Current)
+- **Focus:** Vibe AI Adoption - dogfooding with Marketing & Sales teams
+- **Docs:** `v3/docs/`
+- **Project:** `v3/vibe-ai-adoption/`
 
-## Key Docs
+### V2 (Archived)
+- **Thesis:** AI is transitioning from tool to colleague. Human+agent collaboration needs a new medium.
+- **Docs:** `v2/docs/`
+- **Key files:** THESIS.md, DESIGN-SYNTHESIS.md, STRATEGY.md
 
-| Document | Content |
-|----------|---------|
-| `docs/v2/THESIS.md` | Mother thesis — start here |
-| `docs/v2/DESIGN-SYNTHESIS.md` | Design decisions + MVP roadmap |
-| `docs/v2/design/AGENT-IN-CONVERSATION.md` | How agents participate in conversations |
-| `docs/v2/design/PERSISTENT-CONTEXT.md` | Memory & knowledge accumulation |
-| `docs/v2/design/FEEDBACK-LOOP.md` | Human judgment -> agent behavior |
-| `docs/v2/reference/V1-INSIGHT-AUDIT.md` | What survived from V1 |
-| `docs/v2/reference/AGENT-ORCHESTRATION-REFERENCE.md` | External references (Voxyz, KSimback, Yangyi) |
-| `docs/v1/INTENT.md` | Current goals (V1) |
-| `docs/v1/CLAUDE-CODE-INSTRUCTIONS.md` | Workflow guide (V1) |
-
-## V1 (Archived)
-
-V1 docs at `docs/v1/`. Thesis: "AI Deep Dive amplifies human cognition in team conversations."
-Archived because: too derivative (Slack replacement), too narrow (deep dive is a feature, not a product).
-V1 research/validation data is still valuable — see `docs/v2/reference/V1-INSIGHT-AUDIT.md`.
+### V1 (Archived)
+- **Thesis:** "AI Deep Dive amplifies human cognition in team conversations"
+- **Docs:** `v1/docs/`
+- **Implementation:** `v1/implementation/` (Nx monorepo, Supabase, Next.js)
+- **Why archived:** Too derivative (Slack replacement), too narrow (deep dive is a feature, not a product)
 
 ## Session Resume Protocol
 
-1. Read `docs/v2/THESIS.md` — understand the "why"
-2. Read `docs/v2/DESIGN-SYNTHESIS.md` — understand the "what"
-3. Read `PROGRESS.md` — understand current sprint state
+1. Read `PROGRESS.md` — understand current state
+2. Read `v3/docs/THESIS.md` — understand V3 direction
+3. Read `v3/vibe-ai-adoption/PROGRESS.md` — project status
 4. Each Sprint completed -> pause for user confirmation
 
 ## Constraints
