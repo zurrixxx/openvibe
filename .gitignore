@@ -35,3 +35,6 @@ pnpm-debug.log*
 # Agent handoffs (internal working notes)
 .handoffs/
 .session-memory/
+
+# Worktrees
+.worktrees/
