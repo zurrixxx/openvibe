@@ -39,6 +39,15 @@ class LLMResponse:
     raw_content: Any = None
 
 
+class LLMError(Exception):
+    """Raised when an LLM provider call fails."""
+
+    def __init__(self, message: str, provider: str = "", cause: Exception | None = None):
+        super().__init__(message)
+        self.provider = provider
+        self.cause = cause
+
+
 @runtime_checkable
 class LLMProvider(Protocol):
     """Protocol for LLM providers. Implement this to add new LLM backends."""

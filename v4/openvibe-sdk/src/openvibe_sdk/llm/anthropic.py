@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from anthropic import Anthropic
 
-from openvibe_sdk.llm import LLMResponse, ToolCall, resolve_model
+from openvibe_sdk.llm import LLMError, LLMResponse, ToolCall, resolve_model
 
 
 class AnthropicProvider:
@@ -34,7 +34,14 @@ class AnthropicProvider:
         if tools:
             kwargs["tools"] = tools
 
-        response = self._client.messages.create(**kwargs)
+        try:
+            response = self._client.messages.create(**kwargs)
+        except Exception as exc:
+            raise LLMError(
+                f"Anthropic API call failed: {exc}",
+                provider="anthropic",
+                cause=exc,
+            ) from exc
 
         text_parts: list[str] = []
         tool_calls: list[ToolCall] = []

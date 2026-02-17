@@ -41,11 +41,6 @@ def search(query: str) -> str:
     return f"Results for: {query}"
 
 
-def calculator(expression: str) -> str:
-    """Evaluate a math expression."""
-    return str(eval(expression))
-
-
 class ResearchOp(Operator):
     operator_id = "research"
 

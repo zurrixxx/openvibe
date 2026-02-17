@@ -147,3 +147,14 @@ def test_role_no_memory_no_crash():
     prompt = role.build_system_prompt("Base.", context="anything")
     assert "Base." in prompt
     assert "Relevant Memories" not in prompt
+
+
+def test_soul_file_not_found_gives_clear_error():
+    class BadSoulRole(Role):
+        role_id = "bad_soul"
+        soul = "/nonexistent/path/soul.md"
+        operators = []
+
+    role = BadSoulRole(llm=FakeLLM())
+    with pytest.raises(FileNotFoundError, match="Soul file not found.*bad_soul"):
+        role.build_system_prompt("Base.")

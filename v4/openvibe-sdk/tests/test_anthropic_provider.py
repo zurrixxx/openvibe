@@ -1,6 +1,8 @@
 from unittest.mock import MagicMock
 
-from openvibe_sdk.llm import LLMResponse, ToolCall
+import pytest
+
+from openvibe_sdk.llm import LLMError, LLMResponse, ToolCall
 from openvibe_sdk.llm.anthropic import AnthropicProvider
 
 
@@ -87,3 +89,14 @@ def test_call_without_tools_omits_param(mocker):
     provider.call(system="test", messages=[{"role": "user", "content": "hi"}])
     call_kwargs = mock_client.messages.create.call_args[1]
     assert "tools" not in call_kwargs
+
+
+def test_call_wraps_api_error_in_llm_error(mocker):
+    mock_client = MagicMock()
+    mock_client.messages.create.side_effect = RuntimeError("connection refused")
+    mocker.patch("openvibe_sdk.llm.anthropic.Anthropic", return_value=mock_client)
+    provider = AnthropicProvider()
+    with pytest.raises(LLMError, match="Anthropic API call failed") as exc_info:
+        provider.call(system="test", messages=[{"role": "user", "content": "hi"}])
+    assert exc_info.value.provider == "anthropic"
+    assert isinstance(exc_info.value.cause, RuntimeError)

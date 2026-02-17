@@ -105,5 +105,11 @@ class Role:
         if self.soul.endswith((".md", ".yaml", ".txt")):
             from openvibe_sdk.config import load_prompt
 
-            return load_prompt(self.soul)
+            try:
+                return load_prompt(self.soul)
+            except FileNotFoundError:
+                raise FileNotFoundError(
+                    f"Soul file not found: {self.soul} "
+                    f"(role '{self.role_id}')"
+                )
         return self.soul
