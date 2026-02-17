@@ -117,7 +117,7 @@ def _record_episode(
 ) -> None:
     """Record an Episode via the operator's _episode_recorder if set."""
     recorder = getattr(operator, "_episode_recorder", None)
-    if not recorder:
+    if not recorder or not response:
         return
 
     from openvibe_sdk.memory.types import Episode
