@@ -12,7 +12,7 @@
 **Stack:** Python 3.13, Temporal + LangGraph + Anthropic SDK (direct `call_claude()`, no CrewAI)
 **Next:** T25 (smoke test with real APIs) → T26 (go live)
 **Project dir:** `v4/vibe-ai-adoption/` — read its `PROGRESS.md` for implementation details
-**SDK dir:** `v4/openvibe-sdk/` — **SDK V1 complete** (87/87 tests, 12 commits)
+**SDK dir:** `v4/openvibe-sdk/` — **SDK V2 complete** (194/194 tests, 25 commits, v0.2.0)
 **Docs:** `v4/docs/` — thesis, design, principles, proposed designs
 
 ---
@@ -33,6 +33,9 @@ All docs consolidated into `v4/docs/`:
 | `plans/2026-02-17-operator-sdk-design.md` | **Implemented** | Operator layer: extract + @llm_node + @agent_node |
 | `plans/2026-02-17-sdk-4-layer-architecture.md` | **Implemented** | 4-layer SDK: Role + Operator + Primitives + Infrastructure |
 | `plans/2026-02-17-sdk-v1-implementation.md` | **Complete** | 10 tasks, 87 tests, full TDD implementation plan |
+| `plans/2026-02-17-sdk-v2-memory-design.md` | **Implemented** | Memory architecture: 3-tier pyramid + filesystem interface |
+| `plans/2026-02-17-role-layer-design.md` | **Implemented (V2 scope)** | AI Employee: S1/S2 cognition, authority, memory |
+| `plans/2026-02-17-sdk-v2-implementation.md` | **Complete** | 12 tasks, 105 tests, memory + authority + access control |
 | `strategy/DOGFOOD-GTM.md` | Proposed | 6-month validation strategy |
 | `reference/INTERFACE-DESIGN.md` | Final | Discord-inspired UI/UX |
 | `reference/EVOLUTION.md` | Reference | V1→V2→V3→V4 evolution mapping |
@@ -45,7 +48,8 @@ All docs consolidated into `v4/docs/`:
 - Merged V2 design principles + V3 thesis + V3 implementation into single source of truth
 - 5 operators replace 20 flat agents. CrewAI fully removed.
 - All docs in `v4/docs/`, all code in `v4/vibe-ai-adoption/`
-- **SDK V1 complete** (2026-02-17): 4-layer framework at `v4/openvibe-sdk/`, 87 tests, 6 public exports (Operator, llm_node, agent_node, Role, OperatorRuntime, RoleRuntime)
+- **SDK V1 complete** (2026-02-17): 4-layer framework at `v4/openvibe-sdk/`, 87 tests, 6 public exports
+- **SDK V2 complete** (2026-02-17): Memory pyramid + authority + access control, 194 tests, 15 public exports (v0.2.0)
 
 ### V3 (Archived) — Implementation
 - Built Temporal + LangGraph + CrewAI stack → then removed CrewAI
@@ -83,4 +87,4 @@ All docs consolidated into `v4/docs/`:
 
 ---
 
-*Last updated: 2026-02-17T05:58Z*
+*Last updated: 2026-02-17T23:26Z*
