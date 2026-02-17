@@ -55,3 +55,21 @@ class OperatorConfig(BaseModel):
     triggers: list[TriggerConfig]
     workflows: list[WorkflowConfig]
     enabled: bool = True
+
+
+class AuthorityConfig(BaseModel):
+    """Defines what actions a Role can take autonomously."""
+
+    autonomous: list[str] = Field(default_factory=list)
+    needs_approval: list[str] = Field(default_factory=list)
+    forbidden: list[str] = Field(default_factory=list)
+
+    def can_act(self, action: str) -> str:
+        """Returns: 'autonomous' | 'needs_approval' | 'forbidden'."""
+        if action in self.forbidden:
+            return "forbidden"
+        if action in self.needs_approval:
+            return "needs_approval"
+        if action in self.autonomous:
+            return "autonomous"
+        return "needs_approval"  # default: cautious
