@@ -990,3 +990,186 @@ Layer 4: Company Factory - Healthcare Vertical (M12-M18)
 | Domain experts想出来创业 | **是** (billing managers, practice consultants) | 是 | 是 |
 | 监管复杂度 | 高 (HIPAA) — 但由firm承担, 非platform | 高 | 极高 |
 | 和硬件联动 | **好** (Vibe board in clinic meeting rooms) | 中 | 中 |
+
+---
+
+## 17. Company Factory 收费模式分析
+
+> Date: 2026-02-18
+> Context: 以张姐 (前billing manager) 的AI-native billing firm为例推导
+
+### 张姐的完整经济账
+
+```
+旧模式 (传统billing公司):
+  团队: 35人
+  服务: 80 practices
+  Revenue: $3.5M/年
+  成本: $3.0M/年 (主要是人力)
+  利润: $525K/年 (15% margin)
+
+新模式 (AI-native billing firm on OpenVibe):
+  团队: 3人
+  服务: 500 practices
+  Revenue: 500 × $2,500/月 = $15M/年
+  成本 (不含OpenVibe):
+    人力 (3人):             $400K/年
+    AI API (Anthropic等):   $1.5M/年
+    其他 (保险/办公/工具):    $200K/年
+    小计:                   $2.1M/年
+  可分配利润:               $12.9M/年
+```
+
+### 定价锚点: 价值创造的20-30%
+
+```
+价值创造 = 新利润 - 旧利润
+  旧利润: $525K/年
+  新利润目标 (50-60% margin): $7.5-9M/年
+  价值创造: ~$7-8.5M/年
+
+OpenVibe capture 20-30% = $1.4-2.5M/年
+= firm revenue 的 ~10-14%
+```
+
+### 三种模式对比
+
+#### Model A: Revenue Share (推荐)
+
+```
+规则: firm revenue 的 10%
+  + AI API pass-through + 15% markup
+
+张姐case:
+  Revenue share: $15M × 10% = $1.5M/年
+  AI markup: ~$225K/年
+  Total to OpenVibe: $1.73M/年
+  张姐剩余: $15M - $2.1M - $1.73M = $11.17M (74% margin)
+  vs 旧模式 $525K → 21x improvement, 张姐非常开心
+```
+
+| 优点 | 缺点 |
+|------|------|
+| 激励完全aligned | 需要revenue透明度 |
+| 简单易懂 | 小firm起步阶段觉得贵 |
+| Scales naturally | 大firm想谈判降比例 |
+
+#### Model B: Per-Client 阶梯定价
+
+```
+规则:
+  1-50 practices:    $300/practice/月
+  51-200 practices:  $250/practice/月
+  201+ practices:    $200/practice/月
+
+张姐case:
+  50×$300 + 150×$250 + 300×$200 = $112.5K/月 = $1.35M/年 ≈ 9%
+
+问题 — 小firm体验差:
+  新firm, 10 practices, $25K/月 revenue
+  OpenVibe费: 10×$300 = $3K/月 = 12% ← 太高
+```
+
+| 优点 | 缺点 |
+|------|------|
+| 可预测, 好budgeting | 小firm和大firm体验不一致 |
+| 不需要看revenue | 价格和价值不完全挂钩 |
+
+#### Model C: Hybrid (平台费 + 低Revenue Share)
+
+```
+规则:
+  Base: $1,000/月
+  + 5% revenue share
+  + AI overage (above included quota)
+
+张姐case:
+  $12K + $750K + $200K = $962K/年 ≈ 6.4%  ← 比Model A低
+新firm case:
+  $12K + $15K + minimal = $27K/年 ≈ 9%
+```
+
+| 优点 | 缺点 |
+|------|------|
+| Base fee保底 | 三层费用让客户困惑 |
+| 低%让大firm舒服 | 最复杂 |
+
+### 推荐定价: Model A + 起步优惠
+
+```
+┌──────────────────────────────────────────────────┐
+│  OpenVibe Company Factory Pricing                │
+│                                                  │
+│  Standard:    10% of firm revenue                │
+│              (含platform + agents + playbooks)    │
+│                                                  │
+│  Launch期:    5% (前6个月 or 前$500K revenue)      │
+│              降低firm起步阻力                      │
+│                                                  │
+│  Minimum:     $500/月                             │
+│              (cover platform基本成本)              │
+│                                                  │
+│  AI API:      Pass-through + 15% markup          │
+│              (OpenVibe批量采购有discount, 分润)     │
+└──────────────────────────────────────────────────┘
+```
+
+### OpenVibe P&L Projection
+
+```
+Year 1 (Healthcare vertical launch):
+  20 firms on platform
+  Avg firm revenue: $2M/年 (ramping)
+  Total GMV: $40M
+  OpenVibe take: $40M × 8% (blended) + AI markup
+  = $3.7M ARR
+
+Year 2 (Healthcare + 2nd vertical):
+  100 firms (60 healthcare + 40 other)
+  Avg firm revenue: $4M/年
+  Total GMV: $400M
+  OpenVibe take: $400M × 9% + AI markup
+  = $40M ARR
+
+Year 3 (Multi-vertical scale):
+  500 firms across 5 verticals
+  Avg firm revenue: $5M/年
+  Total GMV: $2.5B
+  OpenVibe take: $2.5B × 10% + AI markup
+  = $270M ARR
+```
+
+### 为什么 take rate 能比 Shopify 高 3x？
+
+```
+Shopify:
+  Take rate: ~3%
+  提供: website builder + payment processing (工具)
+  商家的人力成本: 没有显著减少
+  GMV (2024): ~$270B | Revenue: ~$8B
+
+OpenVibe:
+  Take rate: ~10%
+  提供: agents + workflows + playbooks (替代80%人力)
+  Firm的人力成本: 从35人降到3人 (90% reduction)
+  → 价值密度是Shopify的10x, 所以take rate高3x完全合理
+
+对firm来说的比较:
+  不用OpenVibe: 35人, $3.5M revenue, 15% margin = $525K profit
+  用OpenVibe (付10%): 3人, $15M revenue, 74% margin = $11.2M profit
+  ROI = ($11.2M - $525K) / $1.73M = 6.2x ← 无脑选择
+```
+
+### 收费模式的护城河效应
+
+```
+Revenue share → firm成长 = OpenVibe成长
+  → OpenVibe有动力投资更好的agents和playbooks
+  → 更好的agents → firm更成功 → revenue更高 → OpenVibe收入更高
+  → 正向飞轮
+
+同时:
+  → firm越多 → 数据越多 → playbooks越好 → 新firm成功率越高
+  → 新firm越多 → OpenVibe revenue越高
+  → 双重飞轮: 单个firm growth + firm数量growth
+```
