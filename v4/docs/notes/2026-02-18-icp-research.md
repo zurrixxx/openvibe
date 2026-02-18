@@ -642,3 +642,55 @@ Next: Company Factory (meta-platform)
 5. ⬜ Platform够mature给外部人用
 
 **现在最重要的事: 把Vibe变成第一个成功的AI-native company。其他一切都从这里推导。**
+
+---
+
+## 14. Update: Consulting 不是最大红利，Marketing Services 才是
+
+> Date: 2026-02-18
+
+### 咨询公司的终端客户 = 所有 dying service industry 的终端客户
+
+Consulting/Agency/Research/Staff Aug 的客户其实是同一群人：**内部能力不够、需要外包认知工作的公司。**
+
+一家 $50-500M 的 mid-market 公司每年在 "外包认知" 上花 $500K-3.4M：
+- Marketing: $200K-2M/年 ← 最大头
+- Consulting: $100-500K/年
+- Research: $50-200K/年
+- Staff aug: $100-500K/年
+- Accounting: $50-200K/年
+
+### Marketing Services ($500B) > Consulting ($300B)，且容易10x
+
+| 维度 | Consulting ($300B) | Marketing ($500B) |
+|------|-------------------|------------------|
+| 市场规模 | $300B | **$500B** |
+| Prove ROI | 6-12个月才知道 | **30天看leads数据** |
+| 信任门槛 | 极高(需要品牌) | **低(数据说话)** |
+| Vibe proof | 弱 | **完美(正在dogfood)** |
+| 付费模式 | 项目制(偶尔请) | **always-on(每月付费)** |
+| Land & Expand | 难 | **容易(marketing→sales→CS)** |
+
+### Vibe dogfood 本质上就是 "替代自己的 marketing agency"
+
+```
+Vibe 现在: 用 agents 替代 marketing team → leads 10x, cost 1/5
+这等于: Vibe 用 AI 替代了自己的 marketing agency
+如果成功: Playbook = "任何公司都能用这个替代 marketing agency"
+```
+
+### 修正后的最终策略
+
+```
+Phase 0 (现在): Vibe dogfood = 替代自己的 marketing agency/team
+Phase 1 (M6): 帮其他 $10-100M 公司替代他们的 marketing agency
+  → 卖点: "$300K/年agency费用 → $60K/年, 更好的结果"
+  → ROI: 30天可证明
+Phase 2 (M12+): Expand 到 sales → CS → operations
+  → 从 $60K/年 → $240K/年 per customer
+  → 逐步替代客户所有 "外包认知" spend
+Phase 3 (M18+): Platform / Company Factory
+  → 让任何人都能 spin up AI-native service company
+```
+
+**关键转变: 不是 "帮consulting firm" 也不是 "拿下consulting market"。是从 marketing services 切入，因为最大、最容易prove、Vibe就是proof point。**
