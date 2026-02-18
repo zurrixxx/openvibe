@@ -694,3 +694,62 @@ Phase 3 (M18+): Platform / Company Factory
 ```
 
 **关键转变: 不是 "帮consulting firm" 也不是 "拿下consulting market"。是从 marketing services 切入，因为最大、最容易prove、Vibe就是proof point。**
+
+---
+
+## 15. Update: Professional Services Company Factory — 最终形态
+
+> Date: 2026-02-18
+
+### 核心洞察：不卖给dying firms，enable从dying firms出来的人
+
+全球~1000万+专业服务从业者正在/即将面临行业转型。他们有domain expertise + client relationships，缺的是50人团队和$5M启动资金。AI-native时代，这些不再需要了。
+
+**OpenVibe = Shopify for Professional Services**
+- Shopify: "你有产品 → 你可以开店"
+- OpenVibe: "你有专业知识 → 你可以开firm"
+
+### Company Factory 模型
+
+```
+Platform 提供: Infrastructure + Templates + Playbooks + Client Portal + Billing + QA
+创始人 提供: Domain expertise + Client relationships + Judgment
+结果: 2-3人 + agents = 以前50人firm的产出
+
+经济模型:
+  创始人: $5K/月 platform fee → $1-5M/年 revenue → 60-70% margin
+  OpenVibe: $3-10K/月 per firm × 1000s of firms
+  终端客户: $5K/月 vs $500K 咨询项目 → 节省80%, always-on
+```
+
+### 为什么这是最强策略
+
+1. **TAM最大**: $500B+ (所有professional services)
+2. **Network effect终于出现**: 更多firm → 更好playbook → 更多firm
+3. **竞争位置空白**: 没有人在做 "AI-native professional services company factory"
+4. **用户获取容易**: Professionals主动来（vs enterprise sales）
+5. **自然拉动硬件**: 每个新firm = 潜在的Vibe board buyer
+6. **Vibe = 完美proof point**: 第一个AI-native firm
+
+### 终极策略
+
+```
+Phase 0 (现在): Vibe = 第一个AI-native firm (dogfood)
+Phase 1 (M6): Invite 10个前consultant/agency人在平台上开firm
+Phase 2 (M12): 100 firms on platform, extract best playbooks
+Phase 3 (M18): 1000 firms, self-serve onboarding
+Phase 4 (M24+): Shopify for Professional Services = 10,000+ firms
+```
+
+### OpenVibe 完整进化路径
+
+```
+V1: AI Deep Dive (tool) — 太窄
+V2: Human+Agent Workspace (medium) — 和Slack竞争
+V4: Cognition Infrastructure (platform) — 方向对但ICP模糊
+V5: Professional Services Company Factory — Shopify for Services
+  → ICP明确: domain experts who want to start AI-native firms
+  → TAM巨大: $500B+ professional services market
+  → Moat清晰: platform + playbook data + network effects
+  → Vibe proof: 第一个成功的AI-native firm
+```
