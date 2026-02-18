@@ -1,7 +1,7 @@
 # Vibe AI Ops - Progress Tracker
 
 > Started: 2026-02-15
-> Status: **Operator pattern implemented. 116 tests passing.**
+> Status: **LIVE. 116 tests passing. Smoke tests + go live complete.**
 > Stack: Python 3.13, Temporal + LangGraph + Anthropic SDK
 > Docs: `v4/docs/` (thesis, design, principles, proposed)
 
@@ -118,13 +118,13 @@ smoke_e2e.py                            # e2e: Temporal → LangGraph → Claude
 
 ---
 
-## Remaining: T25-T26
+## Completed: T25-T26
 
-| Task | Description | Requires |
-|------|-------------|----------|
-| T25 | Smoke test with real APIs | `.env` with API keys + `docker compose up` |
-| T26 | Go live | Temporal Cloud or local Docker, real HubSpot/Slack |
+| Task | Description | Status |
+|------|-------------|--------|
+| T25 | Smoke test with real APIs | DONE |
+| T26 | Go live | DONE |
 
 ---
 
-*Last updated: 2026-02-16*
+*Last updated: 2026-02-18*
