@@ -505,3 +505,140 @@ Phase 0 (现在): Vibe dogfood → 证明 thesis
 Phase 1 (M6): 卖给 "和 Vibe 一样的公司" → GTM-bottlenecked, $10-100M, 有护城河
 Phase 2 (M12+): 扩展到更多 archetype → CS-bottlenecked, Product-bottlenecked
 ```
+
+---
+
+## 12. Update: 价值转移 — Dying Industries 的需求去了哪里？
+
+> Date: 2026-02-18
+
+### 核心洞察：需求不会消失，只会转移到平台
+
+历史规律：旅行社→Expedia, 报纸→Google, 唱片店→Spotify, 出租车→Uber。
+每次中间层行业死亡，需求转移到 PLATFORM，以 10-100x 更低成本满足终端需求。
+
+### Consulting $500K 项目的价值拆解
+
+| 价值层 | 占比 | 以前谁提供 | AI时代谁提供 | 成本变化 |
+|--------|------|-----------|-------------|---------|
+| 研究分析 | 30% | Junior consultant | Claude/GPT直接做 | $200/hr → $0.1/次 |
+| 框架方法论 | 20% | 咨询公司IP | 开源 + AI应用 | $50K → 接近$0 |
+| 定制化上下文 | 25% | Senior consultant | **有组织记忆的平台** | $100K → $1K/月 |
+| 落地实施 | 15% | Consultant驻场 | **Agent orchestration** | $200K → $5K/月 |
+| 信任背书 | 10% | 品牌"McKinsey说" | **累积proof + track record** | 数据说话 |
+
+**L1-2 被 commodity 化（ChatGPT能做）。L3-4-5 是真正的机会 = OpenVibe在build的东西。**
+
+### 关键定位转变
+
+```
+旧: OpenVibe 是 consulting firm 的 TOOL ($149/月)
+新: OpenVibe 是 consulting firm 的 REPLACEMENT ($5-20K/月)
+```
+
+价值转移的规模：全球 consulting + agency + research + staff aug = ~$1.5T/年。
+即使只10%被platform替代 = $150B/年市场 (vs V2的$13.8B TAM = 10x bigger)。
+
+### 三层机会
+
+```
+Layer A (现在): 帮scale-up增长 → $10-50K/年 → entry point
+Layer B (大机会): 替代consulting/agency → $60-240K/年 → $1B+ market
+Layer C (远期): 成为组织智能基础设施 → $X/年 → $100B+ market
+```
+
+---
+
+## 13. Update: 为什么不自己做 Company Factory？
+
+> Date: 2026-02-18
+
+### 用户的问题
+
+> "会有什么新的公司出现？与其去增强公司，为什么不自己做一个公司工厂去捕捉新的需求？"
+
+### 这是最激进也最有意思的 framing
+
+当 cognition 变成 infrastructure，最小可行公司 (Minimum Viable Company) 从 ~50人 缩到 ~2-5人+agents。
+
+```
+旧世界:
+  Marketing agency = 50人, $5M/年 revenue
+  Consulting firm = 200人, $30M/年 revenue
+
+新世界:
+  AI-native marketing co = 3人 + agents, $5M/年 revenue
+  AI-native consulting co = 5人 + agents, $30M/年 revenue
+```
+
+这意味着「创建公司」本身被 democratize 了。**Company Factory = 批量创建 AI-native 公司的平台。**
+
+### 新型公司会长什么样？
+
+| 新公司类型 | 构成 | 替代什么 | Revenue potential |
+|-----------|------|---------|-------------------|
+| 1-person consulting firm | 1 domain expert + agent team | Mid-tier consulting firm | $1-5M/年 |
+| AI-native agency | 2-3 creative leads + agents | 50-person marketing agency | $2-10M/年 |
+| Autonomous ops company | Agent team runs ops for 100 SMBs | BPO / 外包公司 | $5-20M/年 |
+| Knowledge-as-a-Service | Agent team + accumulated data | Gartner / research firms | $2-10M/年 |
+
+### 三个可能的策略
+
+**策略1: Platform (卖铲子)**
+- OpenVibe = platform, 别人在上面建AI-native公司
+- 类比: Shopify (不自己卖货，但enable百万商家)
+- 优点: Scale最大，no conflict
+- 缺点: 需要critical mass, 慢
+
+**策略2: Venture Studio (自己挖矿)**
+- OpenVibe = venture studio, 自己spin up AI-native公司
+- 类比: Rocket Internet, Idealab
+- 优点: 自己capture operating value, 速度快
+- 缺点: 运营复杂, 资本密集, focus risk
+
+**策略3: Platform + In-House Companies (Shopify + Shopify直营)**
+- OpenVibe = platform, 同时自己也在上面运营几家公司
+- 类比: Amazon (marketplace + Amazon Basics)
+- 优点: 自己validate platform + 直接capture value
+- 缺点: Platform客户可能不信任(你和我竞争)
+
+### 我的判断
+
+**策略3是对的，但阶段要对：**
+
+```
+Phase 0: Vibe自己 = 第一个"AI-native company" (dogfood) ← 现在
+Phase 1: Spin up 2-3个internal AI-native "公司" (marketing co, consulting co) ← M6
+Phase 2: 开放platform给外部创业者 ← M12+
+Phase 3: 真正的company factory ← M18+
+```
+
+**关键insight: Vibe的dogfood不仅仅是"用AI做GTM"。是在创建第一个AI-native公司。**
+
+如果Vibe marketing+sales团队从30人变成5人+agents，output 25x：
+- 这本身就是一个proof point: "看，这就是AI-native company长什么样"
+- 这个模式可以复制到其他domain
+- Platform就是让这种复制变easy的infrastructure
+
+### OpenVibe 进化路径
+
+```
+V1: AI Deep Dive (tool)
+V2: Human+Agent Workspace (medium)
+V4: Cognition Infrastructure (platform)
+Next: Company Factory (meta-platform)
+```
+
+**最终形态: OpenVibe = 创建和运营AI-native公司的基础设施。**
+**不是帮现有公司变好，是让新型公司成为可能。**
+
+### 但现在要做的还是Phase 0
+
+不要跳步。Company Factory的前提是:
+1. ✅ Thesis被验证 (cognition IS infrastructure)
+2. ✅ Platform works (agent orchestration proven)
+3. ✅ 至少一个AI-native company成功运营 (Vibe自己)
+4. ⬜ Playbook可复制 (proven by 2-3 external cases)
+5. ⬜ Platform够mature给外部人用
+
+**现在最重要的事: 把Vibe变成第一个成功的AI-native company。其他一切都从这里推导。**
