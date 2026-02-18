@@ -7,12 +7,19 @@
 
 ## Current State
 
-**Phase:** V4 — Vibe AI Adoption
-**Status:** 5 operators, 22 workflows, 80 nodes. 116/116 tests passing.
-**Stack:** Python 3.13, Temporal + LangGraph + Anthropic SDK (direct `call_claude()`, no CrewAI)
-**Next:** Write simple CRO integration test → then validate against real APIs
-**Project dir:** `v4/vibe-ai-adoption/` — read its `PROGRESS.md` for implementation details
-**SDK dir:** `v4/openvibe-sdk/` — **Role SDK complete** (216/216 tests, 28 commits, v0.2.0)
+**Phase:** V4 — 4-Layer Restructure Complete
+**Status:** 4 packages shipped. SDK v0.3.0 (266 tests), Runtime v0.1.0 (28 tests), Platform v0.1.0 (24 tests), CLI v0.1.0 (13 tests)
+**Stack:** Python 3.12+, Pydantic v2, typer + httpx + rich (CLI), fastapi (Platform)
+**Next:** Wire Platform → FastAPI HTTP layer; then vibe-ai-adoption dogfood
+**Priority:** SDK first → vibe-ai-adoption acts as the first real SDK user (dogfood), start after SDK is more complete
+
+| Package | Dir | Version | Tests |
+|---------|-----|---------|-------|
+| `openvibe-sdk` | `v4/openvibe-sdk/` | v0.3.0 | 266 passed |
+| `openvibe-runtime` | `v4/openvibe-runtime/` | v0.1.0 | 28 passed |
+| `openvibe-platform` | `v4/openvibe-platform/` | v0.1.0 | 24 passed |
+| `openvibe-cli` | `v4/openvibe-cli/` | v0.1.0 | 13 passed |
+
 **Docs:** `v4/docs/` — thesis, design, principles, proposed designs
 
 ---
@@ -36,6 +43,7 @@ All docs consolidated into `v4/docs/`:
 | `plans/2026-02-17-sdk-v2-memory-design.md` | **Implemented** | Memory architecture: 3-tier pyramid + filesystem interface |
 | `plans/2026-02-17-role-layer-design.md` | **Implemented (V2 scope)** | AI Employee: S1/S2 cognition, authority, memory |
 | `plans/2026-02-17-sdk-v2-implementation.md` | **Complete** | 12 tasks, 105 tests, memory + authority + access control |
+| `plans/2026-02-18-4-layer-restructure-implementation.md` | **Complete** | 18 tasks, 4 packages, TDD throughout |
 | `strategy/DOGFOOD-GTM.md` | Proposed | 6-month validation strategy |
 | `reference/INTERFACE-DESIGN.md` | Final | Discord-inspired UI/UX |
 | `reference/EVOLUTION.md` | Reference | V1→V2→V3→V4 evolution mapping |
@@ -51,6 +59,7 @@ All docs consolidated into `v4/docs/`:
 - **SDK V1 complete** (2026-02-17): 4-layer framework at `v4/openvibe-sdk/`, 87 tests, 6 public exports
 - **SDK V2 complete** (2026-02-17): Memory pyramid + authority + access control, 194 tests, 15 public exports (v0.2.0)
 - **Role SDK complete** (2026-02-18): respond(), memory_fs, reflect(), list_operators(), .directory, 216 tests
+- **4-layer restructure complete** (2026-02-18): SDK v0.3.0 + Runtime + Platform + CLI, 331 total tests
 
 ### V3 (Archived) — Implementation
 - Built Temporal + LangGraph + CrewAI stack → then removed CrewAI
@@ -88,4 +97,4 @@ All docs consolidated into `v4/docs/`:
 
 ---
 
-*Last updated: 2026-02-18T01:39Z*
+*Last updated: 2026-02-18T04:00Z*
