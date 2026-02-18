@@ -1,6 +1,6 @@
 """OpenVibe SDK — 4-layer framework for human+agent collaboration."""
 
-__version__ = "0.2.0"
+__version__ = "0.3.0"
 
 from openvibe_sdk.operator import Operator, llm_node, agent_node
 from openvibe_sdk.role import Role
@@ -13,6 +13,21 @@ from openvibe_sdk.memory.workspace import WorkspaceMemory
 from openvibe_sdk.memory.agent_memory import AgentMemory
 from openvibe_sdk.memory.filesystem import MemoryFilesystem
 from openvibe_sdk.models import AuthorityConfig
+
+# V3 models
+from openvibe_sdk.models import (
+    Event, RoutingDecision, RoleMessage,
+    WorkspaceConfig, WorkspacePolicy,
+    RoleTemplate, RoleSpec,
+    RoleLifecycle, RoleStatus,
+    TrustProfile, Objective, KeyResult,
+)
+
+# V3 registry
+from openvibe_sdk.registry import (
+    Participant, RoleRegistry, RoleTransport,
+    InMemoryRegistry, InMemoryTransport,
+)
 
 __all__ = [
     # V1
@@ -32,4 +47,23 @@ __all__ = [
     "AgentMemory",
     "MemoryFilesystem",
     "AuthorityConfig",
+    # V3 models
+    "Event",
+    "RoutingDecision",
+    "RoleMessage",
+    "WorkspaceConfig",
+    "WorkspacePolicy",
+    "RoleTemplate",
+    "RoleSpec",
+    "RoleLifecycle",
+    "RoleStatus",
+    "TrustProfile",
+    "Objective",
+    "KeyResult",
+    # V3 registry
+    "Participant",
+    "RoleRegistry",
+    "RoleTransport",
+    "InMemoryRegistry",
+    "InMemoryTransport",
 ]
