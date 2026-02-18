@@ -198,6 +198,78 @@ class Role:
         parts = [p for p in [soul_text, base_prompt] if p]
         return "\n\n".join(parts)
 
+    # V3 communication
+    _registry: "Any" = None
+    _transport: "Any" = None
+    _last_spawned_spec: "Any" = None  # for testing introspection
+
+    def spawn(self, template: "Any", params: dict[str, str]) -> str:
+        """Create child Role from template. Returns new role_id."""
+        from openvibe_sdk.models import RoleSpec, TrustProfile
+        from openvibe_sdk.registry import Participant
+
+        if self.role_id not in template.allowed_spawners:
+            raise PermissionError(
+                f"Role '{self.role_id}' is not in allowed_spawners for "
+                f"template '{template.template_id}'"
+            )
+
+        new_role_id = template.name_pattern.format(**params).lower().replace(" ", "-")
+        soul = template.soul_template.format(**params)
+
+        spec = RoleSpec(
+            role_id=new_role_id,
+            workspace=self.workspace,
+            soul=soul,
+            domains=template.domains,
+            authority=template.authority,
+            operator_ids=template.operator_ids,
+            reports_to=self.role_id,
+            parent_role_id=self.role_id,
+            trust=TrustProfile(default=template.default_trust),
+            ttl=template.ttl,
+        )
+        self._last_spawned_spec = spec
+
+        if self._registry is not None:
+            self._registry.register_participant(
+                Participant(id=new_role_id, type="role", domains=template.domains),
+                workspace=self.workspace,
+            )
+
+        return new_role_id
+
+    def request_role(self, target_id: str, content: str, payload: dict | None = None) -> "Any":
+        """Send request to another role. Returns None if no transport."""
+        if not self._transport:
+            return None
+        from openvibe_sdk.models import RoleMessage
+        import uuid
+        from datetime import datetime, timezone
+        msg = RoleMessage(
+            id=str(uuid.uuid4()), type="request",
+            from_id=self.role_id, to_id=target_id,
+            content=content, payload=payload or {},
+            timestamp=datetime.now(timezone.utc),
+        )
+        self._transport.send(self.role_id, target_id, msg)
+        return msg
+
+    def notify_role(self, target_id: str, content: str) -> None:
+        """Fire-and-forget notification."""
+        if not self._transport:
+            return
+        from openvibe_sdk.models import RoleMessage
+        import uuid
+        from datetime import datetime, timezone
+        msg = RoleMessage(
+            id=str(uuid.uuid4()), type="notification",
+            from_id=self.role_id, to_id=target_id,
+            content=content,
+            timestamp=datetime.now(timezone.utc),
+        )
+        self._transport.send(self.role_id, target_id, msg)
+
     def handle(self, event: "Event") -> "RoutingDecision":
         """Receive event, decide action. Deterministic — no LLM call."""
         from openvibe_sdk.models import RoutingDecision, RoleStatus
