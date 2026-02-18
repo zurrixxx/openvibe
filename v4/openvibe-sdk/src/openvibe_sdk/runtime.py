@@ -129,15 +129,12 @@ class RoleRuntime:
         self._workflow_factories: dict[str, dict[str, Callable]] = {}
 
         for role_class in roles:
-            # V2: auto-create AgentMemory if role declares clearance
-            agent_mem = None
-            if hasattr(role_class, "clearance") and role_class.clearance:
-                from openvibe_sdk.memory.agent_memory import AgentMemory
+            from openvibe_sdk.memory.agent_memory import AgentMemory
 
-                agent_mem = AgentMemory(
-                    agent_id=role_class.role_id,
-                    workspace=workspace,
-                )
+            agent_mem = AgentMemory(
+                agent_id=role_class.role_id,
+                workspace=workspace,
+            )
             role = role_class(llm=llm, memory=memory, agent_memory=agent_mem)
             self._roles[role.role_id] = role
 

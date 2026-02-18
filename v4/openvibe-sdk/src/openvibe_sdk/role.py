@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+import uuid
+from datetime import datetime, timezone
 from typing import Any
 
 from openvibe_sdk.llm import LLMProvider, LLMResponse
@@ -9,6 +11,8 @@ from openvibe_sdk.memory import MemoryProvider
 from openvibe_sdk.memory.access import ClearanceProfile
 from openvibe_sdk.memory.agent_memory import AgentMemory
 from openvibe_sdk.memory.assembler import MemoryAssembler
+from openvibe_sdk.memory.filesystem import MemoryFilesystem
+from openvibe_sdk.memory.types import Episode, Insight
 from openvibe_sdk.models import AuthorityConfig
 from openvibe_sdk.operator import Operator
 
@@ -67,6 +71,7 @@ class Role:
         self.agent_memory = agent_memory
         self.config = config or {}
         self._operator_instances: dict[str, Operator] = {}
+        self._memory_fs: MemoryFilesystem | None = None
 
     def can_act(self, action: str) -> str:
         """Check authority for an action.
@@ -77,6 +82,90 @@ class Role:
         if not self.authority:
             return "autonomous"
         return self.authority.can_act(action)
+
+    def respond(self, message: str, context: str = "") -> LLMResponse:
+        """Respond to a message with soul + memory context.
+
+        Builds a system prompt from soul + recalled memories,
+        calls LLM directly, and records an episode.
+        """
+        if not self.llm:
+            raise ValueError(
+                f"Role '{self.role_id}' has no LLM configured"
+            )
+
+        # Build system prompt: soul + memory context
+        parts: list[str] = []
+        soul_text = self._load_soul()
+        if soul_text:
+            parts.append(soul_text)
+
+        # V2: recall relevant insights from agent_memory
+        if self.agent_memory:
+            insights = self.agent_memory.recall_insights(
+                query=message, limit=5,
+            )
+            if insights:
+                lines = [f"- {i.content}" for i in insights]
+                parts.append("## Knowledge\n" + "\n".join(lines))
+        # V1: recall from memory provider
+        elif self.memory:
+            recalled = self.memory.recall(
+                self.role_id, context or message,
+            )
+            if not recalled:
+                recalled = self.memory.recall(self.role_id, "")
+            if recalled:
+                lines = [f"- {m.content}" for m in recalled]
+                parts.append("## Relevant Memories\n" + "\n".join(lines))
+
+        system = "\n\n".join(parts)
+        response = self.llm.call(
+            system=system,
+            messages=[{"role": "user", "content": message}],
+        )
+
+        # Auto-record episode
+        if self.agent_memory:
+            self.agent_memory.record_episode(Episode(
+                id=str(uuid.uuid4()),
+                agent_id=self.role_id,
+                operator_id="",
+                node_name="respond",
+                timestamp=datetime.now(timezone.utc),
+                action="respond",
+                input_summary=message[:200],
+                output_summary=(response.content or "")[:200],
+                outcome={},
+                duration_ms=0,
+                tokens_in=getattr(response, "tokens_in", 0),
+                tokens_out=getattr(response, "tokens_out", 0),
+            ))
+
+        return response
+
+    @property
+    def memory_fs(self) -> MemoryFilesystem | None:
+        """Virtual filesystem over this Role's memory. None if no agent_memory."""
+        if not self.agent_memory:
+            return None
+        if self._memory_fs is None:
+            self._memory_fs = MemoryFilesystem(
+                role_id=self.role_id,
+                agent_memory=self.agent_memory,
+                soul=self._load_soul(),
+            )
+        return self._memory_fs
+
+    def reflect(self) -> list[Insight]:
+        """Compress recent episodes into insights via LLM."""
+        if not self.agent_memory or not self.llm:
+            return []
+        return self.agent_memory.reflect(self.llm)
+
+    def list_operators(self) -> list[str]:
+        """List operator IDs this Role can use."""
+        return [op.operator_id for op in self.operators]
 
     def get_operator(self, operator_id: str) -> Operator:
         """Get or create an Operator instance with Role-aware LLM."""
@@ -127,8 +216,8 @@ class Role:
         """
         soul_text = self._load_soul()
         memories = ""
-        # V1 memory injection -- only when no agent_memory
-        if self.memory and not self.agent_memory and context:
+        # V1 memory injection (complementary to V2 assembler)
+        if self.memory and context:
             recalled = self.memory.recall(self.role_id, context)
             if not recalled:
                 # Fall back to all memories for this role
