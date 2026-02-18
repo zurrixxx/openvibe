@@ -29,6 +29,9 @@ from openvibe_sdk.models import TenantContext, TemplateConfig, RoleInstance
 # V5 registry
 from openvibe_sdk.template_registry import TemplateRegistry
 
+# V5 system roles
+from openvibe_sdk.system_roles import SYSTEM_ROLES, Coordinator, Archivist, Auditor
+
 # V3 registry
 from openvibe_sdk.registry import (
     Participant, RoleRegistry, RoleTransport,
@@ -78,4 +81,9 @@ __all__ = [
     "RoleInstance",
     # V5 registry
     "TemplateRegistry",
+    # V5 system roles
+    "SYSTEM_ROLES",
+    "Coordinator",
+    "Archivist",
+    "Auditor",
 ]
