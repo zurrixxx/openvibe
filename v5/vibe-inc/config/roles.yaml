@@ -1,0 +1,25 @@
+roles:
+  # GTM team
+  - template: gtm/revenue-role
+    name: Vibe Revenue
+    overrides:
+      soul.constraints.trust_level: L2
+
+  - template: gtm/content-role
+    name: Vibe Content
+
+  - template: gtm/customer-success-role
+    name: Vibe CS
+
+  - template: gtm/market-intelligence-role
+    name: Vibe Market Intel
+
+  # Product development team
+  - template: product-dev/product-ops-role
+    name: Vibe Product Ops
+
+  - template: product-dev/engineering-ops-role
+    name: Vibe Eng Ops
+
+  - template: product-dev/qa-role
+    name: Vibe QA

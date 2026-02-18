@@ -1,0 +1,5 @@
+workspace:
+  tenant_id: vibe-inc
+  name: Vibe Inc
+  description: GTM and product development efficiency for Vibe
+  system_roles: [Coordinator, Archivist, Auditor]
