@@ -125,6 +125,43 @@ smoke_e2e.py                            # e2e: Temporal → LangGraph → Claude
 | T25 | Smoke test with real APIs | DONE |
 | T26 | Go live | DONE |
 
+### T25 — Smoke Test Results (2026-02-18)
+
+**Full e2e chain verified:** Temporal → LangGraph → Claude API
+
+`smoke_e2e.py` — CompanyIntel via Temporal worker:
+- Workflow: `company_intel / research` → **SUCCESS (8.9s)**, Prospect Quality: HIGH
+
+`smoke_all.py` — 20 workflows direct via LangGraph → Claude API:
+
+| Workflow | Result | Time |
+|----------|--------|------|
+| company_intel / research | PASS | 7s |
+| revenue_ops / engagement | PASS | 83s |
+| revenue_ops / nurture_sequence | PASS | 5s |
+| revenue_ops / buyer_intelligence | PASS | 12s |
+| content_engine / segment_research | PASS | 45s |
+| content_engine / message_testing | PASS | 157s |
+| content_engine / content_generation | PASS | 71s |
+| content_engine / repurposing | PASS | 2s |
+| content_engine / distribution | PASS | 13s |
+| content_engine / journey_optimization | PASS | 62s |
+| customer_success / onboarding | PASS | 10s |
+| customer_success / success_advisory | PASS | 23s |
+| customer_success / health_monitoring | PASS | 4s |
+| customer_success / expansion_scan | PASS | 19s |
+| customer_success / customer_voice | PASS | 13s |
+| customer_success / urgent_review | PASS | 64s |
+| market_intel / funnel_monitor | PASS | 10s |
+| market_intel / deal_risk_forecast | PASS | 27s |
+| market_intel / conversation_analysis | PASS | 9s |
+| market_intel / nl_query | PASS | 12s |
+
+**20 / 20 PASS** — 2 skipped (require HubSpot API key: `lead_qualification`, `deal_support`)
+
+Infrastructure used: Temporal localhost:7233 (already running), Postgres localhost:5432.
+No Temporal Cloud needed. No Slack needed (operators post to Slack but don't require it to run).
+
 ---
 
 *Last updated: 2026-02-18*
