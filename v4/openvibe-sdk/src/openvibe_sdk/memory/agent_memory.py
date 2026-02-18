@@ -18,11 +18,23 @@ def _short_id() -> str:
     return uuid.uuid4().hex[:8]
 
 
+def _strip_code_fences(text: str) -> str:
+    """Strip markdown code fences (```json ... ```) from LLM output."""
+    stripped = text.strip()
+    if stripped.startswith("```"):
+        # Remove opening fence (```json or ```)
+        first_newline = stripped.index("\n")
+        stripped = stripped[first_newline + 1:]
+    if stripped.endswith("```"):
+        stripped = stripped[:-3]
+    return stripped.strip()
+
+
 def _parse_insights(text: str, agent_id: str) -> list[Insight]:
     """Parse LLM response into Insight objects."""
     try:
-        items = json.loads(text)
-    except (json.JSONDecodeError, TypeError):
+        items = json.loads(_strip_code_fences(text))
+    except (json.JSONDecodeError, TypeError, ValueError):
         return []
     if not isinstance(items, list):
         return []
