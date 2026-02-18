@@ -10,9 +10,16 @@ from fastapi import FastAPI
 
 from openvibe_platform.human_loop import ApprovalRequest, Deliverable, HumanLoopService
 from openvibe_platform.store import JSONFileStore
+from openvibe_platform.tenant import TenantStore
 from openvibe_platform.workspace import WorkspaceService
 from openvibe_sdk.models import WorkspaceConfig, WorkspacePolicy
 from openvibe_sdk.registry import InMemoryRegistry, Participant
+
+# Default tenants for :memory: mode (tests / local dev)
+_DEFAULT_TENANTS = [
+    {"id": "vibe-inc", "name": "Vibe Inc", "data_dir": ":memory:"},
+    {"id": "astrocrest", "name": "Astrocrest", "data_dir": ":memory:"},
+]
 
 
 def create_app(data_dir: str | Path | None = None) -> FastAPI:
@@ -34,22 +41,34 @@ def create_app(data_dir: str | Path | None = None) -> FastAPI:
         store = JSONFileStore(Path(str(data_dir)))
         _restore(workspace_svc, human_loop_svc, registry, store)
 
-    app = FastAPI(title="OpenVibe Platform", version="0.1.0")
+    app = FastAPI(title="OpenVibe Platform", version="1.0.0")
 
     # Store services in app.state so tests can seed data directly
     app.state.workspace_svc = workspace_svc
     app.state.human_loop_svc = human_loop_svc
     app.state.registry = registry
 
+    # Tenant store — hardcoded defaults for :memory:, loaded from YAML otherwise
+    tenant_store = TenantStore(_DEFAULT_TENANTS)
+    app.state.tenant_store = tenant_store
+
+    # Per-tenant workspace services (for isolated tenant-scoped routes)
+    tenant_workspace_svcs: dict[str, WorkspaceService] = {
+        t["id"]: WorkspaceService() for t in _DEFAULT_TENANTS
+    }
+    app.state.tenant_workspace_svcs = tenant_workspace_svcs
+
     from openvibe_platform.routers import approvals as approvals_router
     from openvibe_platform.routers import deliverables as deliverables_router
     from openvibe_platform.routers import roles as roles_router
+    from openvibe_platform.routers import tenants as tenants_router
     from openvibe_platform.routers import workspaces as ws_router
 
     app.include_router(ws_router.make_router(workspace_svc, store), prefix="/api/v1")
     app.include_router(roles_router.make_router(registry, store), prefix="/api/v1")
     app.include_router(approvals_router.make_router(human_loop_svc, store), prefix="/api/v1")
     app.include_router(deliverables_router.make_router(human_loop_svc, store), prefix="/api/v1")
+    app.include_router(tenants_router.router)
 
     return app
 
