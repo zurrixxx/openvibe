@@ -69,6 +69,7 @@ def create_app(data_dir: str | Path | None = None) -> FastAPI:
     app.include_router(approvals_router.make_router(human_loop_svc, store), prefix="/api/v1")
     app.include_router(deliverables_router.make_router(human_loop_svc, store), prefix="/api/v1")
     app.include_router(tenants_router.router)
+    app.include_router(ws_router.make_tenant_router())
 
     return app
 
