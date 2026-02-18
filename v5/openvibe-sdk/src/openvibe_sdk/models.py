@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from datetime import datetime
 from enum import Enum
+from pathlib import Path
 from typing import Any
 
 from pydantic import BaseModel, Field
@@ -210,3 +211,35 @@ class RoleSpec(BaseModel):
     created_by: str = ""
     ttl: str | None = None
     memory_policy: str = "archive"
+
+
+# ── V5 Multi-tenant + Template System ─────────────────────────
+
+
+class TenantContext(BaseModel):
+    """Identity and data isolation context for a platform tenant."""
+
+    id: str
+    name: str
+    data_dir: Path | None = None
+
+    def model_post_init(self, __context: Any) -> None:
+        if self.data_dir is None:
+            self.data_dir = Path.home() / ".openvibe" / self.id
+
+
+class TemplateConfig(BaseModel):
+    """V5 YAML-driven role template definition."""
+
+    name: str
+    soul: dict[str, Any] = Field(default_factory=dict)
+    capabilities: list[str] = Field(default_factory=list)
+
+
+class RoleInstance(BaseModel):
+    """V5 role instantiated from a template."""
+
+    name: str
+    template_id: str
+    soul: dict[str, Any] = Field(default_factory=dict)
+    capabilities: list[str] = Field(default_factory=list)

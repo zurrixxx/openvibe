@@ -23,6 +23,9 @@ from openvibe_sdk.models import (
     TrustProfile, Objective, KeyResult,
 )
 
+# V5 models
+from openvibe_sdk.models import TenantContext, TemplateConfig, RoleInstance
+
 # V3 registry
 from openvibe_sdk.registry import (
     Participant, RoleRegistry, RoleTransport,
@@ -66,4 +69,8 @@ __all__ = [
     "RoleTransport",
     "InMemoryRegistry",
     "InMemoryTransport",
+    # V5 models
+    "TenantContext",
+    "TemplateConfig",
+    "RoleInstance",
 ]
