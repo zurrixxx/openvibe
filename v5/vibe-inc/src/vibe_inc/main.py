@@ -3,6 +3,11 @@ from openvibe_sdk import RoleRuntime
 
 from vibe_inc.roles.d2c_growth import D2CGrowth
 from vibe_inc.roles.d2c_growth.workflows import (
+    create_amazon_campaign_create_graph,
+    create_amazon_competitive_analysis_graph,
+    create_amazon_daily_optimize_graph,
+    create_amazon_search_term_harvest_graph,
+    create_amazon_weekly_report_graph,
     create_experiment_analyze_graph,
     create_funnel_diagnose_graph,
     create_google_campaign_create_graph,
@@ -10,11 +15,19 @@ from vibe_inc.roles.d2c_growth.workflows import (
     create_google_recommendations_review_graph,
     create_google_search_term_mining_graph,
     create_google_weekly_report_graph,
+    create_linkedin_campaign_create_graph,
+    create_linkedin_daily_optimize_graph,
+    create_linkedin_lead_quality_review_graph,
+    create_linkedin_weekly_report_graph,
     create_meta_audience_refresh_graph,
     create_meta_campaign_create_graph,
     create_meta_daily_optimize_graph,
     create_meta_weekly_report_graph,
     create_page_optimize_graph,
+    create_tiktok_campaign_create_graph,
+    create_tiktok_creative_refresh_graph,
+    create_tiktok_daily_optimize_graph,
+    create_tiktok_weekly_report_graph,
 )
 from vibe_inc.roles.data_ops import DataOps
 from vibe_inc.roles.data_ops.workflows import (
@@ -44,6 +57,25 @@ def create_runtime(llm) -> RoleRuntime:
     runtime.register_workflow("google_ad_ops", "search_term_mining", create_google_search_term_mining_graph)
     runtime.register_workflow("google_ad_ops", "weekly_report", create_google_weekly_report_graph)
     runtime.register_workflow("google_ad_ops", "recommendations_review", create_google_recommendations_review_graph)
+
+    # AmazonAdOps workflows
+    runtime.register_workflow("amazon_ad_ops", "campaign_create", create_amazon_campaign_create_graph)
+    runtime.register_workflow("amazon_ad_ops", "daily_optimize", create_amazon_daily_optimize_graph)
+    runtime.register_workflow("amazon_ad_ops", "search_term_harvesting", create_amazon_search_term_harvest_graph)
+    runtime.register_workflow("amazon_ad_ops", "weekly_report", create_amazon_weekly_report_graph)
+    runtime.register_workflow("amazon_ad_ops", "competitive_analysis", create_amazon_competitive_analysis_graph)
+
+    # TikTokAdOps workflows
+    runtime.register_workflow("tiktok_ad_ops", "campaign_create", create_tiktok_campaign_create_graph)
+    runtime.register_workflow("tiktok_ad_ops", "daily_optimize", create_tiktok_daily_optimize_graph)
+    runtime.register_workflow("tiktok_ad_ops", "creative_refresh", create_tiktok_creative_refresh_graph)
+    runtime.register_workflow("tiktok_ad_ops", "weekly_report", create_tiktok_weekly_report_graph)
+
+    # LinkedInAdOps workflows
+    runtime.register_workflow("linkedin_ad_ops", "campaign_create", create_linkedin_campaign_create_graph)
+    runtime.register_workflow("linkedin_ad_ops", "daily_optimize", create_linkedin_daily_optimize_graph)
+    runtime.register_workflow("linkedin_ad_ops", "weekly_report", create_linkedin_weekly_report_graph)
+    runtime.register_workflow("linkedin_ad_ops", "lead_quality_review", create_linkedin_lead_quality_review_graph)
 
     # CROps workflows
     runtime.register_workflow("cro_ops", "experiment_analyze", create_experiment_analyze_graph)

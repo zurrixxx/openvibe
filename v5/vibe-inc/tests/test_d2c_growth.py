@@ -19,6 +19,9 @@ def test_d2c_growth_has_operators():
     op_ids = [op.operator_id for op in D2CGrowth.operators]
     assert "meta_ad_ops" in op_ids
     assert "google_ad_ops" in op_ids
+    assert "amazon_ad_ops" in op_ids
+    assert "tiktok_ad_ops" in op_ids
+    assert "linkedin_ad_ops" in op_ids
     assert "cro_ops" in op_ids
 
 
