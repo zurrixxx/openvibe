@@ -1,0 +1,57 @@
+# Field Mapping — unified conversion names and metric aliases
+# Source: dbt-cdp dbt_project.yml vars + macros/common/ads/
+# Sync: manual (matches dbt var definitions)
+
+# Unified conversion names used in fct_ads_ad_metrics
+# Each has {name}_count and purchase also has {name}_value_in_lcy/usd
+conversion_names:
+  unbounce: Form conversion (Unbounce landing pages)
+  qual_buy_page_view_biz: Qualified buy page view (business)
+  add_to_cart: Add to cart event
+  agg_ecom_action: Aggregated e-commerce action (Facebook pixel)
+  sql: Sales qualified lead (Google conversion)
+  purchase: Completed purchase
+
+# Additional conversion names (not in unified count columns)
+extended_conversion_names:
+  sql_biz: Sales qualified lead (business)
+  mel: Messenger/link engagement
+  qbpv_biz_and_aea: Combined qualified page view + e-commerce action
+  link_click: Link click
+
+# Revenue metrics
+revenue:
+  net_sales: subtotal_charged - subtotal_refunded (fct_order)
+  board_net_sales: Board product net sales
+  bot_net_sales: Bot product net sales
+  net_payment: net_sales - refund_adjustment + tax_charged - tax_refunded
+  purchase_value_in_usd: Attributed ad purchase value (fct_ads_ad_metrics)
+  sales14d: 14-day attributed Amazon sales (fct_ads_amazon_ad_group_metrics)
+
+# Customer acquisition cost
+new_customer:
+  definition: >
+    Net New CAC = ad spend / purchases where customer has no prior order.
+    Known CAC = ad spend / purchases where customer has prior order.
+    Always report separately. Never use blended CAC.
+  tables:
+    - fct_ads_ad_metrics (spend_in_usd)
+    - fct_order (net_sales, order_email, created_at)
+    - fct_website_visitor_conversion (conversion=visitor_close_won)
+
+# Funnel stages (fct_website_visitor_conversion.conversion values)
+funnel_stages:
+  - visitor_gen_by_form_first
+  - visitor_gen_by_chat_first
+  - visitor_qualified_buy_page_view
+  - visitor_agg_ecom_action
+  - visitor_add_to_cart
+  - visitor_init_checkout
+  - visitor_checkout_info_submit_first
+  - visitor_close_won
+
+# Platform identifiers
+platforms:
+  ads: [facebook, google, linkedin, tiktok, bing, twitter]
+  ads_amazon_channels: [SPONSORED_PRODUCTS, SPONSORED_BRANDS, SPONSORED_DISPLAY, DSP]
+  orders: [Shopify, Amazon]

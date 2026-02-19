@@ -1,0 +1,273 @@
+# Vibe CDP Data Catalog — curated from dbt-cdp models
+# Source: https://github.com/vibeus/dbt-cdp
+# Sync: manual (future: automated via dbt manifest parser)
+#
+# This catalog describes the key Redshift tables materialized by dbt.
+# Used by RedshiftProvider to generate dynamic SQL queries.
+
+tables:
+
+  # ── Ads Facts ──────────────────────────────────────────────
+
+  - name: fct_ads_ad_metrics
+    schema: common
+    description: Daily ad-level performance metrics. Union of Facebook, Google, LinkedIn, TikTok, Bing, Twitter.
+    grain: daily per ad
+    materialization: incremental
+    unique_key: daily_ad_metric_pk
+    columns:
+      - {name: daily_ad_metric_pk, type: varchar, role: pk}
+      - {name: daily_ad_group_metric_pk, type: varchar, role: fk}
+      - {name: dim_ads_campaign_sk, type: varchar, role: fk}
+      - {name: dim_ads_ad_group_sk, type: varchar, role: fk}
+      - {name: dim_ads_ad_sk, type: varchar, role: fk}
+      - {name: platform, type: varchar, description: "facebook, google, linkedin, tiktok, bing, twitter"}
+      - {name: account_id, type: varchar}
+      - {name: campaign_id, type: varchar}
+      - {name: ad_group_id, type: varchar}
+      - {name: ad_id, type: varchar}
+      - {name: ads_product_type, type: varchar}
+      - {name: date, type: date}
+      - {name: country_code, type: varchar}
+      - {name: currency_code, type: varchar}
+      - {name: currency_rate, type: numeric}
+      - {name: spend_in_lcy, type: numeric, description: spend in local currency}
+      - {name: spend_in_usd, type: numeric, description: spend in USD}
+      - {name: impressions, type: integer}
+      - {name: clicks, type: integer}
+      # Unified conversion columns (count)
+      - {name: unbounce_count, type: integer}
+      - {name: qual_buy_page_view_biz_count, type: integer}
+      - {name: add_to_cart_count, type: integer}
+      - {name: agg_ecom_action_count, type: integer}
+      - {name: sql_count, type: integer}
+      - {name: purchase_count, type: integer}
+      # Unified conversion columns (value)
+      - {name: purchase_value_in_lcy, type: numeric}
+      - {name: purchase_value_in_usd, type: numeric}
+
+  - name: fct_ads_ad_group_metrics
+    schema: common
+    description: Daily ad-group-level metrics. View aggregating fct_ads_ad_metrics.
+    grain: daily per ad group
+    materialization: view
+    columns:
+      - {name: daily_ad_group_metric_pk, type: varchar, role: pk}
+      - {name: dim_ads_campaign_sk, type: varchar, role: fk}
+      - {name: dim_ads_ad_group_sk, type: varchar, role: fk}
+      - {name: platform, type: varchar}
+      - {name: date, type: date}
+      - {name: spend_in_usd, type: numeric}
+      - {name: impressions, type: integer}
+      - {name: clicks, type: integer}
+      - {name: purchase_count, type: integer}
+      - {name: purchase_value_in_usd, type: numeric}
+
+  - name: fct_ads_amazon_ad_group_metrics
+    schema: common
+    description: Amazon ads metrics (SP, SB, SD, DSP). Separate from fct_ads_ad_metrics.
+    grain: daily per ad group + channel
+    materialization: incremental
+    columns:
+      - {name: daily_ad_group_metric_pk, type: varchar, role: pk}
+      - {name: platform, type: varchar, description: always 'amazon'}
+      - {name: channel, type: varchar, description: "SPONSORED_PRODUCTS, SPONSORED_BRANDS, SPONSORED_DISPLAY, DSP"}
+      - {name: date, type: date}
+      - {name: spend_in_usd, type: numeric}
+      - {name: impressions, type: integer}
+      - {name: clicks, type: integer}
+      - {name: conversions14d, type: integer, description: 14-day attributed conversions}
+      - {name: sales14d, type: numeric, description: 14-day attributed sales USD}
+
+  # ── Ad Dimensions ──────────────────────────────────────────
+
+  - name: dim_ads_campaign
+    schema: common
+    description: Campaign dimension. SK = MD5(platform, campaign_id).
+    columns:
+      - {name: dim_ads_campaign_sk, type: varchar, role: pk}
+      - {name: platform, type: varchar}
+      - {name: account_id, type: varchar}
+      - {name: account_name, type: varchar}
+      - {name: country_code, type: varchar}
+      - {name: campaign_name, type: varchar}
+      - {name: campaign_id, type: varchar}
+
+  - name: dim_ads_ad_group
+    schema: common
+    description: Ad group dimension. SK = MD5(platform, campaign_id, ad_group_id).
+    columns:
+      - {name: dim_ads_ad_group_sk, type: varchar, role: pk}
+      - {name: dim_ads_campaign_sk, type: varchar, role: fk}
+      - {name: platform, type: varchar}
+      - {name: country_code, type: varchar}
+      - {name: campaign_name, type: varchar}
+      - {name: campaign_id, type: varchar}
+      - {name: ad_group_name, type: varchar}
+      - {name: ad_group_id, type: varchar}
+
+  - name: dim_ads_ad
+    schema: common
+    description: Ad dimension. SK = MD5(platform, campaign_id, ad_group_id, ad_id).
+    columns:
+      - {name: dim_ads_ad_sk, type: varchar, role: pk}
+      - {name: dim_ads_ad_group_sk, type: varchar, role: fk}
+      - {name: dim_ads_campaign_sk, type: varchar, role: fk}
+      - {name: platform, type: varchar}
+      - {name: country_code, type: varchar}
+      - {name: campaign_name, type: varchar}
+      - {name: ad_group_name, type: varchar}
+      - {name: ad_name, type: varchar}
+      - {name: ad_id, type: varchar}
+      - {name: type, type: varchar}
+      - {name: created_at, type: timestamp}
+
+  # ── Order Facts ────────────────────────────────────────────
+
+  - name: fct_order
+    schema: common
+    description: Unified orders (Shopify + Amazon). Filtered to is_valid only.
+    grain: one row per order
+    materialization: view
+    columns:
+      - {name: dim_order_sk, type: varchar, role: pk}
+      - {name: order_id, type: varchar}
+      - {name: dim_crm_account_sk, type: varchar, role: fk}
+      - {name: dim_crm_person_sk, type: varchar, role: fk}
+      - {name: order_email, type: varchar}
+      - {name: platform, type: varchar, description: "Shopify or Amazon"}
+      - {name: country_code, type: varchar}
+      - {name: order_name, type: varchar}
+      - {name: checkout_token, type: varchar}
+      - {name: paid, type: boolean}
+      - {name: total_price, type: numeric}
+      - {name: subtotal_price, type: numeric}
+      - {name: subtotal_charged, type: numeric}
+      - {name: subtotal_refunded, type: numeric}
+      - {name: net_sales, type: numeric, description: subtotal_charged - subtotal_refunded}
+      - {name: tax_charged, type: numeric}
+      - {name: tax_refunded, type: numeric}
+      - {name: board_net_sales, type: numeric}
+      - {name: bot_net_sales, type: numeric}
+      - {name: net_payment, type: numeric}
+      - {name: number_of_boards, type: integer}
+      - {name: number_of_bots, type: integer}
+      - {name: pay_channel_inferred, type: varchar}
+      - {name: shipping_country_code, type: varchar}
+      - {name: created_at, type: timestamp}
+      - {name: updated_at, type: timestamp}
+
+  # ── Website Facts ──────────────────────────────────────────
+
+  - name: fct_website_session
+    schema: common
+    description: Website sessions with traffic source and ads attribution.
+    grain: one row per session
+    materialization: view
+    columns:
+      - {name: dim_website_session_sk, type: varchar, role: pk}
+      - {name: dim_website_visitor_sk, type: varchar, role: fk}
+      - {name: visitor_id, type: varchar}
+      - {name: ip, type: varchar}
+      - {name: session_page_viewed, type: integer}
+      - {name: session_time_engaged_in_s, type: integer}
+      - {name: session_start_referring_domain, type: varchar}
+      - {name: session_first_page_tstamp, type: timestamp}
+      - {name: session_traffic_channel, type: varchar}
+      - {name: session_ad_source, type: varchar}
+      - {name: session_campaign_source, type: varchar}
+      - {name: session_campaign_medium, type: varchar}
+      - {name: session_campaign_name_utm, type: varchar}
+      - {name: session_campaign_id, type: varchar}
+      - {name: session_ad_group_id, type: varchar}
+      - {name: session_ad_id, type: varchar}
+      - {name: dim_ads_campaign_sk, type: varchar, role: fk}
+      - {name: dim_ads_ad_group_sk, type: varchar, role: fk}
+      - {name: dim_ads_ad_sk, type: varchar, role: fk}
+
+  - name: fct_website_visitor_conversion
+    schema: common
+    description: Funnel conversion events — lead gen, add_to_cart, checkout, purchase.
+    grain: one row per conversion event
+    materialization: incremental
+    columns:
+      - {name: event_pk, type: varchar, role: pk}
+      - {name: visitor_id, type: varchar}
+      - {name: session_id, type: varchar}
+      - {name: event_id, type: varchar}
+      - {name: conversion, type: varchar, description: "visitor_add_to_cart, visitor_init_checkout, visitor_close_won, etc."}
+      - {name: conversion_value, type: numeric}
+      - {name: conversion_related_id, type: varchar}
+      - {name: detail, type: varchar}
+      - {name: original_tstamp, type: timestamp}
+
+  - name: fct_website_page_view
+    schema: common
+    description: Individual page view events.
+    grain: one row per page view
+    materialization: incremental
+    columns:
+      - {name: event_pk, type: varchar, role: pk}
+      - {name: website_page_view_pk, type: varchar}
+      - {name: dim_website_session_sk, type: varchar, role: fk}
+
+  # ── Email Facts ────────────────────────────────────────────
+
+  - name: fct_email_event
+    schema: common
+    description: Email send/engagement events (Klaviyo). Delivery, opens, clicks, attribution.
+    grain: one row per sent email
+    materialization: incremental
+    columns:
+      - {name: sent_email_pk, type: varchar, role: pk}
+      - {name: sent_email_id, type: varchar}
+      - {name: email_series_id, type: varchar}
+      - {name: email_message_id, type: varchar}
+      - {name: klaviyo_person_id, type: varchar}
+      - {name: sent_result, type: varchar, description: "Received, Bounced, Dropped"}
+      - {name: sent_tstamp, type: timestamp}
+      - {name: count_open_total, type: integer}
+      - {name: count_click_total, type: integer}
+      - {name: first_open_tstamp, type: timestamp}
+      - {name: first_click_tstamp, type: timestamp}
+      - {name: clicked_url_list, type: varchar}
+      - {name: reported_attribution_order_count, type: integer}
+
+  # ── Marketing Marts ────────────────────────────────────────
+
+  - name: mart_ads_reported_performance_by_ad
+    schema: common_mart_marketing
+    description: Pre-built ad-level daily performance with spend, clicks, conversions, ROAS.
+    grain: daily per ad
+    materialization: incremental
+
+  - name: mart_ads_reported_performance_by_ad_group
+    schema: common_mart_marketing
+    description: Pre-built ad-group-level daily performance rollup.
+    grain: daily per ad group
+    materialization: incremental
+
+  - name: mart_email_performance
+    schema: common_mart_marketing
+    description: Email performance with downstream conversion attribution and CRM engagement.
+    grain: one row per sent email
+    materialization: incremental
+    columns:
+      - {name: sent_email_id, type: varchar, role: pk}
+      - {name: email_series_name, type: varchar}
+      - {name: email_message_name, type: varchar}
+      - {name: sent_result, type: varchar}
+      - {name: count_open_total, type: integer}
+      - {name: count_click_total, type: integer}
+      - {name: visitor_close_won_value, type: numeric, description: attributed purchase value}
+
+  - name: mart_website_page_performance
+    schema: common_mart_marketing
+    description: Aggregated website page view performance.
+    grain: one row per page view event
+    materialization: incremental
+
+  - name: mart_amazon_sales_and_traffic
+    schema: common_mart_marketing
+    description: Amazon sales and traffic unified view.
+    materialization: incremental
