@@ -2,6 +2,7 @@
 from openvibe_sdk import Role
 
 from .cro_ops import CROps
+from .google_ad_ops import GoogleAdOps
 from .meta_ad_ops import MetaAdOps
 
 _SOUL = """You are D2C Growth for Vibe Inc.
@@ -31,4 +32,4 @@ Escalation rules:
 class D2CGrowth(Role):
     role_id = "d2c_growth"
     soul = _SOUL
-    operators = [MetaAdOps, CROps]
+    operators = [MetaAdOps, GoogleAdOps, CROps]

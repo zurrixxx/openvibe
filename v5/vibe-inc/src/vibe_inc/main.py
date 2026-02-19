@@ -5,6 +5,11 @@ from vibe_inc.roles.d2c_growth import D2CGrowth
 from vibe_inc.roles.d2c_growth.workflows import (
     create_experiment_analyze_graph,
     create_funnel_diagnose_graph,
+    create_google_campaign_create_graph,
+    create_google_daily_optimize_graph,
+    create_google_recommendations_review_graph,
+    create_google_search_term_mining_graph,
+    create_google_weekly_report_graph,
     create_meta_audience_refresh_graph,
     create_meta_campaign_create_graph,
     create_meta_daily_optimize_graph,
@@ -32,6 +37,13 @@ def create_runtime(llm) -> RoleRuntime:
     runtime.register_workflow("meta_ad_ops", "daily_optimize", create_meta_daily_optimize_graph)
     runtime.register_workflow("meta_ad_ops", "weekly_report", create_meta_weekly_report_graph)
     runtime.register_workflow("meta_ad_ops", "audience_refresh", create_meta_audience_refresh_graph)
+
+    # GoogleAdOps workflows
+    runtime.register_workflow("google_ad_ops", "campaign_create", create_google_campaign_create_graph)
+    runtime.register_workflow("google_ad_ops", "daily_optimize", create_google_daily_optimize_graph)
+    runtime.register_workflow("google_ad_ops", "search_term_mining", create_google_search_term_mining_graph)
+    runtime.register_workflow("google_ad_ops", "weekly_report", create_google_weekly_report_graph)
+    runtime.register_workflow("google_ad_ops", "recommendations_review", create_google_recommendations_review_graph)
 
     # CROps workflows
     runtime.register_workflow("cro_ops", "experiment_analyze", create_experiment_analyze_graph)

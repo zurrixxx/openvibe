@@ -56,6 +56,46 @@ def test_meta_audience_refresh_graph_invokes():
     assert "audience_result" in result
 
 
+# --- GoogleAdOps workflows ---
+
+
+def test_google_daily_optimize_graph_compiles():
+    from vibe_inc.roles.d2c_growth.workflows import create_google_daily_optimize_graph
+    from vibe_inc.roles.d2c_growth.google_ad_ops import GoogleAdOps
+
+    op = GoogleAdOps(llm=FakeLLM())
+    graph = create_google_daily_optimize_graph(op)
+    assert graph is not None
+
+
+def test_google_campaign_create_graph_compiles():
+    from vibe_inc.roles.d2c_growth.workflows import create_google_campaign_create_graph
+    from vibe_inc.roles.d2c_growth.google_ad_ops import GoogleAdOps
+
+    op = GoogleAdOps(llm=FakeLLM())
+    graph = create_google_campaign_create_graph(op)
+    assert graph is not None
+
+
+def test_google_search_term_mining_graph_invokes():
+    from vibe_inc.roles.d2c_growth.workflows import create_google_search_term_mining_graph
+    from vibe_inc.roles.d2c_growth.google_ad_ops import GoogleAdOps
+
+    op = GoogleAdOps(llm=FakeLLM())
+    graph = create_google_search_term_mining_graph(op)
+    result = graph.invoke({"campaign_id": "123"})
+    assert "search_terms" in result
+
+
+def test_google_recommendations_review_graph_compiles():
+    from vibe_inc.roles.d2c_growth.workflows import create_google_recommendations_review_graph
+    from vibe_inc.roles.d2c_growth.google_ad_ops import GoogleAdOps
+
+    op = GoogleAdOps(llm=FakeLLM())
+    graph = create_google_recommendations_review_graph(op)
+    assert graph is not None
+
+
 # --- CROps workflows ---
 
 

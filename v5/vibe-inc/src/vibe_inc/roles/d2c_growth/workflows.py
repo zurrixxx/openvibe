@@ -105,3 +105,60 @@ def create_meta_weekly_report_graph(operator):
     graph.set_entry_point("report")
     graph.set_finish_point("report")
     return graph.compile()
+
+
+# --- GoogleAdOps workflows ---
+
+
+class SearchTermState(TypedDict, total=False):
+    campaign_id: str
+    search_terms: str
+
+
+class RecommendationsState(TypedDict, total=False):
+    recommendations_result: str
+
+
+def create_google_daily_optimize_graph(operator):
+    """Google daily optimization: query performance → analyze → adjust bids."""
+    graph = StateGraph(OptimizeState)
+    graph.add_node("optimize", operator.daily_optimize)
+    graph.set_entry_point("optimize")
+    graph.set_finish_point("optimize")
+    return graph.compile()
+
+
+def create_google_campaign_create_graph(operator):
+    """Google campaign creation: read brief → build campaign → return resource names."""
+    graph = StateGraph(CampaignState)
+    graph.add_node("create", operator.campaign_create)
+    graph.set_entry_point("create")
+    graph.set_finish_point("create")
+    return graph.compile()
+
+
+def create_google_search_term_mining_graph(operator):
+    """Google search term mining: query terms → categorize → recommend."""
+    graph = StateGraph(SearchTermState)
+    graph.add_node("mine", operator.search_term_mining)
+    graph.set_entry_point("mine")
+    graph.set_finish_point("mine")
+    return graph.compile()
+
+
+def create_google_weekly_report_graph(operator):
+    """Google weekly report: query metrics → analyze → format report."""
+    graph = StateGraph(ReportState)
+    graph.add_node("report", operator.weekly_report)
+    graph.set_entry_point("report")
+    graph.set_finish_point("report")
+    return graph.compile()
+
+
+def create_google_recommendations_review_graph(operator):
+    """Google recommendations review: fetch → categorize → apply/flag."""
+    graph = StateGraph(RecommendationsState)
+    graph.add_node("review", operator.recommendations_review)
+    graph.set_entry_point("review")
+    graph.set_finish_point("review")
+    return graph.compile()
