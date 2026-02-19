@@ -1,0 +1,24 @@
+bot:
+  primary:
+    title: "SMB Meeting-Heavy Manager"
+    company_size: "50-200 employees"
+    behavior: "10+ meetings per week"
+    pain: "Action items lost, meetings repeated"
+  secondary:
+    title: "Sales Team Lead"
+    behavior: "Client-facing meetings daily"
+    pain: "No memory of what was promised"
+dot:
+  primary:
+    title: "Knowledge Worker"
+    behavior: "Constant context switching, ideas during commute/walk"
+    pain: "Best ideas arrive when not ready to capture"
+  secondary:
+    title: "Sales Rep"
+    behavior: "Client calls throughout day"
+    pain: "Manual note-taking during conversations"
+board:
+  primary:
+    title: "K-12 Administrator"
+    behavior: "Classroom tech procurement"
+    pain: "Legacy whiteboards, need Google integration"

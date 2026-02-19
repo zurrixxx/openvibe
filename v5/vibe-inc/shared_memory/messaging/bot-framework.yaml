@@ -1,0 +1,25 @@
+product: Vibe Bot
+status: validating  # validating | locked | revising
+positioning:
+  primary: "The room that remembers for you"
+  supporting:
+    - "Every meeting outcome captured, every action tracked"
+    - "Cross-platform: works with Zoom, Teams, Meet, in-person"
+  proof_points:
+    - "360° audio capture"
+    - "AI action extraction, not just transcription"
+    - "Integrates with Vibe Workspace for team memory"
+narrative_test:
+  status: in_progress
+  variants:
+    - id: control
+      message: "Vibebot: AI Meeting Room Device"
+    - id: pain
+      message: "Why do we have the same meeting every week?"
+    - id: foundation
+      message: "The room that remembers for you"
+    - id: future
+      message: "Meetings that actually move forward"
+  current_leader: foundation
+  confidence: 0.72
+  decision_date: "2026-03-07"

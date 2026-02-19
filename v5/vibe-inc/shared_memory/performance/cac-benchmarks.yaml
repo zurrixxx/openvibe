@@ -1,0 +1,15 @@
+bot:
+  target_cac: 400
+  current_cac: null  # Not yet measured (Net New)
+  blended_cac: null  # Current reported, unreliable
+  target_cvr: 0.02
+  target_revenue_per_visitor: 15
+dot:
+  target_cac: 300
+  current_cac: null
+  target_cvr: 0.01
+  target_revenue_per_visitor: 3
+board:
+  target_cac: null  # D2C Board not primary focus
+  current_cvr: 0.015
+  target_cvr: 0.025

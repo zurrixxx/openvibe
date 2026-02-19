@@ -1,0 +1,20 @@
+product: Vibe Dot
+status: validating
+positioning:
+  primary: "Your brain is for thinking, not remembering"
+  supporting:
+    - "Always-on AI that captures conversations, thoughts, meetings"
+    - "AI-powered retrieval — ask questions, get answers"
+  proof_points:
+    - "Portable, always-on"
+    - "AI retrieval, not just playback"
+    - "Integrates with Vibe Workspace"
+narrative_test:
+  status: in_progress
+  variants:
+    - id: line_a
+      message: "Mental Bandwidth — You're taking notes OR listening. Pick one."
+    - id: line_b
+      message: "AI Helper — AI doesn't just record, it helps you remember"
+  current_leader: line_a
+  decision_date: "2026-03-14"
