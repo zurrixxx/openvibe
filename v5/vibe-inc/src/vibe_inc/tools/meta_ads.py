@@ -1,4 +1,4 @@
-"""Meta Ads API tools for Story Distributor role."""
+"""Meta Ads API tools for D2C Growth role."""
 import os
 
 

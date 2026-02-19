@@ -1,4 +1,4 @@
-"""LangGraph workflow factories for Story Distributor."""
+"""LangGraph workflow factories for D2C Growth."""
 from typing import TypedDict
 
 from langgraph.graph import StateGraph

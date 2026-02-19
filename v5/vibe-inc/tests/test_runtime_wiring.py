@@ -6,12 +6,12 @@ class FakeLLM:
         return LLMResponse(content="done")
 
 
-def test_runtime_loads_story_distributor():
+def test_runtime_loads_d2c_growth():
     from vibe_inc.main import create_runtime
 
     runtime = create_runtime(llm=FakeLLM())
-    role = runtime.get_role("story_distributor")
-    assert role.role_id == "story_distributor"
+    role = runtime.get_role("d2c_growth")
+    assert role.role_id == "d2c_growth"
 
 
 def test_runtime_activates_daily_optimize():
@@ -19,7 +19,7 @@ def test_runtime_activates_daily_optimize():
 
     runtime = create_runtime(llm=FakeLLM())
     result = runtime.activate(
-        role_id="story_distributor",
+        role_id="d2c_growth",
         operator_id="ad_ops",
         workflow_id="daily_optimize",
         input_data={"date": "2026-02-19"},
@@ -32,7 +32,7 @@ def test_runtime_activates_experiment_analyze():
 
     runtime = create_runtime(llm=FakeLLM())
     result = runtime.activate(
-        role_id="story_distributor",
+        role_id="d2c_growth",
         operator_id="cro_ops",
         workflow_id="experiment_analyze",
         input_data={"product": "bot"},

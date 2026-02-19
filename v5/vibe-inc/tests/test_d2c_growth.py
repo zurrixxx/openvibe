@@ -13,33 +13,33 @@ class FakeLLM:
         return LLMResponse(content=self.content)
 
 
-def test_story_distributor_has_operators():
-    from vibe_inc.roles.story_distributor import StoryDistributor
-    assert StoryDistributor.role_id == "story_distributor"
-    op_ids = [op.operator_id for op in StoryDistributor.operators]
+def test_d2c_growth_has_operators():
+    from vibe_inc.roles.d2c_growth import D2CGrowth
+    assert D2CGrowth.role_id == "d2c_growth"
+    op_ids = [op.operator_id for op in D2CGrowth.operators]
     assert "ad_ops" in op_ids
     assert "cro_ops" in op_ids
 
 
-def test_story_distributor_has_soul():
-    from vibe_inc.roles.story_distributor import StoryDistributor
-    assert StoryDistributor.soul != ""
-    assert "Net New CAC" in StoryDistributor.soul
+def test_d2c_growth_has_soul():
+    from vibe_inc.roles.d2c_growth import D2CGrowth
+    assert D2CGrowth.soul != ""
+    assert "Net New CAC" in D2CGrowth.soul
 
 
-def test_story_distributor_get_operator():
-    from vibe_inc.roles.story_distributor import StoryDistributor
+def test_d2c_growth_get_operator():
+    from vibe_inc.roles.d2c_growth import D2CGrowth
 
-    role = StoryDistributor(llm=FakeLLM())
+    role = D2CGrowth(llm=FakeLLM())
     ad_ops = role.get_operator("ad_ops")
     assert ad_ops.operator_id == "ad_ops"
 
 
-def test_story_distributor_soul_injected_in_prompt():
-    from vibe_inc.roles.story_distributor import StoryDistributor
+def test_d2c_growth_soul_injected_in_prompt():
+    from vibe_inc.roles.d2c_growth import D2CGrowth
 
     llm = FakeLLM()
-    role = StoryDistributor(llm=llm)
+    role = D2CGrowth(llm=llm)
     ad_ops = role.get_operator("ad_ops")
     ad_ops.campaign_create({"brief": {"product": "bot"}})
 

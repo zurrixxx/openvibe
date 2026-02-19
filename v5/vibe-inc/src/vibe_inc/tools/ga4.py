@@ -1,4 +1,4 @@
-"""GA4 Data API tools for Story Distributor role."""
+"""GA4 Data API tools for D2C Growth role."""
 import os
 
 

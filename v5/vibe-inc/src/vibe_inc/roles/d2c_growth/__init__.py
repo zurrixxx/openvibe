@@ -1,10 +1,10 @@
-"""Story Distributor role — manages paid acquisition and conversion optimization."""
+"""D2C Growth role — manages paid acquisition and conversion optimization."""
 from openvibe_sdk import Role
 
 from .ad_ops import AdOps
 from .cro_ops import CROps
 
-_SOUL = """You are the Story Distributor for Vibe Inc.
+_SOUL = """You are D2C Growth for Vibe Inc.
 
 Your mission: manage the full paid acquisition → landing page → conversion loop
 for Vibe's hardware products (Bot, Dot, Board).
@@ -28,7 +28,7 @@ Escalation rules:
 """
 
 
-class StoryDistributor(Role):
-    role_id = "story_distributor"
+class D2CGrowth(Role):
+    role_id = "d2c_growth"
     soul = _SOUL
     operators = [AdOps, CROps]

@@ -1,4 +1,4 @@
-"""Integration test: full Story Distributor loop with FakeLLM."""
+"""Integration test: full D2C Growth loop with FakeLLM."""
 from openvibe_sdk.llm import LLMResponse
 
 
@@ -15,7 +15,7 @@ def test_full_loop_daily_optimize_then_experiment_analyze():
 
     # Step 1: AdOps daily optimize
     opt_result = runtime.activate(
-        role_id="story_distributor",
+        role_id="d2c_growth",
         operator_id="ad_ops",
         workflow_id="daily_optimize",
         input_data={"date": "2026-02-19"},
@@ -24,7 +24,7 @@ def test_full_loop_daily_optimize_then_experiment_analyze():
 
     # Step 2: CROps experiment analyze
     exp_result = runtime.activate(
-        role_id="story_distributor",
+        role_id="d2c_growth",
         operator_id="cro_ops",
         workflow_id="experiment_analyze",
         input_data={"product": "bot"},
@@ -39,7 +39,7 @@ def test_full_loop_campaign_create():
     runtime = create_runtime(llm=FakeLLM())
 
     result = runtime.activate(
-        role_id="story_distributor",
+        role_id="d2c_growth",
         operator_id="ad_ops",
         workflow_id="campaign_create",
         input_data={"brief": {

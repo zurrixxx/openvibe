@@ -28,7 +28,7 @@ class FakeAgentLLM:
 
 def test_campaign_create_is_agent_node():
     """campaign_create must be an agent_node with tools."""
-    from vibe_inc.roles.story_distributor.ad_ops import AdOps
+    from vibe_inc.roles.d2c_growth.ad_ops import AdOps
     assert hasattr(AdOps.campaign_create, "_is_agent_node")
     assert AdOps.campaign_create._is_agent_node is True
     assert "meta_ads_create" in AdOps.campaign_create._node_config["tools"]
@@ -36,7 +36,7 @@ def test_campaign_create_is_agent_node():
 
 def test_campaign_create_uses_brief():
     """campaign_create sends the brief to the LLM."""
-    from vibe_inc.roles.story_distributor.ad_ops import AdOps
+    from vibe_inc.roles.d2c_growth.ad_ops import AdOps
 
     llm = FakeAgentLLM([_text_response("Campaign created: Bot Foundation")])
     op = AdOps(llm=llm)
@@ -49,7 +49,7 @@ def test_campaign_create_uses_brief():
 
 def test_campaign_create_docstring_is_system_prompt():
     """The docstring becomes the LLM system prompt."""
-    from vibe_inc.roles.story_distributor.ad_ops import AdOps
+    from vibe_inc.roles.d2c_growth.ad_ops import AdOps
 
     llm = FakeAgentLLM([_text_response()])
     op = AdOps(llm=llm)
@@ -61,13 +61,13 @@ def test_campaign_create_docstring_is_system_prompt():
 # --- Task 8: daily_optimize ---
 
 def test_daily_optimize_is_agent_node():
-    from vibe_inc.roles.story_distributor.ad_ops import AdOps
+    from vibe_inc.roles.d2c_growth.ad_ops import AdOps
     assert hasattr(AdOps.daily_optimize, "_is_agent_node")
     assert "meta_ads_read" in AdOps.daily_optimize._node_config["tools"]
 
 
 def test_daily_optimize_reads_performance():
-    from vibe_inc.roles.story_distributor.ad_ops import AdOps
+    from vibe_inc.roles.d2c_growth.ad_ops import AdOps
 
     llm = FakeAgentLLM([_text_response("Optimized: paused 2 underperformers")])
     op = AdOps(llm=llm)
@@ -78,7 +78,7 @@ def test_daily_optimize_reads_performance():
 
 
 def test_daily_optimize_system_prompt_mentions_thresholds():
-    from vibe_inc.roles.story_distributor.ad_ops import AdOps
+    from vibe_inc.roles.d2c_growth.ad_ops import AdOps
 
     llm = FakeAgentLLM([_text_response()])
     op = AdOps(llm=llm)
@@ -91,12 +91,12 @@ def test_daily_optimize_system_prompt_mentions_thresholds():
 # --- Task 9: weekly_report ---
 
 def test_weekly_report_is_agent_node():
-    from vibe_inc.roles.story_distributor.ad_ops import AdOps
+    from vibe_inc.roles.d2c_growth.ad_ops import AdOps
     assert hasattr(AdOps.weekly_report, "_is_agent_node")
 
 
 def test_weekly_report_output_key():
-    from vibe_inc.roles.story_distributor.ad_ops import AdOps
+    from vibe_inc.roles.d2c_growth.ad_ops import AdOps
 
     llm = FakeAgentLLM([_text_response("Weekly: Bot CAC $380, Dot CAC $270")])
     op = AdOps(llm=llm)

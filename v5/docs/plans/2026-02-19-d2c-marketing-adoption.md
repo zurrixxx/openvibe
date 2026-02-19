@@ -38,14 +38,14 @@ The fundamental insight: D2C marketing is storytelling at scale. Every activity 
 
 | Role | Function | Core Question | Cadence |
 |------|----------|---------------|---------|
-| **Story Strategist** | Decide the story | What to say, to whom, why | Monthly |
-| **Story Creator** | Birth the story | How to say it, in what form | Weekly |
-| **Story Distributor** | Spread the story | Where to say it, how much to spend, what works | Daily |
+| **D2C Strategy** | Decide the story | What to say, to whom, why | Monthly |
+| **D2C Content** | Birth the story | How to say it, in what form | Weekly |
+| **D2C Growth** | Spread the story | Where to say it, how much to spend, what works | Daily |
 
 ### Dependency Flow
 
 ```
-Story Strategist ──→ Story Creator ──→ Story Distributor
+D2C Strategy ──→ D2C Content ──→ D2C Growth
   (what)               (how)             (where)
                                               │
                                               └──→ performance data
@@ -67,7 +67,7 @@ shared_memory/
 │   └── board-framework.yaml    # Board positioning + messaging hierarchy
 ├── audiences/
 │   ├── icp-definitions.yaml    # Ideal customer profiles per product
-│   └── winning-segments.yaml   # Validated audience segments (from Distributor)
+│   └── winning-segments.yaml   # Validated audience segments (from Growth)
 ├── competitive/
 │   ├── battlecards/            # Per-competitor analysis
 │   └── market-signals.yaml     # Recent competitive moves
@@ -82,17 +82,17 @@ shared_memory/
 
 ---
 
-## 3. Role 1: Story Distributor (Phase 1)
+## 3. Role 1: D2C Growth (Phase 1)
 
 > "投放 + CRO — 花多少钱, 投给谁, 转化率怎么提"
 
 ### SOUL
 
 ```yaml
-name: Story Distributor
+name: D2C Growth
 soul:
   identity:
-    name: Story Distributor
+    name: D2C Growth
     role: Performance marketing and conversion optimization engine
     description: >
       Manages the full paid acquisition → landing page → conversion loop
@@ -147,9 +147,9 @@ soul:
 | `experiment_analyze` | Daily (when experiments active) | GA4 events per variant | Performance table + significance + winner rec | None |
 | `funnel_diagnose` | Weekly or on-demand | Full funnel data by product | Drop-off analysis + fix recommendations | None |
 | `page_optimize` | Manual | Page ID, optimization spec | Modified LP content | Required |
-| `experiment_setup` | On request from Strategist | Variants, traffic %, metrics, duration | A/B test configuration | Required |
+| `experiment_setup` | On request from Strategy | Variants, traffic %, metrics, duration | A/B test configuration | Required |
 
-**Note:** Story Strategist *requests* experiments (defines what to test and why). Story Distributor *executes* them (sets up tracking, allocates traffic, collects data). Strategist then *interprets* results via `validate_story` workflow.
+**Note:** D2C Strategy *requests* experiments (defines what to test and why). D2C Growth *executes* them (sets up tracking, allocates traffic, collects data). Strategy then *interprets* results via `validate_story` workflow.
 
 **Tools:**
 
@@ -189,23 +189,23 @@ Daily Loop:
 
 ---
 
-## 4. Role 2: Story Strategist (Phase 2)
+## 4. Role 2: D2C Strategy (Phase 2)
 
 > "PMM + positioning — 讲什么故事, 讲给谁, 为什么这么讲"
 
 ### SOUL
 
 ```yaml
-name: Story Strategist
+name: D2C Strategy
 soul:
   identity:
-    name: Story Strategist
+    name: D2C Strategy
     role: Product marketing strategist and competitive intelligence analyst
     description: >
       Defines positioning, messaging frameworks, and ICP for each product.
       Validates stories through data. Maintains competitive battlecards.
-      Outputs are the source of truth for what Creator creates and
-      Distributor distributes.
+      Outputs are the source of truth for what Content creates and
+      Growth distributes.
   philosophy:
     principles:
       - Positioning is a bet — validate fast, commit hard
@@ -230,7 +230,7 @@ soul:
 | Workflow | Trigger | Input | Output | Approval |
 |----------|---------|-------|--------|----------|
 | `define_framework` | Manual / quarterly | Product specs, market research, ICP data | Messaging framework (primary → supporting → proof) | Required |
-| `validate_story` | Weekly (during test) | Story validation experiment data (from Distributor) | Winner analysis + positioning lock recommendation | Required for lock |
+| `validate_story` | Weekly (during test) | Story validation experiment data (from Growth) | Winner analysis + positioning lock recommendation | Required for lock |
 | `refine_icp` | Monthly | Purchase data, survey data, CRM signals | Updated ICP definitions | Required |
 
 ### Operator: CompetitiveIntel
@@ -279,22 +279,22 @@ narrative_test:
 
 ---
 
-## 5. Role 3: Story Creator (Phase 3)
+## 5. Role 3: D2C Content (Phase 3)
 
 > "内容生产 + 素材工厂 — 怎么讲故事, 用什么形式"
 
 ### SOUL
 
 ```yaml
-name: Story Creator
+name: D2C Content
 soul:
   identity:
-    name: Story Creator
+    name: D2C Content
     role: Content strategist, writer, and creative producer
     description: >
       Produces all content assets for D2C: SEO articles, product pages,
       comparison pieces, ad creatives, video briefs. Every piece aligns
-      with the messaging framework from Story Strategist.
+      with the messaging framework from D2C Strategy.
   philosophy:
     principles:
       - Segment-first — every piece targets a specific ICP
@@ -355,19 +355,19 @@ v5/vibe-inc/
 │   └── secrets.env                  # API credentials (gitignored)
 │
 ├── roles/
-│   ├── story_distributor/
+│   ├── d2c_growth/
 │   │   ├── __init__.py              # Role class
 │   │   ├── ad_ops.py                # AdOps operator
 │   │   ├── cro_ops.py               # CROps operator
 │   │   └── workflows.py             # LangGraph workflow factories
 │   │
-│   ├── story_strategist/
+│   ├── d2c_strategy/
 │   │   ├── __init__.py
 │   │   ├── positioning.py           # PositioningEngine operator
 │   │   ├── competitive.py           # CompetitiveIntel operator
 │   │   └── workflows.py
 │   │
-│   └── story_creator/
+│   └── d2c_content/
 │       ├── __init__.py
 │       ├── content_engine.py        # ContentEngine operator
 │       ├── creative_factory.py      # CreativeFactory operator
@@ -381,11 +381,11 @@ v5/vibe-inc/
 │   └── seo.py                       # SEO tool wrapper
 │
 └── shared_memory/
-    ├── messaging/                   # Populated by Strategist
-    ├── audiences/                   # Populated by Strategist + Distributor
-    ├── competitive/                 # Populated by Strategist
-    ├── performance/                 # Populated by Distributor
-    └── content/                     # Populated by Creator
+    ├── messaging/                   # Populated by Strategy
+    ├── audiences/                   # Populated by Strategy + Growth
+    ├── competitive/                 # Populated by Strategy
+    ├── performance/                 # Populated by Growth
+    └── content/                     # Populated by Content
 ```
 
 ### SDK Integration Pattern
@@ -397,18 +397,18 @@ v5/vibe-inc/
 - `RoleRuntime` instantiates roles and dispatches activations.
 
 ```python
-# v5/vibe-inc/roles/story_distributor/__init__.py
+# v5/vibe-inc/roles/d2c_growth/__init__.py
 from openvibe_sdk import Role
 from .ad_ops import AdOps
 from .cro_ops import CROps
 
-class StoryDistributor(Role):
-    role_id = "story_distributor"
+class D2CGrowth(Role):
+    role_id = "d2c_growth"
     operators = [AdOps, CROps]
 ```
 
 ```python
-# v5/vibe-inc/roles/story_distributor/ad_ops.py
+# v5/vibe-inc/roles/d2c_growth/ad_ops.py
 from openvibe_sdk import Operator, agent_node
 from ...tools.meta_ads import meta_ads_read, meta_ads_create, meta_ads_update
 from ...tools.google_ads import google_ads_read, google_ads_create, google_ads_update
@@ -443,7 +443,7 @@ class AdOps(Operator):
 ```
 
 ```python
-# v5/vibe-inc/roles/story_distributor/workflows.py
+# v5/vibe-inc/roles/d2c_growth/workflows.py
 from typing import TypedDict
 from langgraph.graph import StateGraph
 
@@ -477,14 +477,14 @@ def create_campaign_create_graph(operator):
 # v5/vibe-inc/main.py — Runtime wiring
 from openvibe_runtime import RoleRuntime
 from openvibe_sdk.llm import AnthropicProvider
-from roles.story_distributor import StoryDistributor
-from roles.story_distributor.workflows import (
+from roles.d2c_growth import D2CGrowth
+from roles.d2c_growth.workflows import (
     create_daily_optimize_graph, create_campaign_create_graph
 )
 
 # Initialize runtime with role classes
 llm = AnthropicProvider()
-runtime = RoleRuntime(roles=[StoryDistributor], llm=llm)
+runtime = RoleRuntime(roles=[D2CGrowth], llm=llm)
 
 # Register workflow factories
 runtime.register_workflow("ad_ops", "daily_optimize", create_daily_optimize_graph)
@@ -492,7 +492,7 @@ runtime.register_workflow("ad_ops", "campaign_create", create_campaign_create_gr
 
 # Activate a workflow
 result = runtime.activate(
-    role_id="story_distributor",
+    role_id="d2c_growth",
     operator_id="ad_ops",
     workflow_id="daily_optimize",
     input_data={"date": "2026-02-19"}
@@ -597,7 +597,7 @@ Loaded via `python-dotenv` in role initialization. Never committed to git.
 
 ## 7. Phased Rollout
 
-### Phase 1: Story Distributor (Weeks 1-8)
+### Phase 1: D2C Growth (Weeks 1-8)
 
 **Goal:** Ads + CRO running with daily optimization and weekly reporting.
 
@@ -622,7 +622,7 @@ Loaded via `python-dotenv` in role initialization. Never committed to git.
 - Weekly report matches human-generated reports
 - At least 1 autonomous bid adjustment validated
 
-### Phase 2: Story Strategist (Weeks 7-10)
+### Phase 2: D2C Strategy (Weeks 7-10)
 
 **Goal:** PMM decisions formalized, competitive intel automated.
 
@@ -630,23 +630,23 @@ Loaded via `python-dotenv` in role initialization. Never committed to git.
 |------|-----------|-------------|
 | 7 | PositioningEngine | define_framework + validate_story workflows |
 | 8 | CompetitiveIntel | weekly_scan + threat_assess workflows |
-| 9 | Shared memory | Replace hardcoded messaging with dynamic Strategist output |
-| 10 | Validation | Strategist analysis matches Tara's positioning decisions |
+| 9 | Shared memory | Replace hardcoded messaging with dynamic Strategy output |
+| 10 | Validation | Strategy analysis matches Tara's positioning decisions |
 
 **Gate → Phase 3:**
 - Messaging frameworks generated for all 3 products
 - Weekly competitive scan running
 - Story validation analysis automated
 
-### Phase 3: Story Creator (Weeks 11-16)
+### Phase 3: D2C Content (Weeks 11-16)
 
-**Goal:** Content machine producing 10+/month, creative variants feeding Distributor.
+**Goal:** Content machine producing 10+/month, creative variants feeding Growth.
 
 | Week | Milestone | Deliverable |
 |------|-----------|-------------|
 | 11-12 | ContentEngine | research_topics + write_article workflows |
 | 13 | CreativeFactory | generate_ad_copy + analyze_creative_performance |
-| 14-15 | Integration | Full loop: Strategist → Creator → Distributor |
+| 14-15 | Integration | Full loop: Strategy → Content → Growth |
 | 16 | Validation | Published content matches quality bar, creative variants tested |
 
 **Gate → Scale:**
@@ -658,24 +658,24 @@ Loaded via `python-dotenv` in role initialization. Never committed to git.
 
 ## 8. Success Criteria
 
-### Phase 1 (Distributor)
+### Phase 1 (Growth)
 - Net New CAC tracked separately from Known (currently not possible)
 - Daily optimization running without manual intervention
 - Story validation experiments analyzed automatically
 - CVR improvement on at least 1 product PDP
 
-### Phase 2 (Strategist)
+### Phase 2 (Strategy)
 - Messaging frameworks exist for Bot, Dot, Board
 - Competitive battlecards updated weekly
 - Story validation winner identified with data backing
 
-### Phase 3 (Creator)
+### Phase 3 (Content)
 - Content machine: 10+/month published
 - Ad creative: 3-5 variants per campaign tested
 - Organic traffic share: 27% → 32%+
 
 ### Overall (by end of Phase 3)
-- Full D2C story loop: Strategist decides → Creator produces → Distributor spreads
+- Full D2C story loop: Strategy decides → Content produces → Growth spreads
 - Human role shifts from execution to review/approve
 - Foundation for replicating to Astrocrest brands
 

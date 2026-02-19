@@ -7,7 +7,7 @@
 ## Current State
 
 **Version:** V5 — Platform Prototype
-**Phase:** D2C Phase 1 complete (Story Distributor role live)
+**Phase:** D2C Phase 1 complete (D2C Growth role live)
 
 | Package | Path | Version | Tests |
 |---------|------|---------|-------|
@@ -38,9 +38,9 @@
 **CLI v1.0.0:**
 - `--tenant` / `-t` flag (default: vibe-inc)
 
-### D2C Phase 1: Story Distributor (complete)
+### D2C Phase 1: D2C Growth (complete)
 
-**StoryDistributor role** — first fully wired role on V5 SDK:
+**D2CGrowth role** — first fully wired role on V5 SDK:
 - Soul with Net New CAC principles + escalation rules
 - 2 operators, 6 agent_node methods, 6 LangGraph workflows
 
@@ -82,7 +82,7 @@
 ## Not Yet Done
 
 - **No real API calls yet** — tools implemented with mock tests only, no live credentials tested
-- **Story Author + Story Strategist** — D2C design has 3 roles, only Distributor built
+- **D2C Content + D2C Strategy** — D2C design has 3 roles, only D2C Growth built
 - **Phase 3 gate not passed** — needs 3 Vibe Inc roles live + 1 end-to-end workflow with real APIs
 - **Known debt** (documented in DESIGN.md §6-7):
   - Model duality: V3 RoleTemplate/RoleSpec coexists with V5 TemplateConfig/RoleInstance
@@ -97,4 +97,4 @@
 
 ---
 
-*Updated: 2026-02-19 — D2C Phase 1 complete, Story Distributor role live with 51 tests*
+*Updated: 2026-02-19 — D2C Phase 1 complete, D2C Growth role live with 51 tests*

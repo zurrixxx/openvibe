@@ -1,10 +1,10 @@
-# D2C Phase 1: Story Distributor — Implementation Plan
+# D2C Phase 1: D2C Growth — Implementation Plan
 
 > **For Claude:** REQUIRED SUB-SKILL: Use superpowers:executing-plans to implement this plan task-by-task.
 
-**Goal:** Build the Story Distributor role with AdOps and CROps operators, integrating Meta Ads API, GA4 Data API, and Shopify Admin API.
+**Goal:** Build the D2C Growth role with AdOps and CROps operators, integrating Meta Ads API, GA4 Data API, and Shopify Admin API.
 
-**Architecture:** Two operators (AdOps, CROps) under one Role (StoryDistributor), using @agent_node with real API tool functions. LangGraph workflows registered with RoleRuntime. Shared memory as YAML files on disk.
+**Architecture:** Two operators (AdOps, CROps) under one Role (D2CGrowth), using @agent_node with real API tool functions. LangGraph workflows registered with RoleRuntime. Shared memory as YAML files on disk.
 
 **Tech Stack:** Python 3.13, openvibe-sdk v1.0.0, anthropic, langgraph, facebook-business, google-ads, google-analytics-data, ShopifyAPI, pyyaml, python-dotenv
 
@@ -22,14 +22,14 @@
 | 4 | Meta Ads write tools | vibe-inc/tools/meta_ads.py | 4 tests |
 | 5 | GA4 read tool | vibe-inc/tools/ga4.py | 3 tests |
 | 6 | Shopify tools | vibe-inc/tools/shopify.py | 4 tests |
-| 7 | AdOps operator — campaign_create | vibe-inc/roles/story_distributor/ad_ops.py | 3 tests |
-| 8 | AdOps operator — daily_optimize | vibe-inc/roles/story_distributor/ad_ops.py | 3 tests |
-| 9 | AdOps operator — weekly_report | vibe-inc/roles/story_distributor/ad_ops.py | 2 tests |
-| 10 | CROps operator — experiment_analyze | vibe-inc/roles/story_distributor/cro_ops.py | 3 tests |
-| 11 | CROps operator — funnel_diagnose | vibe-inc/roles/story_distributor/cro_ops.py | 2 tests |
-| 12 | CROps operator — page_optimize | vibe-inc/roles/story_distributor/cro_ops.py | 3 tests |
-| 13 | StoryDistributor role class | vibe-inc/roles/story_distributor/__init__.py | 4 tests |
-| 14 | LangGraph workflow factories | vibe-inc/roles/story_distributor/workflows.py | 4 tests |
+| 7 | AdOps operator — campaign_create | vibe-inc/roles/d2c_growth/ad_ops.py | 3 tests |
+| 8 | AdOps operator — daily_optimize | vibe-inc/roles/d2c_growth/ad_ops.py | 3 tests |
+| 9 | AdOps operator — weekly_report | vibe-inc/roles/d2c_growth/ad_ops.py | 2 tests |
+| 10 | CROps operator — experiment_analyze | vibe-inc/roles/d2c_growth/cro_ops.py | 3 tests |
+| 11 | CROps operator — funnel_diagnose | vibe-inc/roles/d2c_growth/cro_ops.py | 2 tests |
+| 12 | CROps operator — page_optimize | vibe-inc/roles/d2c_growth/cro_ops.py | 3 tests |
+| 13 | D2CGrowth role class | vibe-inc/roles/d2c_growth/__init__.py | 4 tests |
+| 14 | LangGraph workflow factories | vibe-inc/roles/d2c_growth/workflows.py | 4 tests |
 | 15 | RoleRuntime wiring + activation | vibe-inc/main.py | 3 tests |
 | 16 | Shared memory read/write helpers | vibe-inc/tools/shared_memory.py | 4 tests |
 | 17 | Integration test — full loop | vibe-inc/tests/test_integration.py | 2 tests |
@@ -43,7 +43,7 @@
 **Files:**
 - Create: `v5/vibe-inc/pyproject.toml`
 - Create: `v5/vibe-inc/roles/__init__.py`
-- Create: `v5/vibe-inc/roles/story_distributor/__init__.py` (empty placeholder)
+- Create: `v5/vibe-inc/roles/d2c_growth/__init__.py` (empty placeholder)
 - Create: `v5/vibe-inc/tools/__init__.py`
 - Create: `v5/vibe-inc/tests/__init__.py`
 - Create: `v5/vibe-inc/.env.example`
@@ -82,8 +82,8 @@ build-backend = "setuptools.backends._legacy:_Backend"
 **Step 2: Create package structure**
 
 ```bash
-mkdir -p v5/vibe-inc/{roles/story_distributor,tools,tests,shared_memory/{messaging,audiences,competitive/battlecards,performance,content}}
-touch v5/vibe-inc/{roles,roles/story_distributor,tools,tests}/__init__.py
+mkdir -p v5/vibe-inc/{roles/d2c_growth,tools,tests,shared_memory/{messaging,audiences,competitive/battlecards,performance,content}}
+touch v5/vibe-inc/{roles,roles/d2c_growth,tools,tests}/__init__.py
 ```
 
 **Step 3: Create .env.example**
@@ -387,7 +387,7 @@ Expected: FAIL — module not found
 
 ```python
 # v5/vibe-inc/tools/meta_ads.py
-"""Meta Ads API tools for Story Distributor role."""
+"""Meta Ads API tools for D2C Growth role."""
 import os
 
 
@@ -738,7 +738,7 @@ Expected: FAIL — module not found
 
 ```python
 # v5/vibe-inc/tools/ga4.py
-"""GA4 Data API tools for Story Distributor role."""
+"""GA4 Data API tools for D2C Growth role."""
 import os
 
 
@@ -982,7 +982,7 @@ git commit -m "feat(vibe-inc): Shopify page read + update tools for CROps"
 ### Task 7: AdOps Operator — campaign_create
 
 **Files:**
-- Create: `v5/vibe-inc/roles/story_distributor/ad_ops.py`
+- Create: `v5/vibe-inc/roles/d2c_growth/ad_ops.py`
 - Test: `v5/vibe-inc/tests/test_ad_ops.py`
 
 **Step 1: Write failing tests**
@@ -1017,7 +1017,7 @@ class FakeAgentLLM:
 
 def test_campaign_create_is_agent_node():
     """campaign_create must be an agent_node with tools."""
-    from vibe_inc.roles.story_distributor.ad_ops import AdOps
+    from vibe_inc.roles.d2c_growth.ad_ops import AdOps
     assert hasattr(AdOps.campaign_create, "_is_agent_node")
     assert AdOps.campaign_create._is_agent_node is True
     assert "meta_ads_create" in AdOps.campaign_create._node_config["tools"]
@@ -1025,7 +1025,7 @@ def test_campaign_create_is_agent_node():
 
 def test_campaign_create_uses_brief():
     """campaign_create sends the brief to the LLM."""
-    from vibe_inc.roles.story_distributor.ad_ops import AdOps
+    from vibe_inc.roles.d2c_growth.ad_ops import AdOps
 
     llm = FakeAgentLLM([_text_response("Campaign created: Bot Foundation")])
     op = AdOps(llm=llm)
@@ -1038,7 +1038,7 @@ def test_campaign_create_uses_brief():
 
 def test_campaign_create_docstring_is_system_prompt():
     """The docstring becomes the LLM system prompt."""
-    from vibe_inc.roles.story_distributor.ad_ops import AdOps
+    from vibe_inc.roles.d2c_growth.ad_ops import AdOps
 
     llm = FakeAgentLLM([_text_response()])
     op = AdOps(llm=llm)
@@ -1055,7 +1055,7 @@ Expected: FAIL
 **Step 3: Implement AdOps.campaign_create**
 
 ```python
-# v5/vibe-inc/roles/story_distributor/ad_ops.py
+# v5/vibe-inc/roles/d2c_growth/ad_ops.py
 """AdOps operator — manages Meta and Google ad campaigns."""
 from openvibe_sdk import Operator, agent_node
 
@@ -1093,7 +1093,7 @@ Expected: 3 passed
 **Step 5: Commit**
 
 ```bash
-git add v5/vibe-inc/roles/story_distributor/ad_ops.py v5/vibe-inc/tests/test_ad_ops.py
+git add v5/vibe-inc/roles/d2c_growth/ad_ops.py v5/vibe-inc/tests/test_ad_ops.py
 git commit -m "feat(vibe-inc): AdOps operator — campaign_create agent node"
 ```
 
@@ -1102,7 +1102,7 @@ git commit -m "feat(vibe-inc): AdOps operator — campaign_create agent node"
 ### Task 8: AdOps Operator — daily_optimize
 
 **Files:**
-- Modify: `v5/vibe-inc/roles/story_distributor/ad_ops.py`
+- Modify: `v5/vibe-inc/roles/d2c_growth/ad_ops.py`
 - Test: `v5/vibe-inc/tests/test_ad_ops.py` (append)
 
 **Step 1: Write failing tests**
@@ -1111,13 +1111,13 @@ git commit -m "feat(vibe-inc): AdOps operator — campaign_create agent node"
 # Append to v5/vibe-inc/tests/test_ad_ops.py
 
 def test_daily_optimize_is_agent_node():
-    from vibe_inc.roles.story_distributor.ad_ops import AdOps
+    from vibe_inc.roles.d2c_growth.ad_ops import AdOps
     assert hasattr(AdOps.daily_optimize, "_is_agent_node")
     assert "meta_ads_read" in AdOps.daily_optimize._node_config["tools"]
 
 
 def test_daily_optimize_reads_performance():
-    from vibe_inc.roles.story_distributor.ad_ops import AdOps
+    from vibe_inc.roles.d2c_growth.ad_ops import AdOps
 
     llm = FakeAgentLLM([_text_response("Optimized: paused 2 underperformers")])
     op = AdOps(llm=llm)
@@ -1128,7 +1128,7 @@ def test_daily_optimize_reads_performance():
 
 
 def test_daily_optimize_system_prompt_mentions_thresholds():
-    from vibe_inc.roles.story_distributor.ad_ops import AdOps
+    from vibe_inc.roles.d2c_growth.ad_ops import AdOps
 
     llm = FakeAgentLLM([_text_response()])
     op = AdOps(llm=llm)
@@ -1178,7 +1178,7 @@ Expected: 6 passed
 **Step 5: Commit**
 
 ```bash
-git add v5/vibe-inc/roles/story_distributor/ad_ops.py v5/vibe-inc/tests/test_ad_ops.py
+git add v5/vibe-inc/roles/d2c_growth/ad_ops.py v5/vibe-inc/tests/test_ad_ops.py
 git commit -m "feat(vibe-inc): AdOps operator — daily_optimize with threshold rules"
 ```
 
@@ -1187,7 +1187,7 @@ git commit -m "feat(vibe-inc): AdOps operator — daily_optimize with threshold 
 ### Task 9: AdOps Operator — weekly_report
 
 **Files:**
-- Modify: `v5/vibe-inc/roles/story_distributor/ad_ops.py`
+- Modify: `v5/vibe-inc/roles/d2c_growth/ad_ops.py`
 - Test: `v5/vibe-inc/tests/test_ad_ops.py` (append)
 
 **Step 1: Write failing tests**
@@ -1196,12 +1196,12 @@ git commit -m "feat(vibe-inc): AdOps operator — daily_optimize with threshold 
 # Append to v5/vibe-inc/tests/test_ad_ops.py
 
 def test_weekly_report_is_agent_node():
-    from vibe_inc.roles.story_distributor.ad_ops import AdOps
+    from vibe_inc.roles.d2c_growth.ad_ops import AdOps
     assert hasattr(AdOps.weekly_report, "_is_agent_node")
 
 
 def test_weekly_report_output_key():
-    from vibe_inc.roles.story_distributor.ad_ops import AdOps
+    from vibe_inc.roles.d2c_growth.ad_ops import AdOps
 
     llm = FakeAgentLLM([_text_response("Weekly: Bot CAC $380, Dot CAC $270")])
     op = AdOps(llm=llm)
@@ -1241,7 +1241,7 @@ Run: `pytest v5/vibe-inc/tests/test_ad_ops.py -v`
 Expected: 8 passed
 
 ```bash
-git add v5/vibe-inc/roles/story_distributor/ad_ops.py v5/vibe-inc/tests/test_ad_ops.py
+git add v5/vibe-inc/roles/d2c_growth/ad_ops.py v5/vibe-inc/tests/test_ad_ops.py
 git commit -m "feat(vibe-inc): AdOps operator — weekly_report with Net New vs Known CAC"
 ```
 
@@ -1250,7 +1250,7 @@ git commit -m "feat(vibe-inc): AdOps operator — weekly_report with Net New vs 
 ### Task 10: CROps Operator — experiment_analyze
 
 **Files:**
-- Create: `v5/vibe-inc/roles/story_distributor/cro_ops.py`
+- Create: `v5/vibe-inc/roles/d2c_growth/cro_ops.py`
 - Test: `v5/vibe-inc/tests/test_cro_ops.py`
 
 **Step 1: Write failing tests**
@@ -1275,13 +1275,13 @@ class FakeAgentLLM:
 
 
 def test_experiment_analyze_is_agent_node():
-    from vibe_inc.roles.story_distributor.cro_ops import CROps
+    from vibe_inc.roles.d2c_growth.cro_ops import CROps
     assert hasattr(CROps.experiment_analyze, "_is_agent_node")
     assert "ga4_read" in CROps.experiment_analyze._node_config["tools"]
 
 
 def test_experiment_analyze_returns_analysis():
-    from vibe_inc.roles.story_distributor.cro_ops import CROps
+    from vibe_inc.roles.d2c_growth.cro_ops import CROps
 
     llm = FakeAgentLLM([_text_response("Foundation variant leads: CVR 2.1% vs 1.3% control")])
     op = CROps(llm=llm)
@@ -1291,7 +1291,7 @@ def test_experiment_analyze_returns_analysis():
 
 
 def test_experiment_analyze_mentions_significance():
-    from vibe_inc.roles.story_distributor.cro_ops import CROps
+    from vibe_inc.roles.d2c_growth.cro_ops import CROps
 
     llm = FakeAgentLLM([_text_response()])
     op = CROps(llm=llm)
@@ -1304,7 +1304,7 @@ def test_experiment_analyze_mentions_significance():
 **Step 2: Implement CROps.experiment_analyze**
 
 ```python
-# v5/vibe-inc/roles/story_distributor/cro_ops.py
+# v5/vibe-inc/roles/d2c_growth/cro_ops.py
 """CROps operator — conversion rate optimization and experiment analysis."""
 from openvibe_sdk import Operator, agent_node
 
@@ -1340,7 +1340,7 @@ Run: `pytest v5/vibe-inc/tests/test_cro_ops.py -v`
 Expected: 3 passed
 
 ```bash
-git add v5/vibe-inc/roles/story_distributor/cro_ops.py v5/vibe-inc/tests/test_cro_ops.py
+git add v5/vibe-inc/roles/d2c_growth/cro_ops.py v5/vibe-inc/tests/test_cro_ops.py
 git commit -m "feat(vibe-inc): CROps operator — experiment_analyze with significance checks"
 ```
 
@@ -1349,7 +1349,7 @@ git commit -m "feat(vibe-inc): CROps operator — experiment_analyze with signif
 ### Task 11: CROps — funnel_diagnose
 
 **Files:**
-- Modify: `v5/vibe-inc/roles/story_distributor/cro_ops.py`
+- Modify: `v5/vibe-inc/roles/d2c_growth/cro_ops.py`
 - Test: `v5/vibe-inc/tests/test_cro_ops.py` (append)
 
 **Step 1: Write tests, implement, run, commit**
@@ -1358,12 +1358,12 @@ git commit -m "feat(vibe-inc): CROps operator — experiment_analyze with signif
 # Append to test_cro_ops.py
 
 def test_funnel_diagnose_is_agent_node():
-    from vibe_inc.roles.story_distributor.cro_ops import CROps
+    from vibe_inc.roles.d2c_growth.cro_ops import CROps
     assert hasattr(CROps.funnel_diagnose, "_is_agent_node")
 
 
 def test_funnel_diagnose_returns_diagnosis():
-    from vibe_inc.roles.story_distributor.cro_ops import CROps
+    from vibe_inc.roles.d2c_growth.cro_ops import CROps
 
     llm = FakeAgentLLM([_text_response("Biggest drop: checkout initiation (3.1% → 0.8%)")])
     op = CROps(llm=llm)
@@ -1399,7 +1399,7 @@ Run: `pytest v5/vibe-inc/tests/test_cro_ops.py -v`
 Expected: 5 passed
 
 ```bash
-git add v5/vibe-inc/roles/story_distributor/cro_ops.py v5/vibe-inc/tests/test_cro_ops.py
+git add v5/vibe-inc/roles/d2c_growth/cro_ops.py v5/vibe-inc/tests/test_cro_ops.py
 git commit -m "feat(vibe-inc): CROps operator — funnel_diagnose"
 ```
 
@@ -1408,7 +1408,7 @@ git commit -m "feat(vibe-inc): CROps operator — funnel_diagnose"
 ### Task 12: CROps — page_optimize
 
 **Files:**
-- Modify: `v5/vibe-inc/roles/story_distributor/cro_ops.py`
+- Modify: `v5/vibe-inc/roles/d2c_growth/cro_ops.py`
 - Test: `v5/vibe-inc/tests/test_cro_ops.py` (append)
 
 **Step 1: Write tests**
@@ -1417,7 +1417,7 @@ git commit -m "feat(vibe-inc): CROps operator — funnel_diagnose"
 # Append to test_cro_ops.py
 
 def test_page_optimize_is_agent_node():
-    from vibe_inc.roles.story_distributor.cro_ops import CROps
+    from vibe_inc.roles.d2c_growth.cro_ops import CROps
     assert hasattr(CROps.page_optimize, "_is_agent_node")
     tools = CROps.page_optimize._node_config["tools"]
     assert "shopify_page_read" in tools
@@ -1425,7 +1425,7 @@ def test_page_optimize_is_agent_node():
 
 
 def test_page_optimize_returns_result():
-    from vibe_inc.roles.story_distributor.cro_ops import CROps
+    from vibe_inc.roles.d2c_growth.cro_ops import CROps
 
     llm = FakeAgentLLM([_text_response("Updated headline: 'The room that remembers'")])
     op = CROps(llm=llm)
@@ -1439,7 +1439,7 @@ def test_page_optimize_returns_result():
 
 
 def test_page_optimize_mentions_approval():
-    from vibe_inc.roles.story_distributor.cro_ops import CROps
+    from vibe_inc.roles.d2c_growth.cro_ops import CROps
 
     llm = FakeAgentLLM([_text_response()])
     op = CROps(llm=llm)
@@ -1483,22 +1483,22 @@ Run: `pytest v5/vibe-inc/tests/test_cro_ops.py -v`
 Expected: 8 passed
 
 ```bash
-git add v5/vibe-inc/roles/story_distributor/cro_ops.py v5/vibe-inc/tests/test_cro_ops.py
+git add v5/vibe-inc/roles/d2c_growth/cro_ops.py v5/vibe-inc/tests/test_cro_ops.py
 git commit -m "feat(vibe-inc): CROps operator — page_optimize with Shopify integration"
 ```
 
 ---
 
-### Task 13: StoryDistributor Role Class
+### Task 13: D2CGrowth Role Class
 
 **Files:**
-- Modify: `v5/vibe-inc/roles/story_distributor/__init__.py`
-- Test: `v5/vibe-inc/tests/test_story_distributor.py`
+- Modify: `v5/vibe-inc/roles/d2c_growth/__init__.py`
+- Test: `v5/vibe-inc/tests/test_d2c_growth.py`
 
 **Step 1: Write failing tests**
 
 ```python
-# v5/vibe-inc/tests/test_story_distributor.py
+# v5/vibe-inc/tests/test_d2c_growth.py
 from openvibe_sdk.llm import LLMResponse
 
 
@@ -1514,33 +1514,33 @@ class FakeLLM:
         return LLMResponse(content=self.content)
 
 
-def test_story_distributor_has_operators():
-    from vibe_inc.roles.story_distributor import StoryDistributor
-    assert StoryDistributor.role_id == "story_distributor"
-    op_ids = [op.operator_id for op in StoryDistributor.operators]
+def test_d2c_growth_has_operators():
+    from vibe_inc.roles.d2c_growth import D2CGrowth
+    assert D2CGrowth.role_id == "d2c_growth"
+    op_ids = [op.operator_id for op in D2CGrowth.operators]
     assert "ad_ops" in op_ids
     assert "cro_ops" in op_ids
 
 
-def test_story_distributor_has_soul():
-    from vibe_inc.roles.story_distributor import StoryDistributor
-    assert StoryDistributor.soul != ""
-    assert "Net New CAC" in StoryDistributor.soul
+def test_d2c_growth_has_soul():
+    from vibe_inc.roles.d2c_growth import D2CGrowth
+    assert D2CGrowth.soul != ""
+    assert "Net New CAC" in D2CGrowth.soul
 
 
-def test_story_distributor_get_operator():
-    from vibe_inc.roles.story_distributor import StoryDistributor
+def test_d2c_growth_get_operator():
+    from vibe_inc.roles.d2c_growth import D2CGrowth
 
-    role = StoryDistributor(llm=FakeLLM())
+    role = D2CGrowth(llm=FakeLLM())
     ad_ops = role.get_operator("ad_ops")
     assert ad_ops.operator_id == "ad_ops"
 
 
-def test_story_distributor_soul_injected_in_prompt():
-    from vibe_inc.roles.story_distributor import StoryDistributor
+def test_d2c_growth_soul_injected_in_prompt():
+    from vibe_inc.roles.d2c_growth import D2CGrowth
 
     llm = FakeLLM()
-    role = StoryDistributor(llm=llm)
+    role = D2CGrowth(llm=llm)
     ad_ops = role.get_operator("ad_ops")
     ad_ops.campaign_create({"brief": {"product": "bot"}})
 
@@ -1550,20 +1550,20 @@ def test_story_distributor_soul_injected_in_prompt():
 
 **Step 2: Run test, verify fail**
 
-Run: `pytest v5/vibe-inc/tests/test_story_distributor.py -v`
+Run: `pytest v5/vibe-inc/tests/test_d2c_growth.py -v`
 Expected: FAIL
 
-**Step 3: Implement StoryDistributor**
+**Step 3: Implement D2CGrowth**
 
 ```python
-# v5/vibe-inc/roles/story_distributor/__init__.py
-"""Story Distributor role — manages paid acquisition and conversion optimization."""
+# v5/vibe-inc/roles/d2c_growth/__init__.py
+"""D2C Growth role — manages paid acquisition and conversion optimization."""
 from openvibe_sdk import Role
 
 from .ad_ops import AdOps
 from .cro_ops import CROps
 
-_SOUL = """You are the Story Distributor for Vibe Inc.
+_SOUL = """You are the D2C Growth for Vibe Inc.
 
 Your mission: manage the full paid acquisition → landing page → conversion loop
 for Vibe's hardware products (Bot, Dot, Board).
@@ -1587,22 +1587,22 @@ Escalation rules:
 """
 
 
-class StoryDistributor(Role):
-    role_id = "story_distributor"
+class D2CGrowth(Role):
+    role_id = "d2c_growth"
     soul = _SOUL
     operators = [AdOps, CROps]
 ```
 
 **Step 4: Run tests**
 
-Run: `pytest v5/vibe-inc/tests/test_story_distributor.py -v`
+Run: `pytest v5/vibe-inc/tests/test_d2c_growth.py -v`
 Expected: 4 passed
 
 **Step 5: Commit**
 
 ```bash
-git add v5/vibe-inc/roles/story_distributor/__init__.py v5/vibe-inc/tests/test_story_distributor.py
-git commit -m "feat(vibe-inc): StoryDistributor role with soul + AdOps + CROps operators"
+git add v5/vibe-inc/roles/d2c_growth/__init__.py v5/vibe-inc/tests/test_d2c_growth.py
+git commit -m "feat(vibe-inc): D2CGrowth role with soul + AdOps + CROps operators"
 ```
 
 ---
@@ -1610,7 +1610,7 @@ git commit -m "feat(vibe-inc): StoryDistributor role with soul + AdOps + CROps o
 ### Task 14: LangGraph Workflow Factories
 
 **Files:**
-- Create: `v5/vibe-inc/roles/story_distributor/workflows.py`
+- Create: `v5/vibe-inc/roles/d2c_growth/workflows.py`
 - Test: `v5/vibe-inc/tests/test_workflows.py`
 
 **Step 1: Write failing tests**
@@ -1627,8 +1627,8 @@ class FakeLLM:
 
 
 def test_daily_optimize_graph_compiles():
-    from vibe_inc.roles.story_distributor.workflows import create_daily_optimize_graph
-    from vibe_inc.roles.story_distributor.ad_ops import AdOps
+    from vibe_inc.roles.d2c_growth.workflows import create_daily_optimize_graph
+    from vibe_inc.roles.d2c_growth.ad_ops import AdOps
 
     op = AdOps(llm=FakeLLM())
     graph = create_daily_optimize_graph(op)
@@ -1636,8 +1636,8 @@ def test_daily_optimize_graph_compiles():
 
 
 def test_daily_optimize_graph_invokes():
-    from vibe_inc.roles.story_distributor.workflows import create_daily_optimize_graph
-    from vibe_inc.roles.story_distributor.ad_ops import AdOps
+    from vibe_inc.roles.d2c_growth.workflows import create_daily_optimize_graph
+    from vibe_inc.roles.d2c_growth.ad_ops import AdOps
 
     op = AdOps(llm=FakeLLM())
     graph = create_daily_optimize_graph(op)
@@ -1646,8 +1646,8 @@ def test_daily_optimize_graph_invokes():
 
 
 def test_campaign_create_graph_compiles():
-    from vibe_inc.roles.story_distributor.workflows import create_campaign_create_graph
-    from vibe_inc.roles.story_distributor.ad_ops import AdOps
+    from vibe_inc.roles.d2c_growth.workflows import create_campaign_create_graph
+    from vibe_inc.roles.d2c_growth.ad_ops import AdOps
 
     op = AdOps(llm=FakeLLM())
     graph = create_campaign_create_graph(op)
@@ -1655,8 +1655,8 @@ def test_campaign_create_graph_compiles():
 
 
 def test_experiment_analyze_graph_compiles():
-    from vibe_inc.roles.story_distributor.workflows import create_experiment_analyze_graph
-    from vibe_inc.roles.story_distributor.cro_ops import CROps
+    from vibe_inc.roles.d2c_growth.workflows import create_experiment_analyze_graph
+    from vibe_inc.roles.d2c_growth.cro_ops import CROps
 
     op = CROps(llm=FakeLLM())
     graph = create_experiment_analyze_graph(op)
@@ -1668,8 +1668,8 @@ def test_experiment_analyze_graph_compiles():
 **Step 3: Implement workflows.py**
 
 ```python
-# v5/vibe-inc/roles/story_distributor/workflows.py
-"""LangGraph workflow factories for Story Distributor."""
+# v5/vibe-inc/roles/d2c_growth/workflows.py
+"""LangGraph workflow factories for D2C Growth."""
 from typing import TypedDict
 
 from langgraph.graph import StateGraph
@@ -1769,8 +1769,8 @@ Expected: 4 passed
 **Step 5: Commit**
 
 ```bash
-git add v5/vibe-inc/roles/story_distributor/workflows.py v5/vibe-inc/tests/test_workflows.py
-git commit -m "feat(vibe-inc): LangGraph workflow factories for all StoryDistributor workflows"
+git add v5/vibe-inc/roles/d2c_growth/workflows.py v5/vibe-inc/tests/test_workflows.py
+git commit -m "feat(vibe-inc): LangGraph workflow factories for all D2CGrowth workflows"
 ```
 
 ---
@@ -1793,12 +1793,12 @@ class FakeLLM:
         return LLMResponse(content="done")
 
 
-def test_runtime_loads_story_distributor():
+def test_runtime_loads_d2c_growth():
     from vibe_inc.main import create_runtime
 
     runtime = create_runtime(llm=FakeLLM())
-    role = runtime.get_role("story_distributor")
-    assert role.role_id == "story_distributor"
+    role = runtime.get_role("d2c_growth")
+    assert role.role_id == "d2c_growth"
 
 
 def test_runtime_activates_daily_optimize():
@@ -1806,7 +1806,7 @@ def test_runtime_activates_daily_optimize():
 
     runtime = create_runtime(llm=FakeLLM())
     result = runtime.activate(
-        role_id="story_distributor",
+        role_id="d2c_growth",
         operator_id="ad_ops",
         workflow_id="daily_optimize",
         input_data={"date": "2026-02-19"},
@@ -1819,7 +1819,7 @@ def test_runtime_activates_experiment_analyze():
 
     runtime = create_runtime(llm=FakeLLM())
     result = runtime.activate(
-        role_id="story_distributor",
+        role_id="d2c_growth",
         operator_id="cro_ops",
         workflow_id="experiment_analyze",
         input_data={"product": "bot"},
@@ -1837,8 +1837,8 @@ def test_runtime_activates_experiment_analyze():
 from openvibe_sdk.llm import LLMProvider
 from openvibe_sdk import RoleRuntime
 
-from vibe_inc.roles.story_distributor import StoryDistributor
-from vibe_inc.roles.story_distributor.workflows import (
+from vibe_inc.roles.d2c_growth import D2CGrowth
+from vibe_inc.roles.d2c_growth.workflows import (
     create_campaign_create_graph,
     create_daily_optimize_graph,
     create_experiment_analyze_graph,
@@ -1853,7 +1853,7 @@ def create_runtime(llm: LLMProvider) -> RoleRuntime:
 
     Registers all roles and workflow factories.
     """
-    runtime = RoleRuntime(roles=[StoryDistributor], llm=llm)
+    runtime = RoleRuntime(roles=[D2CGrowth], llm=llm)
 
     # AdOps workflows
     runtime.register_workflow("ad_ops", "campaign_create", create_campaign_create_graph)
@@ -1993,7 +1993,7 @@ git commit -m "feat(vibe-inc): shared memory YAML read/write tools"
 
 ```python
 # v5/vibe-inc/tests/test_integration.py
-"""Integration test: full Story Distributor loop with FakeLLM."""
+"""Integration test: full D2C Growth loop with FakeLLM."""
 from openvibe_sdk.llm import LLMResponse
 
 
@@ -2010,7 +2010,7 @@ def test_full_loop_daily_optimize_then_experiment_analyze():
 
     # Step 1: AdOps daily optimize
     opt_result = runtime.activate(
-        role_id="story_distributor",
+        role_id="d2c_growth",
         operator_id="ad_ops",
         workflow_id="daily_optimize",
         input_data={"date": "2026-02-19"},
@@ -2019,7 +2019,7 @@ def test_full_loop_daily_optimize_then_experiment_analyze():
 
     # Step 2: CROps experiment analyze
     exp_result = runtime.activate(
-        role_id="story_distributor",
+        role_id="d2c_growth",
         operator_id="cro_ops",
         workflow_id="experiment_analyze",
         input_data={"product": "bot"},
@@ -2034,7 +2034,7 @@ def test_full_loop_campaign_create():
     runtime = create_runtime(llm=FakeLLM())
 
     result = runtime.activate(
-        role_id="story_distributor",
+        role_id="d2c_growth",
         operator_id="ad_ops",
         workflow_id="campaign_create",
         input_data={"brief": {
@@ -2061,7 +2061,7 @@ Expected: ~51 passed
 
 ```bash
 git add v5/vibe-inc/tests/test_integration.py
-git commit -m "test(vibe-inc): integration tests — full Story Distributor loop"
+git commit -m "test(vibe-inc): integration tests — full D2C Growth loop"
 ```
 
 ---
@@ -2087,5 +2087,5 @@ pytest v5/openvibe-platform/tests/ -v
 Expected: All tests pass. No regressions.
 
 ```bash
-git add -A && git commit -m "feat(vibe-inc): Phase 1 complete — Story Distributor role with AdOps + CROps"
+git add -A && git commit -m "feat(vibe-inc): Phase 1 complete — D2C Growth role with AdOps + CROps"
 ```

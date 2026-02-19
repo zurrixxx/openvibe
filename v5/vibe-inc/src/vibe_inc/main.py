@@ -1,8 +1,8 @@
 """Vibe Inc runtime — wires roles, operators, and workflows."""
 from openvibe_sdk import RoleRuntime
 
-from vibe_inc.roles.story_distributor import StoryDistributor
-from vibe_inc.roles.story_distributor.workflows import (
+from vibe_inc.roles.d2c_growth import D2CGrowth
+from vibe_inc.roles.d2c_growth.workflows import (
     create_campaign_create_graph,
     create_daily_optimize_graph,
     create_experiment_analyze_graph,
@@ -17,7 +17,7 @@ def create_runtime(llm) -> RoleRuntime:
 
     Registers all roles and workflow factories.
     """
-    runtime = RoleRuntime(roles=[StoryDistributor], llm=llm)
+    runtime = RoleRuntime(roles=[D2CGrowth], llm=llm)
 
     # AdOps workflows
     runtime.register_workflow("ad_ops", "campaign_create", create_campaign_create_graph)
