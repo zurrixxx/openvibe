@@ -73,3 +73,47 @@ def hubspot_contact_get(
             return {"contact": results[0], "found": True}
 
     return {"contact": None, "found": False}
+
+
+def hubspot_contact_update(
+    contact_id: str,
+    properties: dict,
+) -> dict:
+    """Update a HubSpot contact's properties.
+
+    Args:
+        contact_id: HubSpot contact ID to update.
+        properties: Dict of property names to new values.
+            Common: lifecyclestage, hs_lead_status, custom properties.
+
+    Returns:
+        Dict with 'updated' bool and 'contact' with updated properties.
+    """
+    headers = _get_headers()
+    resp = httpx.patch(
+        f"{_BASE_URL}/crm/v3/objects/contacts/{contact_id}",
+        headers=headers,
+        json={"properties": properties},
+    )
+    data = resp.json()
+    return {"updated": True, "contact": data}
+
+
+def hubspot_deals_list(
+    contact_id: str,
+) -> dict:
+    """List deals associated with a HubSpot contact.
+
+    Args:
+        contact_id: HubSpot contact ID to look up deals for.
+
+    Returns:
+        Dict with 'deals' list (each with id and type) and 'count'.
+    """
+    headers = _get_headers()
+    resp = httpx.get(
+        f"{_BASE_URL}/crm/v3/objects/contacts/{contact_id}/associations/deals",
+        headers=headers,
+    )
+    results = resp.json().get("results", [])
+    return {"deals": results, "count": len(results)}
