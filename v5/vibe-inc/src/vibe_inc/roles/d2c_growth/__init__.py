@@ -3,6 +3,7 @@ from openvibe_sdk import Role
 
 from .amazon_ad_ops import AmazonAdOps
 from .cro_ops import CROps
+from .cross_platform_ops import CrossPlatformOps
 from .email_ops import EmailOps
 from .google_ad_ops import GoogleAdOps
 from .linkedin_ad_ops import LinkedInAdOps
@@ -40,4 +41,5 @@ class D2CGrowth(Role):
     operators = [
         MetaAdOps, GoogleAdOps, AmazonAdOps, TikTokAdOps,
         LinkedInAdOps, PinterestAdOps, EmailOps, CROps,
+        CrossPlatformOps,
     ]

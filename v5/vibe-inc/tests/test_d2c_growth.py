@@ -25,6 +25,7 @@ def test_d2c_growth_has_operators():
     assert "pinterest_ad_ops" in op_ids
     assert "email_ops" in op_ids
     assert "cro_ops" in op_ids
+    assert "cross_platform_ops" in op_ids
 
 
 def test_d2c_growth_has_soul():
