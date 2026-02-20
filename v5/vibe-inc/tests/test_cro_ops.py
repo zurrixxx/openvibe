@@ -20,7 +20,7 @@ class FakeAgentLLM:
 def test_experiment_analyze_is_agent_node():
     from vibe_inc.roles.d2c_growth.cro_ops import CROps
     assert hasattr(CROps.experiment_analyze, "_is_agent_node")
-    assert "ga4_read" in CROps.experiment_analyze._node_config["tools"]
+    assert "analytics_query_metrics" in CROps.experiment_analyze._node_config["tools"]
 
 
 def test_experiment_analyze_returns_analysis():
