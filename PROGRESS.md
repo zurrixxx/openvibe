@@ -7,7 +7,7 @@
 ## Current State
 
 **Version:** V5 — Platform Prototype
-**Phase:** D2C Growth toolmap complete (9 operators, 44 workflows, ~56 tools)
+**Phase:** D2C Growth toolmap complete (10 operators, 48 workflows, ~62 tools)
 
 | Package | Path | Version | Tests |
 |---------|------|---------|-------|
@@ -15,9 +15,9 @@
 | openvibe-runtime | `v5/openvibe-runtime/` | v1.0.0 | 28 |
 | openvibe-platform | `v5/openvibe-platform/` | v1.0.0 | 60 |
 | openvibe-cli | `v5/openvibe-cli/` | v1.0.0 | 15 |
-| vibe-inc | `v5/vibe-inc/` | v0.1.0 | 304 |
+| vibe-inc | `v5/vibe-inc/` | v0.1.0 | 331 |
 
-**Total: 686 tests passing, 2 skipped (real API)**
+**Total: 713 tests passing, 2 skipped (real API)**
 
 ## What's Built
 
@@ -40,7 +40,7 @@
 
 ### D2C Growth — Full Toolmap (complete)
 
-**D2CGrowth role** — 9 operators, 44 workflows, ~56 API tools:
+**D2CGrowth role** — 10 operators, 48 workflows, ~62 API tools:
 - Soul with Net New CAC principles + escalation rules
 - All operators use `@agent_node` pattern with tool injection
 
@@ -68,6 +68,12 @@
 | CROps | experiment_analyze, funnel_diagnose, page_optimize, product_optimize, discount_strategy, conversion_report | shopify (4), analytics (2), ab_testing (2) | Shopify, GA4/Redshift, Convert.com |
 | CrossPlatformOps | unified_cac_report, budget_rebalance, platform_health_check | unified_metrics (3) | shared_memory aggregation |
 
+**CRM Operator (1):**
+
+| Operator | Workflows | Tools | Platform |
+|----------|-----------|-------|----------|
+| CRMOps | workflow_enrollment, deal_progression, enrichment_audit, pipeline_health | hubspot (6 tools) | HubSpot API v3 |
+
 **DataOps role** — 3 operators, 4 workflows:
 - CatalogOps: catalog_audit
 - QualityOps: freshness_check
@@ -79,9 +85,10 @@
 - CAC benchmarks: Bot $400, Dot $300, Board N/A
 - Email benchmarks: campaign targets, flow targets, list health
 - CRO benchmarks: funnel targets, experiment standards, product CVR targets
+- CRM config: routing rules (3 signals), pipeline config (B2B stages, product targets)
 
 **Applications scaffolded:**
-- `v5/vibe-inc/` — src layout, hatchling build, full test suite (304 tests)
+- `v5/vibe-inc/` — src layout, hatchling build, full test suite (331 tests)
 - `v5/astrocrest/` — soul.yaml + roles.yaml + scoring.yaml (6 roles, not yet implemented)
 
 ## Key Docs
@@ -94,12 +101,14 @@
 - `v5/docs/plans/2026-02-19-d2c-marketing-adoption.md` — D2C marketing design (3-role architecture)
 - `v5/docs/plans/2026-02-19-d2c-phase1-implementation.md` — D2C Phase 1 plan (17 tasks, complete)
 - `v5/docs/plans/2026-02-19-d2c-growth-toolmap-implementation.md` — D2C Growth toolmap plan (37 tasks, complete)
+- `v5/docs/plans/2026-02-20-hubspot-crm-ops-design.md` — HubSpot CRMOps design (10th operator)
+- `v5/docs/plans/2026-02-20-hubspot-crm-ops-implementation.md` — HubSpot CRMOps implementation (11 tasks, complete)
 
 ## Not Yet Done
 
 - **No real API calls yet** — tools implemented with mock tests only, no live credentials tested
 - **D2C Content + D2C Strategy** — D2C design has 3 roles, only D2C Growth built
-- **HubSpot integration** — user flagged as potential need, use case TBD (CRM? Marketing Hub? Sales Hub?)
+- **HubSpot CRMOps built** — 6 tools, 4 workflows, but no live API credentials tested yet
 - **Phase 3 gate not passed** — needs 3 Vibe Inc roles live + 1 end-to-end workflow with real APIs
 - **Known debt** (documented in DESIGN.md §6-7):
   - Model duality: V3 RoleTemplate/RoleSpec coexists with V5 TemplateConfig/RoleInstance
@@ -114,4 +123,4 @@
 
 ---
 
-*Updated: 2026-02-19 — D2C Growth toolmap complete: 9 operators, 44 workflows, 304 tests*
+*Updated: 2026-02-20 — CRMOps complete: 10 operators, 48 workflows, 331 vibe-inc tests (713 total)*
