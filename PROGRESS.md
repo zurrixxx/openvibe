@@ -7,7 +7,7 @@
 ## Current State
 
 **Version:** V5 — Platform Prototype
-**Phase:** D2C Phase 1 complete (D2C Growth role live)
+**Phase:** D2C Growth toolmap complete (9 operators, 44 workflows, ~56 tools)
 
 | Package | Path | Version | Tests |
 |---------|------|---------|-------|
@@ -15,9 +15,9 @@
 | openvibe-runtime | `v5/openvibe-runtime/` | v1.0.0 | 28 |
 | openvibe-platform | `v5/openvibe-platform/` | v1.0.0 | 60 |
 | openvibe-cli | `v5/openvibe-cli/` | v1.0.0 | 15 |
-| vibe-inc | `v5/vibe-inc/` | v0.1.0 | 51 |
+| vibe-inc | `v5/vibe-inc/` | v0.1.0 | 304 |
 
-**Total: 433 tests passing, 2 skipped (real API)**
+**Total: 686 tests passing, 2 skipped (real API)**
 
 ## What's Built
 
@@ -38,35 +38,50 @@
 **CLI v1.0.0:**
 - `--tenant` / `-t` flag (default: vibe-inc)
 
-### D2C Phase 1: D2C Growth (complete)
+### D2C Growth — Full Toolmap (complete)
 
-**D2CGrowth role** — first fully wired role on V5 SDK:
+**D2CGrowth role** — 9 operators, 44 workflows, ~56 API tools:
 - Soul with Net New CAC principles + escalation rules
-- 2 operators, 6 agent_node methods, 6 LangGraph workflows
+- All operators use `@agent_node` pattern with tool injection
 
-**AdOps operator:**
-- `campaign_create` — Meta Ads campaign/adset/ad creation (PAUSED for review)
-- `daily_optimize` — bid adjustment ≤20% autonomous, CPA >2x auto-pause, budget >$500 escalate
-- `weekly_report` — Net New CAC vs Known CAC by product, progressive disclosure format
+**Ad Platform Operators (6):**
 
-**CROps operator:**
-- `experiment_analyze` — GA4 variant comparison, statistical significance checks
-- `funnel_diagnose` — full funnel drop-off analysis, traffic quality by source
-- `page_optimize` — Shopify page read/update with human approval gate
+| Operator | Workflows | Tools | Platform |
+|----------|-----------|-------|----------|
+| MetaAdOps | campaign_create, daily_optimize, weekly_report, audience_refresh | meta_ads (8 tools) | Meta Ads API |
+| GoogleAdOps | campaign_create, daily_optimize, search_term_mining, weekly_report, recommendations_review | google_ads (6 tools) | Google Ads API |
+| AmazonAdOps | campaign_create, daily_optimize, search_term_harvesting, weekly_report, competitive_analysis | amazon_ads (6 tools) | Amazon Ads API |
+| TikTokAdOps | campaign_create, daily_optimize, creative_refresh, weekly_report | tiktok_ads (5 tools) | TikTok Ads API |
+| LinkedInAdOps | campaign_create, daily_optimize, weekly_report, lead_quality_review | linkedin_ads (5 tools) | LinkedIn Marketing API |
+| PinterestAdOps | campaign_create, daily_optimize, creative_refresh, weekly_report | pinterest_ads (5 tools) | Pinterest API v5 |
 
-**API tools:**
-- `meta_ads` — read (campaign/adset/ad), create (campaign+adset+ad), update (status/budget/bid)
-- `ga4` — read with metrics/dimensions/filters, funnel event support
-- `shopify` — page read + update
-- `shared_memory` — YAML read/write helpers
+**Commerce + Email Operators (1):**
+
+| Operator | Workflows | Tools | Platform |
+|----------|-----------|-------|----------|
+| EmailOps | campaign_create, flow_optimize, segment_refresh, lifecycle_report | klaviyo (6 tools) | Klaviyo API |
+
+**Optimization Operators (2):**
+
+| Operator | Workflows | Tools | Platform |
+|----------|-----------|-------|----------|
+| CROps | experiment_analyze, funnel_diagnose, page_optimize, product_optimize, discount_strategy, conversion_report | shopify (4), analytics (2), ab_testing (2) | Shopify, GA4/Redshift, Convert.com |
+| CrossPlatformOps | unified_cac_report, budget_rebalance, platform_health_check | unified_metrics (3) | shared_memory aggregation |
+
+**DataOps role** — 3 operators, 4 workflows:
+- CatalogOps: catalog_audit
+- QualityOps: freshness_check
+- AccessOps: data_query, build_report
 
 **Shared memory YAML:**
-- Messaging frameworks: Bot ("The room that remembers"), Dot ("Your brain is for thinking"), Board ("Thoughts deserve to be seen")
+- Messaging frameworks: Bot, Dot, Board
 - ICP definitions: Bot (SMB managers), Dot (knowledge workers), Board (K-12 admins)
 - CAC benchmarks: Bot $400, Dot $300, Board N/A
+- Email benchmarks: campaign targets, flow targets, list health
+- CRO benchmarks: funnel targets, experiment standards, product CVR targets
 
 **Applications scaffolded:**
-- `v5/vibe-inc/` — src layout, hatchling build, full test suite
+- `v5/vibe-inc/` — src layout, hatchling build, full test suite (304 tests)
 - `v5/astrocrest/` — soul.yaml + roles.yaml + scoring.yaml (6 roles, not yet implemented)
 
 ## Key Docs
@@ -78,11 +93,13 @@
 - `v5/docs/plans/2026-02-18-v5-implementation.md` — V5 platform implementation (complete)
 - `v5/docs/plans/2026-02-19-d2c-marketing-adoption.md` — D2C marketing design (3-role architecture)
 - `v5/docs/plans/2026-02-19-d2c-phase1-implementation.md` — D2C Phase 1 plan (17 tasks, complete)
+- `v5/docs/plans/2026-02-19-d2c-growth-toolmap-implementation.md` — D2C Growth toolmap plan (37 tasks, complete)
 
 ## Not Yet Done
 
 - **No real API calls yet** — tools implemented with mock tests only, no live credentials tested
 - **D2C Content + D2C Strategy** — D2C design has 3 roles, only D2C Growth built
+- **HubSpot integration** — user flagged as potential need, use case TBD (CRM? Marketing Hub? Sales Hub?)
 - **Phase 3 gate not passed** — needs 3 Vibe Inc roles live + 1 end-to-end workflow with real APIs
 - **Known debt** (documented in DESIGN.md §6-7):
   - Model duality: V3 RoleTemplate/RoleSpec coexists with V5 TemplateConfig/RoleInstance
@@ -97,4 +114,4 @@
 
 ---
 
-*Updated: 2026-02-19 — D2C Phase 1 complete, D2C Growth role live with 51 tests*
+*Updated: 2026-02-19 — D2C Growth toolmap complete: 9 operators, 44 workflows, 304 tests*
