@@ -179,6 +179,57 @@ def test_cro_conversion_report_activates():
     assert "conversion_report" in result
 
 
+# --- CRMOps workflows ---
+
+
+def test_crm_workflow_enrollment_activates():
+    """CRMOps workflow_enrollment workflow runs through runtime."""
+    runtime = _runtime()
+    result = runtime.activate(
+        role_id="d2c_growth",
+        operator_id="crm_ops",
+        workflow_id="workflow_enrollment",
+        input_data={"contact_email": "buyer@acme.com", "signal": "b2b_enriched"},
+    )
+    assert "enrollment_result" in result
+
+
+def test_crm_deal_progression_activates():
+    """CRMOps deal_progression workflow runs through runtime."""
+    runtime = _runtime()
+    result = runtime.activate(
+        role_id="d2c_growth",
+        operator_id="crm_ops",
+        workflow_id="deal_progression",
+        input_data={"contact_id": "501"},
+    )
+    assert "deal_result" in result
+
+
+def test_crm_enrichment_audit_activates():
+    """CRMOps enrichment_audit workflow runs through runtime."""
+    runtime = _runtime()
+    result = runtime.activate(
+        role_id="d2c_growth",
+        operator_id="crm_ops",
+        workflow_id="enrichment_audit",
+        input_data={"contact_email": "buyer@acme.com"},
+    )
+    assert "enrichment_result" in result
+
+
+def test_crm_pipeline_health_activates():
+    """CRMOps pipeline_health workflow runs through runtime."""
+    runtime = _runtime()
+    result = runtime.activate(
+        role_id="d2c_growth",
+        operator_id="crm_ops",
+        workflow_id="pipeline_health",
+        input_data={"pipeline_id": "b2b"},
+    )
+    assert "pipeline_result" in result
+
+
 # --- Runtime structure tests ---
 
 
@@ -227,8 +278,8 @@ def test_runtime_has_both_roles():
 
 
 def test_runtime_d2c_growth_operator_count():
-    """D2C Growth should have 8+ operators."""
+    """D2C Growth should have 10+ operators."""
     runtime = _runtime()
     d2c = next(r for r in runtime.list_roles() if r.role_id == "d2c_growth")
-    # Meta, Google, Amazon, TikTok, LinkedIn, Pinterest, Email, CRO
-    assert len(d2c.operators) >= 8
+    # Meta, Google, Amazon, TikTok, LinkedIn, Pinterest, Email, CRO, CrossPlatform, CRM
+    assert len(d2c.operators) >= 10
