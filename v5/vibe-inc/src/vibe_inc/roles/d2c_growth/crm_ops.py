@@ -60,3 +60,49 @@ class CRMOps(Operator):
         Product deal values: Bot $3000, Dot $1500, Board $15000."""
         contact_id = state.get("contact_id", "")
         return f"Manage deals for contact: {contact_id}"
+
+    @agent_node(
+        tools=[hubspot_contact_get, read_memory],
+        output_key="enrichment_result",
+    )
+    def contact_enrich_check(self, state):
+        """You are a HubSpot contact enrichment analyst for Vibe Inc.
+
+        Look up a contact and assess their enrichment status:
+        1. Search by email using hubspot_contact_get.
+        2. Report enrichment status:
+           - ENRICHED: company, company size, industry, job title populated.
+           - PARTIAL: some company fields populated but incomplete.
+           - UNKNOWN: no company data — likely pure D2C consumer.
+        3. If enriched, report: company name, employee count, industry, lifecycle stage.
+        4. Check associated deals — report deal count and stages.
+        5. Flag if contact has been in 'unknown' enrichment for >7 days
+           (check hs_analytics_first_timestamp vs current date).
+        6. Recommend action: move to B2B pipeline? Enroll in nurture? Suppress?
+
+        Return: enrichment status, company details, deal associations, recommendation."""
+        contact_email = state.get("contact_email", "")
+        return f"Check enrichment for: {contact_email}"
+
+    @agent_node(
+        tools=[hubspot_deals_list, hubspot_contact_get, read_memory],
+        output_key="pipeline_result",
+    )
+    def pipeline_review(self, state):
+        """You are a HubSpot pipeline health analyst for Vibe Inc.
+
+        Review deal pipeline health and flag issues:
+        1. Read pipeline config from shared_memory (crm/pipeline_config.yaml).
+        2. List deals by stage. For each stage, count deals and sum amounts.
+        3. Flag stale deals: no stage change in 14+ days (per pipeline_config threshold).
+        4. Calculate stage conversion rates: lead→mql, mql→sql, sql→proposal, proposal→close.
+        5. Compare close rate against target (15% per pipeline_config).
+        6. Product breakdown: separate Bot, Dot, Board deal values.
+        7. Calculate average cycle time by product vs targets:
+           - Bot: target 45 days
+           - Dot: target 30 days
+           - Board: target 90 days
+
+        Format as progressive disclosure: headline KPIs → stage breakdown → stale alerts."""
+        pipeline_id = state.get("pipeline_id", "default")
+        return f"Review pipeline: {pipeline_id}"

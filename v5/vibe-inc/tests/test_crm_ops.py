@@ -49,3 +49,41 @@ def test_deal_manage_mentions_approval():
     # The system prompt (docstring) should mention human approval for deal creation
     doc = CRMOps.deal_manage.__doc__
     assert "approval" in doc.lower() or "human" in doc.lower()
+
+
+# --- contact_enrich_check ---
+
+def test_contact_enrich_check_is_agent_node():
+    from vibe_inc.roles.d2c_growth.crm_ops import CRMOps
+    assert hasattr(CRMOps.contact_enrich_check, "_is_agent_node")
+    assert CRMOps.contact_enrich_check._is_agent_node is True
+    assert "hubspot_contact_get" in CRMOps.contact_enrich_check._node_config["tools"]
+
+
+def test_contact_enrich_check_output_key():
+    from vibe_inc.roles.d2c_growth.crm_ops import CRMOps
+
+    llm = FakeAgentLLM([_text_response("Contact enriched: Acme Corp, 200 employees")])
+    op = CRMOps(llm=llm)
+    result = op.contact_enrich_check({"contact_email": "buyer@acme.com"})
+
+    assert "enrichment_result" in result
+
+
+# --- pipeline_review ---
+
+def test_pipeline_review_is_agent_node():
+    from vibe_inc.roles.d2c_growth.crm_ops import CRMOps
+    assert hasattr(CRMOps.pipeline_review, "_is_agent_node")
+    assert CRMOps.pipeline_review._is_agent_node is True
+    assert "hubspot_deals_list" in CRMOps.pipeline_review._node_config["tools"]
+
+
+def test_pipeline_review_output_key():
+    from vibe_inc.roles.d2c_growth.crm_ops import CRMOps
+
+    llm = FakeAgentLLM([_text_response("Pipeline: 5 leads, 3 MQL, 1 SQL, $45K total")])
+    op = CRMOps(llm=llm)
+    result = op.pipeline_review({"pipeline_id": "b2b"})
+
+    assert "pipeline_result" in result
