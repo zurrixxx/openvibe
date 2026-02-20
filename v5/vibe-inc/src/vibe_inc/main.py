@@ -24,10 +24,23 @@ from vibe_inc.roles.d2c_growth.workflows import (
     create_meta_daily_optimize_graph,
     create_meta_weekly_report_graph,
     create_page_optimize_graph,
+    create_product_optimize_graph,
+    create_discount_strategy_graph,
+    create_conversion_report_graph,
+    create_pinterest_daily_optimize_graph,
+    create_pinterest_campaign_create_graph,
+    create_pinterest_creative_refresh_graph,
+    create_pinterest_weekly_report_graph,
     create_tiktok_campaign_create_graph,
     create_tiktok_creative_refresh_graph,
     create_tiktok_daily_optimize_graph,
     create_tiktok_weekly_report_graph,
+)
+from vibe_inc.roles.d2c_growth.email_workflows import (
+    create_email_campaign_create_graph,
+    create_email_flow_optimize_graph,
+    create_email_segment_refresh_graph,
+    create_email_lifecycle_report_graph,
 )
 from vibe_inc.roles.data_ops import DataOps
 from vibe_inc.roles.data_ops.workflows import (
@@ -77,10 +90,25 @@ def create_runtime(llm) -> RoleRuntime:
     runtime.register_workflow("linkedin_ad_ops", "weekly_report", create_linkedin_weekly_report_graph)
     runtime.register_workflow("linkedin_ad_ops", "lead_quality_review", create_linkedin_lead_quality_review_graph)
 
+    # PinterestAdOps workflows
+    runtime.register_workflow("pinterest_ad_ops", "campaign_create", create_pinterest_campaign_create_graph)
+    runtime.register_workflow("pinterest_ad_ops", "daily_optimize", create_pinterest_daily_optimize_graph)
+    runtime.register_workflow("pinterest_ad_ops", "creative_refresh", create_pinterest_creative_refresh_graph)
+    runtime.register_workflow("pinterest_ad_ops", "weekly_report", create_pinterest_weekly_report_graph)
+
+    # EmailOps workflows
+    runtime.register_workflow("email_ops", "campaign_create", create_email_campaign_create_graph)
+    runtime.register_workflow("email_ops", "flow_optimize", create_email_flow_optimize_graph)
+    runtime.register_workflow("email_ops", "segment_refresh", create_email_segment_refresh_graph)
+    runtime.register_workflow("email_ops", "lifecycle_report", create_email_lifecycle_report_graph)
+
     # CROps workflows
     runtime.register_workflow("cro_ops", "experiment_analyze", create_experiment_analyze_graph)
     runtime.register_workflow("cro_ops", "funnel_diagnose", create_funnel_diagnose_graph)
     runtime.register_workflow("cro_ops", "page_optimize", create_page_optimize_graph)
+    runtime.register_workflow("cro_ops", "product_optimize", create_product_optimize_graph)
+    runtime.register_workflow("cro_ops", "discount_strategy", create_discount_strategy_graph)
+    runtime.register_workflow("cro_ops", "conversion_report", create_conversion_report_graph)
 
     # CatalogOps workflows
     runtime.register_workflow("catalog_ops", "catalog_audit", create_catalog_audit_graph)

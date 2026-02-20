@@ -98,6 +98,47 @@ def create_page_optimize_graph(operator):
     return graph.compile()
 
 
+class ProductOptimizeState(TypedDict, total=False):
+    product_id: str
+    product_result: str
+
+
+class DiscountStrategyState(TypedDict, total=False):
+    discount_result: str
+
+
+class ConversionReportState(TypedDict, total=False):
+    period: str
+    conversion_report: str
+
+
+def create_product_optimize_graph(operator):
+    """Product optimization: analyze listings → recommend changes."""
+    graph = StateGraph(ProductOptimizeState)
+    graph.add_node("optimize", operator.product_optimize)
+    graph.set_entry_point("optimize")
+    graph.set_finish_point("optimize")
+    return graph.compile()
+
+
+def create_discount_strategy_graph(operator):
+    """Discount strategy: review active codes → analyze impact → recommend."""
+    graph = StateGraph(DiscountStrategyState)
+    graph.add_node("strategy", operator.discount_strategy)
+    graph.set_entry_point("strategy")
+    graph.set_finish_point("strategy")
+    return graph.compile()
+
+
+def create_conversion_report_graph(operator):
+    """Conversion report: aggregate metrics → break down by product/source."""
+    graph = StateGraph(ConversionReportState)
+    graph.add_node("report", operator.conversion_report)
+    graph.set_entry_point("report")
+    graph.set_finish_point("report")
+    return graph.compile()
+
+
 def create_meta_weekly_report_graph(operator):
     """Meta weekly report: read all data → generate Net New vs Known report."""
     graph = StateGraph(ReportState)
@@ -257,6 +298,49 @@ def create_tiktok_creative_refresh_graph(operator):
 
 def create_tiktok_weekly_report_graph(operator):
     """TikTok weekly report: pull metrics → analyze CPA → format."""
+    graph = StateGraph(ReportState)
+    graph.add_node("report", operator.weekly_report)
+    graph.set_entry_point("report")
+    graph.set_finish_point("report")
+    return graph.compile()
+
+
+# --- PinterestAdOps workflows ---
+
+
+class PinCreativeState(TypedDict, total=False):
+    creative_result: str
+
+
+def create_pinterest_daily_optimize_graph(operator):
+    """Pinterest daily optimization: check outbound click rate → adjust bids."""
+    graph = StateGraph(OptimizeState)
+    graph.add_node("optimize", operator.daily_optimize)
+    graph.set_entry_point("optimize")
+    graph.set_finish_point("optimize")
+    return graph.compile()
+
+
+def create_pinterest_campaign_create_graph(operator):
+    """Pinterest campaign creation: visual discovery targeting."""
+    graph = StateGraph(CampaignState)
+    graph.add_node("create", operator.campaign_create)
+    graph.set_entry_point("create")
+    graph.set_finish_point("create")
+    return graph.compile()
+
+
+def create_pinterest_creative_refresh_graph(operator):
+    """Pinterest creative refresh: check pin performance → recommend new assets."""
+    graph = StateGraph(PinCreativeState)
+    graph.add_node("refresh", operator.creative_refresh)
+    graph.set_entry_point("refresh")
+    graph.set_finish_point("refresh")
+    return graph.compile()
+
+
+def create_pinterest_weekly_report_graph(operator):
+    """Pinterest weekly report: outbound clicks, saves, CVR."""
     graph = StateGraph(ReportState)
     graph.add_node("report", operator.weekly_report)
     graph.set_entry_point("report")

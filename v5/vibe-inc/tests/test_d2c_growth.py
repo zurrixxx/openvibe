@@ -22,6 +22,8 @@ def test_d2c_growth_has_operators():
     assert "amazon_ad_ops" in op_ids
     assert "tiktok_ad_ops" in op_ids
     assert "linkedin_ad_ops" in op_ids
+    assert "pinterest_ad_ops" in op_ids
+    assert "email_ops" in op_ids
     assert "cro_ops" in op_ids
 
 

@@ -3,9 +3,11 @@ from openvibe_sdk import Role
 
 from .amazon_ad_ops import AmazonAdOps
 from .cro_ops import CROps
+from .email_ops import EmailOps
 from .google_ad_ops import GoogleAdOps
 from .linkedin_ad_ops import LinkedInAdOps
 from .meta_ad_ops import MetaAdOps
+from .pinterest_ad_ops import PinterestAdOps
 from .tiktok_ad_ops import TikTokAdOps
 
 _SOUL = """You are D2C Growth for Vibe Inc.
@@ -35,4 +37,7 @@ Escalation rules:
 class D2CGrowth(Role):
     role_id = "d2c_growth"
     soul = _SOUL
-    operators = [MetaAdOps, GoogleAdOps, AmazonAdOps, TikTokAdOps, LinkedInAdOps, CROps]
+    operators = [
+        MetaAdOps, GoogleAdOps, AmazonAdOps, TikTokAdOps,
+        LinkedInAdOps, PinterestAdOps, EmailOps, CROps,
+    ]

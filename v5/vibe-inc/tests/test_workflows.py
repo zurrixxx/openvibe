@@ -207,6 +207,46 @@ def test_linkedin_weekly_report_graph_compiles():
     assert graph is not None
 
 
+# --- PinterestAdOps workflows ---
+
+
+def test_pinterest_daily_optimize_graph_compiles():
+    from vibe_inc.roles.d2c_growth.workflows import create_pinterest_daily_optimize_graph
+    from vibe_inc.roles.d2c_growth.pinterest_ad_ops import PinterestAdOps
+
+    op = PinterestAdOps(llm=FakeLLM())
+    graph = create_pinterest_daily_optimize_graph(op)
+    assert graph is not None
+
+
+def test_pinterest_campaign_create_graph_compiles():
+    from vibe_inc.roles.d2c_growth.workflows import create_pinterest_campaign_create_graph
+    from vibe_inc.roles.d2c_growth.pinterest_ad_ops import PinterestAdOps
+
+    op = PinterestAdOps(llm=FakeLLM())
+    graph = create_pinterest_campaign_create_graph(op)
+    assert graph is not None
+
+
+def test_pinterest_creative_refresh_graph_invokes():
+    from vibe_inc.roles.d2c_growth.workflows import create_pinterest_creative_refresh_graph
+    from vibe_inc.roles.d2c_growth.pinterest_ad_ops import PinterestAdOps
+
+    op = PinterestAdOps(llm=FakeLLM())
+    graph = create_pinterest_creative_refresh_graph(op)
+    result = graph.invoke({})
+    assert "creative_result" in result
+
+
+def test_pinterest_weekly_report_graph_compiles():
+    from vibe_inc.roles.d2c_growth.workflows import create_pinterest_weekly_report_graph
+    from vibe_inc.roles.d2c_growth.pinterest_ad_ops import PinterestAdOps
+
+    op = PinterestAdOps(llm=FakeLLM())
+    graph = create_pinterest_weekly_report_graph(op)
+    assert graph is not None
+
+
 # --- CROps workflows ---
 
 
@@ -217,3 +257,31 @@ def test_experiment_analyze_graph_compiles():
     op = CROps(llm=FakeLLM())
     graph = create_experiment_analyze_graph(op)
     assert graph is not None
+
+
+def test_product_optimize_graph_compiles():
+    from vibe_inc.roles.d2c_growth.workflows import create_product_optimize_graph
+    from vibe_inc.roles.d2c_growth.cro_ops import CROps
+
+    op = CROps(llm=FakeLLM())
+    graph = create_product_optimize_graph(op)
+    assert graph is not None
+
+
+def test_discount_strategy_graph_compiles():
+    from vibe_inc.roles.d2c_growth.workflows import create_discount_strategy_graph
+    from vibe_inc.roles.d2c_growth.cro_ops import CROps
+
+    op = CROps(llm=FakeLLM())
+    graph = create_discount_strategy_graph(op)
+    assert graph is not None
+
+
+def test_conversion_report_graph_invokes():
+    from vibe_inc.roles.d2c_growth.workflows import create_conversion_report_graph
+    from vibe_inc.roles.d2c_growth.cro_ops import CROps
+
+    op = CROps(llm=FakeLLM())
+    graph = create_conversion_report_graph(op)
+    result = graph.invoke({"period": "last_7_days"})
+    assert "conversion_report" in result
