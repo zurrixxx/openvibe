@@ -45,7 +45,7 @@ def test_google_ads_query_live():
 @live
 def test_hubspot_contact_get_live():
     """hubspot_contact_get returns contact data from the real HubSpot API."""
-    _skip_unless_env("HUBSPOT_API_KEY")
+    _skip_unless_env("HUBSPOT_ACCESS_TOKEN")
     from vibe_inc.tools.crm.hubspot import hubspot_contact_get
 
     result = hubspot_contact_get(email="test-nonexistent@example.com")

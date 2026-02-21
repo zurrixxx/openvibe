@@ -40,6 +40,8 @@ def meta_ads_read(
         Dict with 'level', 'date_range', and 'rows' (list of performance records).
     """
     account = _get_account()
+    if isinstance(fields, str):
+        fields = [f.strip() for f in fields.split(",")]
     report_fields = fields or _DEFAULT_FIELDS
 
     params = {}

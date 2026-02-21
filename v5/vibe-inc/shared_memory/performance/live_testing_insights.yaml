@@ -1,0 +1,41 @@
+# Live testing insights — issues discovered during real API testing.
+# Referenced by operators during optimization. Updated as issues are resolved.
+
+meta_ad_ops:
+  status: validated  # agent loop works end-to-end
+  discovered: 2026-02-20
+  issues:
+    - id: meta-rate-limit
+      severity: high
+      summary: "N+1 query pattern triggers Meta API rate limit (Error 17 / Subcode 2446079)"
+      detail: |
+        meta_ads_read iterates campaigns individually then calls get_insights per campaign.
+        For accounts with many campaigns, this causes O(N) API calls and triggers rate limiting.
+        First live test succeeded (~118s), second run hit rate limit.
+      fix: |
+        Replace per-campaign iteration with account-level insights request:
+          account.get_insights(fields=..., params={"level": "campaign", ...})
+        Single API call returns all campaign-level data. Add retry with exponential backoff.
+      affects:
+        - meta_ad_ops.weekly_report
+        - meta_ad_ops.daily_optimize
+      workaround: "Wait ~60 min for rate limit cooldown, or use off-peak scheduling"
+
+    - id: meta-fields-string
+      severity: low
+      summary: "LLM may pass fields param as comma-separated string instead of list"
+      detail: |
+        When Claude calls meta_ads_read with fields argument, it may serialize as
+        "spend, impressions, clicks" (string) instead of ["spend", "impressions", "clicks"] (list).
+        facebook_business SDK iterates the string char-by-char, producing harmless warnings.
+      fix: "Applied — string-to-list coercion added in meta_ads_read"
+      status: fixed
+
+hubspot_crm_ops:
+  status: validated  # contact_get works, 0.5s response
+  discovered: 2026-02-20
+  issues: []
+
+google_ad_ops:
+  status: pending  # credentials not yet available
+  issues: []

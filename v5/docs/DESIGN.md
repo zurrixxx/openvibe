@@ -178,3 +178,10 @@ The platform serves two parallel route sets:
 - **Tenant-scoped** (`/tenants/{id}/...`) — per-tenant isolated instances, in-memory only
 
 Data does not flow between them. This is intentional: legacy routes exist for backward compatibility during migration. New code should use tenant-scoped routes exclusively. Legacy routes will be removed once all clients migrate.
+
+## 8. Known Debt: Live API Integration
+
+Discovered during first live testing (2026-02-20). Tracked in `vibe-inc/shared_memory/performance/live_testing_insights.yaml`.
+
+- **Meta N+1 query pattern** — `meta_ads_read` iterates campaigns individually then calls `get_insights` per campaign. Triggers rate limit (Error 17) on accounts with many campaigns. Fix: replace with account-level `get_insights(params={"level": "campaign"})` — single API call. Add retry with exponential backoff.
+- **LLM string-to-list coercion** — When Claude calls tools, list parameters may arrive as comma-separated strings. All tool functions accepting lists should coerce string input. Fixed for `meta_ads_read`, audit needed for other tools.

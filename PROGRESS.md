@@ -120,16 +120,31 @@
 - `v5/docs/plans/2026-02-20-hubspot-crm-ops-implementation.md` — HubSpot CRMOps implementation (11 tasks, complete)
 - `v5/docs/plans/2026-02-20-d2c-strategy-implementation.md` — D2C Strategy implementation (10 tasks, complete)
 
+## Live API Testing (2026-02-20)
+
+First real API calls validated. Credentials configured for Meta Ads + HubSpot.
+
+| Test | Layer | Status | Time |
+|------|-------|--------|------|
+| HubSpot `contact_get` | Tool smoke | **PASSED** | 0.5s |
+| Meta `meta_ads_read` | Tool smoke | **PASSED** | 118s |
+| Meta `weekly_report` (Claude + Meta API) | Agent loop | **PASSED** | 148s |
+
+**Issues discovered:** see `vibe-inc/shared_memory/performance/live_testing_insights.yaml`
+- Meta N+1 query pattern triggers rate limit — needs account-level insights refactor
+- LLM string-to-list coercion — fixed for meta_ads_read, audit needed for others
+
 ## Not Yet Done
 
-- **No real API calls yet** — tools implemented with mock tests only, no live credentials tested
 - **D2C Content** — D2C design has 3 roles; Growth + Strategy built, Content remaining
-- **HubSpot CRMOps built** — 6 tools, 4 workflows, but no live API credentials tested yet
-- **Phase 3 gate not passed** — needs 3 Vibe Inc roles live + 1 end-to-end workflow with real APIs
-- **Known debt** (documented in DESIGN.md §6-7):
+- **Google Ads** — credentials pending, not yet tested
+- **Meta API optimization** — N+1 query pattern needs refactor (DESIGN.md §8)
+- **Phase 3 gate not passed** — needs 3 Vibe Inc roles live + 1 end-to-end workflow; agent loop validated but Meta rate limit blocks repeat runs
+- **Known debt** (documented in DESIGN.md §6-8):
   - Model duality: V3 RoleTemplate/RoleSpec coexists with V5 TemplateConfig/RoleInstance
   - YAML templates not connected to TemplateRegistry
   - System roles not injected into workspaces
+  - Meta N+1 query pattern (§8)
 
 ## Rules
 
@@ -139,4 +154,4 @@
 
 ---
 
-*Updated: 2026-02-20 — D2C Strategy complete: 12 operators, 53 workflows, 367 vibe-inc tests (749 total)*
+*Updated: 2026-02-20 — First live API tests passed (HubSpot + Meta + Claude agent loop). See live_testing_insights.yaml.*
