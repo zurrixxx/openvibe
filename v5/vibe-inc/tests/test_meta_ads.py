@@ -5,19 +5,20 @@ def test_meta_ads_read_returns_campaign_data():
     """meta_ads_read returns structured performance data."""
     from vibe_inc.tools.meta_ads import meta_ads_read
 
-    mock_campaign = MagicMock()
-    mock_campaign.get_insights.return_value = [
+    mock_account = MagicMock()
+    mock_account.get_insights.return_value = [
         {"campaign_name": "Bot - Foundation", "spend": "150.00",
          "impressions": "10000", "clicks": "200", "actions": [{"action_type": "purchase", "value": "5"}]}
     ]
-    mock_account = MagicMock()
-    mock_account.get_campaigns.return_value = [mock_campaign]
 
     with patch("vibe_inc.tools.ads.meta_ads._get_account", return_value=mock_account):
         result = meta_ads_read(level="campaign", date_range="last_7d")
 
     assert "rows" in result
     assert result["level"] == "campaign"
+    mock_account.get_insights.assert_called_once()
+    call_params = mock_account.get_insights.call_args[1]["params"]
+    assert call_params["level"] == "campaign"
 
 
 def test_meta_ads_read_has_docstring():
@@ -32,12 +33,14 @@ def test_meta_ads_read_accepts_date_range():
     from vibe_inc.tools.meta_ads import meta_ads_read
 
     mock_account = MagicMock()
-    mock_account.get_campaigns.return_value = []
+    mock_account.get_insights.return_value = []
 
     with patch("vibe_inc.tools.ads.meta_ads._get_account", return_value=mock_account):
         result = meta_ads_read(level="campaign", date_range="2026-02-01,2026-02-15")
 
     assert result["date_range"] == "2026-02-01,2026-02-15"
+    call_params = mock_account.get_insights.call_args[1]["params"]
+    assert call_params["time_range"] == {"since": "2026-02-01", "until": "2026-02-15"}
 
 
 def test_meta_ads_read_supports_adset_level():
@@ -45,12 +48,14 @@ def test_meta_ads_read_supports_adset_level():
     from vibe_inc.tools.meta_ads import meta_ads_read
 
     mock_account = MagicMock()
-    mock_account.get_ad_sets.return_value = []
+    mock_account.get_insights.return_value = []
 
     with patch("vibe_inc.tools.ads.meta_ads._get_account", return_value=mock_account):
         result = meta_ads_read(level="adset", date_range="last_7d")
 
     assert result["level"] == "adset"
+    call_params = mock_account.get_insights.call_args[1]["params"]
+    assert call_params["level"] == "adset"
 
 
 def test_meta_ads_create_returns_ids():

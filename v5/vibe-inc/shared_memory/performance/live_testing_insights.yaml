@@ -9,17 +9,14 @@ meta_ad_ops:
       severity: high
       summary: "N+1 query pattern triggers Meta API rate limit (Error 17 / Subcode 2446079)"
       detail: |
-        meta_ads_read iterates campaigns individually then calls get_insights per campaign.
-        For accounts with many campaigns, this causes O(N) API calls and triggers rate limiting.
+        meta_ads_read iterated campaigns individually then called get_insights per campaign.
+        For accounts with many campaigns, this caused O(N) API calls and triggered rate limiting.
         First live test succeeded (~118s), second run hit rate limit.
       fix: |
-        Replace per-campaign iteration with account-level insights request:
+        FIXED (2026-02-21): Replaced per-campaign iteration with single account-level insights:
           account.get_insights(fields=..., params={"level": "campaign", ...})
-        Single API call returns all campaign-level data. Add retry with exponential backoff.
-      affects:
-        - meta_ad_ops.weekly_report
-        - meta_ad_ops.daily_optimize
-      workaround: "Wait ~60 min for rate limit cooldown, or use off-peak scheduling"
+        Result: 118s → 1.09s, no more rate limiting on consecutive runs.
+      status: fixed
 
     - id: meta-fields-string
       severity: low

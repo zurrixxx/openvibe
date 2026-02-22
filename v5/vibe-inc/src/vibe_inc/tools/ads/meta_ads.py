@@ -44,29 +44,17 @@ def meta_ads_read(
         fields = [f.strip() for f in fields.split(",")]
     report_fields = fields or _DEFAULT_FIELDS
 
-    params = {}
+    params = {"level": level}
     if "," in date_range:
         start, end = date_range.split(",", 1)
         params["time_range"] = {"since": start.strip(), "until": end.strip()}
     else:
         params["date_preset"] = date_range
 
+    # Single account-level request — avoids N+1 per-campaign iteration.
     rows = []
-    if level == "campaign":
-        for campaign in account.get_campaigns(fields=["name", "status"]):
-            insights = campaign.get_insights(fields=report_fields, params=params)
-            for row in insights:
-                rows.append(dict(row))
-    elif level == "adset":
-        for adset in account.get_ad_sets(fields=["name", "status"]):
-            insights = adset.get_insights(fields=report_fields, params=params)
-            for row in insights:
-                rows.append(dict(row))
-    elif level == "ad":
-        for ad in account.get_ads(fields=["name", "status"]):
-            insights = ad.get_insights(fields=report_fields, params=params)
-            for row in insights:
-                rows.append(dict(row))
+    for row in account.get_insights(fields=report_fields, params=params):
+        rows.append(dict(row))
 
     return {"level": level, "date_range": date_range, "rows": rows}
 
