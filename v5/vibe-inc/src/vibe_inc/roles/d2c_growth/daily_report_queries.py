@@ -8,9 +8,12 @@ Queries follow Ricky's 3-layer framework:
 All queries are pre-written (deterministic). The LLM interprets results, not SQL.
 """
 
+import re
 from datetime import UTC, datetime, timedelta
 
 from vibe_inc.tools.analytics_tools import analytics_query_sql
+
+_DATE_RE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
 
 
 def _yesterday() -> str:
@@ -28,9 +31,17 @@ def _rolling_window(days: int, offset: int = 2) -> tuple[str, str]:
     return start, end
 
 
+def _safe_date(date: str | None) -> str:
+    """Validate and return a YYYY-MM-DD date string."""
+    d = date or _yesterday()
+    if not _DATE_RE.match(d):
+        raise ValueError(f"Invalid date format: {d!r}")
+    return d
+
+
 def fetch_l1(date: str | None = None) -> dict:
     """L1 Business Outcomes: revenue by product, orders, ad spend for CAC."""
-    d = date or _yesterday()
+    d = _safe_date(date)
     start_7d, end_7d = _rolling_window(7)
     start_28d, end_28d = _rolling_window(28)
 
@@ -81,7 +92,7 @@ def fetch_l1(date: str | None = None) -> dict:
 
 def fetch_l2(date: str | None = None) -> dict:
     """L2 Channel Efficiency: per-platform metrics, Amazon, top campaigns."""
-    d = date or _yesterday()
+    d = _safe_date(date)
     start_7d, end_7d = _rolling_window(7)
 
     platform_yesterday = analytics_query_sql(
@@ -150,7 +161,7 @@ def fetch_l2(date: str | None = None) -> dict:
 
 def fetch_l3(date: str | None = None) -> dict:
     """L3 Funnel Signal: website sessions, conversion funnel, drop-offs."""
-    d = date or _yesterday()
+    d = _safe_date(date)
     start_7d, end_7d = _rolling_window(7)
 
     sessions_yesterday = analytics_query_sql(

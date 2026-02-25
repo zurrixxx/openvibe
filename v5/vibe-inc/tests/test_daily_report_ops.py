@@ -70,6 +70,17 @@ def test_interpret_user_message_contains_data():
     assert "l3" in user_msg
 
 
+def test_interpret_includes_date_in_prompt():
+    from vibe_inc.roles.d2c_growth.daily_report_ops import DailyReportOps
+
+    llm = FakeAgentLLM([_text_response("report")])
+    op = DailyReportOps(llm=llm)
+    op.interpret({"l1_data": MOCK_L1, "l2_data": MOCK_L2, "l3_data": MOCK_L3, "date": "2026-02-23"})
+
+    user_msg = llm.calls[0]["messages"][-1]["content"]
+    assert "2026-02-23" in user_msg
+
+
 # --- fetch_data ---
 
 
