@@ -1,5 +1,5 @@
 """Tests for daily_report_queries — verify SQL execution and result structure."""
-from unittest.mock import patch, call
+from unittest.mock import patch
 
 
 MOCK_ROWS = {"rows": [{"value": 1}], "columns": ["value"]}
@@ -72,7 +72,7 @@ def test_fetch_l2_returns_all_sections():
     assert "yesterday" in result
     assert "avg_7d" in result
     assert "amazon" in result
-    assert "top_campaigns" in result
+    assert "worst_cpa_campaigns" in result
 
 
 def test_fetch_l2_queries_platform_and_amazon_tables():

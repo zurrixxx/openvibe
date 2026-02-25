@@ -18,9 +18,13 @@ def _yesterday() -> str:
 
 
 def _rolling_window(days: int, offset: int = 2) -> tuple[str, str]:
-    """Return (start, end) for a rolling window ending `offset` days ago."""
-    end = (datetime.now(UTC) - timedelta(days=offset)).strftime("%Y-%m-%d")
-    start = (datetime.now(UTC) - timedelta(days=days + offset)).strftime("%Y-%m-%d")
+    """Return (start, end) for a rolling window ending `offset` days ago.
+
+    Default offset=2 accounts for Redshift data pipeline lag (T-2 availability).
+    """
+    now = datetime.now(UTC)
+    end = (now - timedelta(days=offset)).strftime("%Y-%m-%d")
+    start = (now - timedelta(days=days + offset)).strftime("%Y-%m-%d")
     return start, end
 
 
@@ -133,14 +137,14 @@ def fetch_l2(date: str | None = None) -> dict:
         f"   ON f.dim_ads_campaign_sk = c.dim_ads_campaign_sk"
         f" WHERE f.date = '{d}' AND f.spend_in_usd > 0"
         f" GROUP BY c.campaign_name, f.platform"
-        f" ORDER BY cpa DESC LIMIT 10"
+        f" ORDER BY cpa DESC NULLS LAST LIMIT 10"
     )
 
     return {
         "yesterday": platform_yesterday.get("rows", []),
         "avg_7d": platform_7d.get("rows", []),
         "amazon": amazon.get("rows", []),
-        "top_campaigns": top_campaigns.get("rows", []),
+        "worst_cpa_campaigns": top_campaigns.get("rows", []),
     }
 
 
