@@ -1,0 +1,76 @@
+# Funnel benchmarks — from growth research (Feb 2026)
+# Source: Redshift analysis of Oct 2025 - Feb 2026 data
+# Used by Daily Report agent for anomaly detection and contextual interpretation.
+
+# Overall funnel by intent stage (Oct 2025 - Feb 2026)
+intent_stage_funnel:
+  cold_discovery:
+    visitors: 169715
+    bounce_rate: 0.838
+    buy_page_rate: 0.041
+    cart_rate: 0.006
+    order_rate: 0.0002
+    kpi: engaged_visitor_rate_30s  # NOT order rate
+    engaged_30s_rate_range: [0.05, 0.16]  # 5-16% across campaigns
+  active_research:
+    visitors: 31887
+    bounce_rate: 0.526
+    buy_page_rate: 0.063
+    cart_rate: 0.013
+    order_rate: 0.0034
+    kpi: deep_engage_200s_rate
+  warm_reengagement:
+    visitors: 35631
+    bounce_rate: 0.855
+    buy_page_rate: 0.052
+    cart_rate: 0.015
+    order_rate: 0.0004  # worse than cold — retargeting is broken
+    kpi: deep_engage_200s_rate
+    note: "MOF is the funnel bottleneck. 0-1% 200s+ rate. LinkedIn retargeting 0 orders."
+  purchase_intent:
+    visitors: 62799
+    bounce_rate: 0.610
+    buy_page_rate: 0.065
+    cart_rate: 0.019
+    order_rate: 0.0077
+    kpi: commit_chain  # buy_page → cart → order
+
+# PDP visitor behavior segments (Board PDP, TOF paid)
+pdp_visitor_segments:
+  instant_bouncer: {share: 0.77, engagement: "0s"}
+  scanner: {share: 0.16, engagement: "1-29s"}
+  light_engager: {share: 0.024, engagement: "30-59s"}
+  moderate_engager: {share: 0.026, engagement: "60-199s"}
+  deep_engager: {share: 0.02, engagement: "200s+"}
+
+# Non-bounce next page distribution
+next_page_distribution:
+  buy_page: 0.67
+  shop_all: 0.09
+  pro_pdp: 0.06
+  homepage: 0.05
+  bot_pdp: 0.03
+  demo_contact: 0.02
+
+# Organic return vs retargeting efficiency
+organic_vs_retargeting:
+  organic_return:
+    visitors: 4266
+    deep_engage_200s_rate: 0.032
+    landing_on_buy_page: 0.62
+    landing_on_pdp: 0.38
+  retargeted_return:
+    visitors: 1371
+    deep_engage_200s_rate: 0.004  # 8x worse than organic
+    landing_on_pdp: 0.97  # forced back to same PDP
+    landing_on_buy_page: 0.02
+
+# Key findings (agent context)
+findings:
+  - "TOF works (5-16% engaged rate). MOF is broken (0-1% 200s+ rate)."
+  - "Retargeting sends 97% back to Board PDP — same page they already bounced from."
+  - "Organic return is 8x more efficient than retargeting (3.2% vs 0.4% 200s+ rate)."
+  - "LinkedIn retargeting: 13K visitors, 0 orders. Should be paused."
+  - "Lead definition is broken: Lead = form submit (5s), NOT intent signal. 98.3% of cold leads never reach 200s+."
+  - "94% of paid orders come from brand search / Shopping (Purchase Intent stage)."
+  - "Board ACOS historical 18-20%. Cost per Opportunity up 35-40%."

@@ -4,6 +4,25 @@
 #
 # This catalog describes the key Redshift tables materialized by dbt.
 # Used by RedshiftProvider to generate dynamic SQL queries.
+#
+# Schema mapping:
+#   common.*              — dbt production models (facts, dims)
+#   common_mart_marketing — pre-built marketing marts
+#   dbt_analytics.*       — analytics layer (richer page views, 55-col fct_website_page_view)
+#   dbt_analytics_prep.*  — prep/staging layer
+#   dbt_analytics_source.* — raw source layer
+#   dbt_dev.*             — dev environment (retl_mixpanel_event_* tables, 45 total)
+#
+# NOTE: common.fct_website_page_view and dbt_analytics.fct_website_page_view may differ —
+#   dbt_analytics version has 55 columns (time_engaged_in_s, scroll_depth_percent, campaign_*).
+#   Verify schema names against live Redshift when tunnel is available.
+#
+# Redshift gotchas:
+#   - No correlated subqueries — use CTE + JOIN instead
+#   - No ILIKE ANY(ARRAY[...]) — use multiple OR conditions
+#   - First page in session: use row_number = 1 (not page_view_in_session_index)
+#   - Bot orders: filter with products LIKE '%"product_id":"Bot"%'
+#   - Connection via SSH tunnel: localhost:5439 → hopper-us → Redshift cluster
 
 tables:
 
@@ -203,13 +222,83 @@ tables:
 
   - name: fct_website_page_view
     schema: common
-    description: Individual page view events.
+    description: Individual page view events. Basic version — see dbt_analytics version for richer columns.
     grain: one row per page view
     materialization: incremental
     columns:
       - {name: event_pk, type: varchar, role: pk}
       - {name: website_page_view_pk, type: varchar}
       - {name: dim_website_session_sk, type: varchar, role: fk}
+
+  # Rich page view table (analytics layer — 55 columns)
+  - name: fct_website_page_view
+    schema: dbt_analytics
+    description: Rich page view events with engagement, campaign attribution, scroll depth. Use this for detailed page analysis.
+    grain: one row per page view
+    materialization: incremental
+    columns:
+      - {name: visitor_id, type: varchar}
+      - {name: session_id, type: varchar}
+      - {name: page_path, type: varchar}
+      - {name: campaign_source, type: varchar}
+      - {name: campaign_medium, type: varchar}
+      - {name: campaign_name, type: varchar}
+      - {name: time_engaged_in_s, type: integer, description: active engagement time on page}
+      - {name: stay_on_page_in_s, type: integer, description: total time on page}
+      - {name: scroll_depth_percent, type: numeric}
+      - {name: row_number, type: integer, description: "1 = first page in session"}
+      - {name: original_tstamp, type: timestamp}
+
+  # ── Raw Website Events (Rudderstack) ─────────────────────
+
+  - name: pages
+    schema: website
+    description: Raw Rudderstack page view events.
+    columns:
+      - {name: anonymous_id, type: varchar}
+      - {name: path, type: varchar}
+      - {name: original_timestamp, type: timestamp}
+      - {name: context_campaign_source, type: varchar}
+      - {name: context_campaign_medium, type: varchar}
+      - {name: context_campaign_name, type: varchar}
+
+  - name: generate_lead
+    schema: website
+    description: Lead generation events (form submissions, chatbot). Lead = 5s behavioral action, NOT intent signal.
+    columns:
+      - {name: anonymous_id, type: varchar}
+      - {name: context_campaign_source, type: varchar}
+      - {name: context_campaign_medium, type: varchar}
+      - {name: context_page_path, type: varchar}
+      - {name: context_email, type: varchar}
+      - {name: lead_gen_type, type: varchar}
+      - {name: form_tags, type: varchar}
+
+  - name: product_added
+    schema: website
+    description: Add to cart events.
+
+  - name: checkout_started
+    schema: website
+    description: Checkout started events.
+
+  - name: order_completed
+    schema: website
+    description: Order completed events. Use products LIKE '%"product_id":"Bot"%' for Bot orders.
+
+  # ── CRM / Lead ───────────────────────────────────────────
+
+  - name: dim_crm_person
+    schema: dbt_analytics
+    description: CRM person dimension — lifecycle stage, lead score.
+    columns:
+      - {name: lifecycle_stage, type: varchar, description: "New → MEL → MQL → SQO → DQ"}
+      - {name: lifecycle_stage_new, type: varchar}
+      - {name: lead_score, type: numeric}
+
+  - name: prep_website_lead_gen_event
+    schema: dbt_analytics_prep
+    description: Enriched lead events with form_id, email domain type, form tags.
 
   # ── Email Facts ────────────────────────────────────────────
 

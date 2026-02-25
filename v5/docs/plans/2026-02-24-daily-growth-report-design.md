@@ -13,6 +13,11 @@ The D2C Growth role has 10 operators and 48 workflows but no unified daily outpu
 
 **Core principle:** Net New vs Known separation is prerequisite for all measurement.
 
+**Data enrichment from Redshift research (Feb 2026):**
+- Campaign Intent Stage classification (4 levels) — `shared_memory/data/intent_stage_classification.sql`
+- Funnel benchmarks by intent stage — `shared_memory/performance/funnel_benchmarks.yaml`
+- Key finding: MOF is the bottleneck (0-1% 200s+ rate), retargeting broken (97% → same PDP)
+
 ## Approach
 
 **Redshift SQL → Claude Interpreter.** Pre-written SQL queries hit Redshift for each layer. Raw data goes to Claude with soul context and benchmarks. Claude produces the layered report with anomaly detection and recommended actions.
